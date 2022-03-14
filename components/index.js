@@ -1,4 +1,12 @@
-export { PortfolioCard } from "./Card";
+
+export { PortfolioCard, CategoryPortfolioCard } from "./Card";
+export {
+	ButtonSeeOurProject,
+	ButtonScroll,
+	ButtonBack,
+	ButtonMore,
+} from "./Button";
+
 export { TopBanner } from "./Banner";
 
 export { Header } from "./Header";
