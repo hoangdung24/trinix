@@ -51,16 +51,16 @@ const Background = styled("div")(({ theme }) => {
 });
 
 const Title = styled(Typography)(({ theme }) => {
-	return {
-		position: "absolute",
-		left: "7.69%",
-		bottom: "20%",
-		backgroundClip: "text",
-		background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-		"-webkit-background-clip": "text",
-		"-webkit-text-fill-color": "transparent",
-		zIndex: 2,
-	};
+  return {
+    position: "absolute",
+    left: "7.69%",
+    bottom: "20%",
+    backgroundClip: "text",
+    background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    zIndex: 2,
+  };
 });
 
 const Client = styled(Typography)(({ theme }) => {
