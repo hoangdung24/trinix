@@ -57,8 +57,8 @@ const Title = styled(Typography)(({ theme }) => {
     bottom: "20%",
     backgroundClip: "text",
     background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-    "-webkit-background-clip": "text",
-    "-webkit-text-fill-color": "transparent",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
     zIndex: 2,
   };
 });
