@@ -1,7 +1,13 @@
-import { PortfolioCard } from "../../components";
+import { PortfolioCard, CategoryPortfolioCard } from "../../components";
+import { Stack } from "@mui/material";
 
 const Project = () => {
-  return <PortfolioCard />;
+	return (
+		<Stack spacing={2} direction='column'>
+			<PortfolioCard />
+			<CategoryPortfolioCard />
+		</Stack>
+	);
 };
 
 export default Project;
