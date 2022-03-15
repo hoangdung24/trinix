@@ -3,16 +3,15 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { stepClasses } from "@mui/material";
+import { useState } from "react";
 
-const ButtonSeeOurProject = () => {
+const ButtonSeeOurProject = ({ title, isBackground }) => {
 	return (
-		<ButtonStyled sx={{ textTransform: "unset" }}>
+		<ButtonStyled sx={{ textTransform: "unset" }} isBackground={isBackground}>
 			<Title className='text' variant='title2'>
-				See Our Projects
+				{title}
 			</Title>
 			<Arrow />
-			<Border />
 		</ButtonStyled>
 	);
 };
@@ -21,57 +20,46 @@ export default ButtonSeeOurProject;
 
 // Styled Sheet
 
-const ButtonStyled = styled(Button)(({ theme }) => {
-	return {
-		position: "relative",
-		background: "#000000",
-		borderRadius: "10px",
-		height: "50px",
-		width: "300px",
-		"&:hover": {
-			background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-			border: "1px solid linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-			boxShadow: "none",
-		},
-		"&:active": {
-			boxShadow: "none",
-			background: "#000000",
-			border: "1px solid linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-		},
-		"&:hover .text": {
-			textDecorationLine: "underline",
-		},
-	};
+const ButtonStyled = styled(Button)(({ theme, isBackground }) => {
+	if (isBackground === true) {
+		return {
+			position: "relative",
+			background: theme.palette.common.black,
+			borderRadius: "10px",
+			"&:hover": {
+				background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
+				boxShadow: "none",
+			},
+			"&:active": {
+				boxShadow: "none",
+				background: theme.palette.common.black,
+			},
+			"&:hover .text": {
+				textDecorationLine: "underline",
+			},
+		};
+	} else {
+		return {
+			position: "relative",
+			"&:hover .text": {
+				textDecorationLine: "underline",
+			},
+		};
+	}
 });
 
 const Title = styled(Typography)(({ theme }) => {
 	return {
-		position: "absolute",
-		left: "7.39%",
-		bottom: "23.81%",
-		color: "#FFFFFF",
+		color: theme.palette.common.white,
+		paddingRight: 10,
+		paddingLeft: 10,
 	};
 });
 
 const Arrow = styled(ArrowForwardIcon)(({ theme }) => {
 	return {
-		position: "absolute",
-		color: "#FFFFFF",
-		bottom: "23.81%",
-		right: "6%",
+		color: theme.palette.common.white,
 		fontSize: 28,
-	};
-});
-
-const Border = styled("div")(({ theme }) => {
-	return {
-		width: "100%",
-		height: "100%",
-		borderRadius: "10px",
-		position: "absolute",
-		zIndex: -1,
-		transform: "scale(1.01)",
-		transformOrigin: "center",
-		background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
+		paddingRight: 5,
 	};
 });

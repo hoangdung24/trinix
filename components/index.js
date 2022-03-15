@@ -1,4 +1,4 @@
-export { PortfolioCard, CategoryPortfolioCard } from "./Card";
+export { PortfolioCard, CategoryPortfolioCard, BottomLogo } from "./Card";
 export {
 	ButtonSeeOurProject,
 	ButtonScroll,

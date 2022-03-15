@@ -1,4 +1,8 @@
-import { PortfolioCard, CategoryPortfolioCard } from "../../components";
+import {
+	PortfolioCard,
+	CategoryPortfolioCard,
+	BottomLogo,
+} from "../../components";
 import { Stack } from "@mui/material";
 
 const Project = () => {
@@ -29,6 +33,7 @@ const Project = () => {
 				subTitle='Application, Website, Game.'
 				imageSrc='/hover4.svg'
 			/>
+			<BottomLogo />
 		</Stack>
 	);
 };

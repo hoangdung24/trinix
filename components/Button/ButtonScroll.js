@@ -4,11 +4,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowDownward from "@mui/icons-material/ArrowDownward";
 
-const ButtonScroll = () => {
+const ButtonScroll = ({ title }) => {
 	return (
 		<ButtonStyled sx={{ textTransform: "unset" }}>
 			<Title className='text' variant='title2'>
-				Scroll down
+				{title}
 			</Title>
 			<Arrow />
 		</ButtonStyled>
@@ -23,8 +23,6 @@ const ButtonStyled = styled(Button)(({ theme }) => {
 	return {
 		position: "relative",
 		background: "red",
-		height: "60px",
-		width: "280px",
 		"&:hover .text": {
 			textDecorationLine: "underline",
 		},
@@ -33,19 +31,13 @@ const ButtonStyled = styled(Button)(({ theme }) => {
 
 const Title = styled(Typography)(({ theme }) => {
 	return {
-		position: "absolute",
-		left: "7.39%",
-		bottom: "23.81%",
-		color: "#FFFFFF",
+		color: theme.palette.common.black,
+		paddingRight: 10,
 	};
 });
 
 const Arrow = styled(ArrowDownward)(({ theme }) => {
 	return {
-		position: "absolute",
-		color: "#FFFFFF",
-		bottom: "23.81%",
-		right: "24%",
 		fontSize: 28,
 	};
 });

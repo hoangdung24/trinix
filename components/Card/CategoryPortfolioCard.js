@@ -37,7 +37,7 @@ const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc }) => {
 						{subTitle}
 					</SubTitle>
 					<ButtonSee className='button'>
-						<ButtonSeeOurProject />
+						<ButtonSeeOurProject title='See our projects' isBackground={true} />
 					</ButtonSee>
 					<ImageBackground className='image'>
 						<Image
@@ -160,6 +160,7 @@ const SubTitle = styled(Typography)(({ theme }) => {
 		top: "48%",
 		right: "65%",
 		transition: DURATION,
+		textAlign: "right",
 	};
 });
 
@@ -179,7 +180,7 @@ const Polygon = styled("div")(({ theme }) => {
 	return {
 		position: "absolute",
 		top: "0%",
-		right: "-11%",
+		right: "-10.5%",
 		transition: DURATION,
 		transform: "translateX(100px)",
 		zIndex: 1,
