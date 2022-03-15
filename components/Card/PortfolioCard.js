@@ -2,23 +2,25 @@ import MuiCard from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-
+import { GridContainer } from "../GridContainer";
 const PortfolioCard = () => {
 	return (
-		<Card>
-			<CardContent
-				sx={{
-					minHeight: 300,
-				}}>
-				<Title variant='title1' component='p'>
-					Project
-				</Title>
-				<Client variant='body2' component='p'>
-					Client
-				</Client>
-				<Background className='background' />
-			</CardContent>
-		</Card>
+		<GridContainer>
+			<Card>
+				<CardContent
+					sx={{
+						minHeight: 300,
+					}}>
+					<Title variant='title1' component='p'>
+						Project
+					</Title>
+					<Client variant='body2' component='p'>
+						Client
+					</Client>
+					<Background className='background' />
+				</CardContent>
+			</Card>
+		</GridContainer>
 	);
 };
 
@@ -51,16 +53,16 @@ const Background = styled("div")(({ theme }) => {
 });
 
 const Title = styled(Typography)(({ theme }) => {
-  return {
-    position: "absolute",
-    left: "7.69%",
-    bottom: "20%",
-    backgroundClip: "text",
-    background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    zIndex: 2,
-  };
+	return {
+		position: "absolute",
+		left: "7.69%",
+		bottom: "20%",
+		backgroundClip: "text",
+		background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
+		WebkitBackgroundClip: "text",
+		WebkitTextFillColor: "transparent",
+		zIndex: 2,
+	};
 });
 
 const Client = styled(Typography)(({ theme }) => {
