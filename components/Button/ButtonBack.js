@@ -3,11 +3,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import { transform } from "lodash";
 
-const ButtonBack = () => {
+const ButtonBack = ({ position, title }) => {
 	return (
 		<ButtonStyled>
-			<BackgroundSvg>
+			<BackgroundSvg position={position}>
 				<Image
 					layout='fixed'
 					src='/backbutton.svg'
@@ -15,7 +16,7 @@ const ButtonBack = () => {
 					height='32px'
 				/>
 			</BackgroundSvg>
-			<Title variant='title2'>BACK</Title>
+			<Title variant='title2'>{title}</Title>
 		</ButtonStyled>
 	);
 };
@@ -34,21 +35,16 @@ const ButtonStyled = styled(Button)(({ theme }) => {
 
 const Title = styled(Typography)(({ theme }) => {
 	return {
-		position: "absolute",
-		left: "25.32%",
-		right: "0%",
-		top: "18.75%",
-		bottom: "6.25%",
-		color: "#000000",
+		color: theme.palette.common.black,
 	};
 });
 
-const BackgroundSvg = styled("span")(({ theme }) => {
-	return {
-		position: "absolute",
-		left: "0%",
-		right: "51.9%",
-		top: "0%",
-		bottom: "0%",
-	};
+const BackgroundSvg = styled("span")(({ theme, position }) => {
+	if (position === "right") {
+		return {
+			transform: "scaleX(-1)",
+		};
+	} else {
+		return {};
+	}
 });
