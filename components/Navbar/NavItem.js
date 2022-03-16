@@ -1,7 +1,7 @@
-import React from "react";
+import { Button } from "../../components";
 
-const NavItem = () => {
-  return <div>NavItem</div>;
+const NavItem = ({ title }) => {
+  return <Button title={title} isBackground={false} isIcon={false} />;
 };
 
 export default NavItem;

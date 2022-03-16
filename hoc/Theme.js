@@ -2,26 +2,26 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const fontFamily = [
-	"Montserrat",
-	"-apple-system",
-	"BlinkMacSystemFont",
-	'"Segoe UI"',
-	"Roboto",
-	'"Helvetica Neue"',
-	"Arial",
-	"sans-serif",
-	'"Apple Color Emoji"',
-	'"Segoe UI Emoji"',
-	'"Segoe UI Symbol"',
+  "Montserrat",
+  "-apple-system",
+  "BlinkMacSystemFont",
+  '"Segoe UI"',
+  "Roboto",
+  '"Helvetica Neue"',
+  "Arial",
+  "sans-serif",
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"',
 ].join(",");
 
 const factoryFont = (fontSize, lineHeight, fontWeight) => {
-	return {
-		fontFamily,
-		fontSize,
-		lineHeight,
-		fontWeight,
-	};
+  return {
+    fontFamily,
+    fontSize,
+    lineHeight,
+    fontWeight,
+  };
 };
 
 const theme = createTheme({
@@ -38,8 +38,8 @@ const theme = createTheme({
   typography: {
     fontFamily,
     h1: {
-      fontSize: "80px",
-      lineHeight: "97px",
+      fontSize: "65px",
+      lineHeight: "79px",
       fontWeight: 700,
     },
     h2: {
@@ -61,12 +61,12 @@ const theme = createTheme({
 });
 
 export default ({ children }) => {
-	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			{children}
-		</ThemeProvider>
-	);
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 };
 
 //  add new
