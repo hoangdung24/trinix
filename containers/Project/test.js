@@ -1,20 +1,18 @@
 import { Stack } from "@mui/material";
-import {
-	ButtonSeeOurProject,
-	ButtonScroll,
-	ButtonBack,
-} from "../../components";
+import { Button, ButtonShape } from "../../components";
 
 const ButtonTest = () => {
-	return (
-		<Stack spacing={2} direction='column'>
-			<ButtonSeeOurProject title='See our projects' isBackground={true} />
-			<ButtonScroll title='Scroll down' />
-			<ButtonBack title='BACK' />
-			<ButtonBack title='MORE' position='right' />
-			<ButtonSeeOurProject title='Button' isBackground={true} />
-		</Stack>
-	);
+  return (
+    <Stack spacing={2} direction="column">
+      <Button title="See our projects" isBackground={true} />
+
+      <Button title="See our projects" isIcon={false} />
+
+      <ButtonShape title="BACK" />
+      <ButtonShape title="MORE" position="right" />
+      <ButtonShape title="MORE" position="right" />
+    </Stack>
+  );
 };
 
 export default ButtonTest;

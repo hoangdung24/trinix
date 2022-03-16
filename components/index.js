@@ -1,12 +1,7 @@
 export { PortfolioCard, CategoryPortfolioCard, BottomLogo } from "./Card";
-export {
-	ButtonSeeOurProject,
-	ButtonScroll,
-	ButtonBack,
-	ButtonMore,
-} from "./Button";
+export { Button, ButtonShape } from "./Button";
 
-export { TopBanner } from "./Banner";
+export { TopBanner, PortfolioBanner } from "./Banner";
 
 export { Header } from "./Header";
 export { Footer } from "./Footer";
