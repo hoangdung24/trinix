@@ -1,8 +1,8 @@
-import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import Image from "next/image";
-import { ButtonSeeOurProject } from "../Button";
+import { Image } from "../../hoc";
+
+import { Button } from "../Button";
 import BoxMui from "@mui/material/Box";
 
 const DURATION = "all 2s";
@@ -33,7 +33,7 @@ const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc }) => {
 					{subTitle}
 				</SubTitle>
 				<ButtonSee className='button'>
-					<ButtonSeeOurProject title='See our projects' isBackground={true} />
+					<Button title='See our projects' isBackground={true} />
 				</ButtonSee>
 				<ImageBackground className='image'>
 					<Image

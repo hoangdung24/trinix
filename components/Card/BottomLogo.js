@@ -1,6 +1,6 @@
 import React from "react";
 import { Image } from "../../hoc";
-import { ButtonSeeOurProject } from "../Button";
+import { Button } from "../Button";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import BoxMui from "@mui/material/Box";
@@ -37,7 +37,7 @@ const BottomLogo = () => {
 				)}
 			</ImageBackground>
 			<ButtonClick className='button'>
-				<ButtonSeeOurProject title='See our project' />
+				<Button title='See our project' />
 			</ButtonClick>
 		</Wrapper>
 	);

@@ -1,7 +1,8 @@
 import React from "react";
+import { Popup } from "../../components";
 
-const ContactPage = () => {
-	return <div>ContactPage</div>;
+const Contact = () => {
+	return <Popup />;
 };
 
-export default ContactPage;
+export default Contact;
