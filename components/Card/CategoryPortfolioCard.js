@@ -1,65 +1,60 @@
 import * as React from "react";
-import MuiCard from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import { GridContainer } from "../GridContainer";
 import Image from "next/image";
 import { ButtonSeeOurProject } from "../Button";
-import { useEffect, useState, useRef } from "react";
+import BoxMui from "@mui/material/Box";
 
 const DURATION = "all 2s";
 
 const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc }) => {
 	return (
-		<GridContainer>
-			<Card sx={{ maxWidth: "100%", height: "450px" }}>
-				<CardContent sx={{ height: "100%", width: "100%" }} className='card'>
-					<BackgroundSvg className='backgroundsvg'>
-						<Image
-							layout='fixed'
-							src='/backbutton.svg'
-							width='67px'
-							height='58px'
-						/>
-						<Number variant='h2'>{id}.</Number>
-					</BackgroundSvg>
-					<Title className='title' variant='h2' sx={{ height: 49, width: 241 }}>
-						{title}
-					</Title>
-					<Line className='line' sx={{ width: 400 }}>
-						<hr color='#000000'></hr>
-					</Line>
-					<SubTitle
-						className='subTitle'
-						variant='bodyText'
-						sx={{ width: 158, height: 32 }}>
-						{subTitle}
-					</SubTitle>
-					<ButtonSee className='button'>
-						<ButtonSeeOurProject title='See our projects' isBackground={true} />
-					</ButtonSee>
-					<ImageBackground className='image'>
-						<Image
-							layout='fixed'
-							className='image'
-							src={imageSrc}
-							width='468px'
-							height='325px'
-						/>
-					</ImageBackground>
-					<Polygon className='polygon'>
-						<Image
-							layout='fixed'
-							className='polygon'
-							src='/polygon.svg'
-							width='568px'
-							height='492px'
-						/>
-					</Polygon>
-				</CardContent>
-			</Card>
-		</GridContainer>
+		<Card>
+			<CardContent className='card'>
+				<BackgroundSvg className='backgroundsvg'>
+					<Image
+						layout='fixed'
+						src='/backbutton.svg'
+						width='67px'
+						height='58px'
+					/>
+					<Number variant='h2'>{id}.</Number>
+				</BackgroundSvg>
+				<Title className='title' variant='h2' sx={{ height: 49, width: 241 }}>
+					{title}
+				</Title>
+				<Line className='line' sx={{ width: 400 }}>
+					<hr color='#000000'></hr>
+				</Line>
+				<SubTitle
+					className='subTitle'
+					variant='bodyText'
+					sx={{ width: 158, height: 32 }}>
+					{subTitle}
+				</SubTitle>
+				<ButtonSee className='button'>
+					<ButtonSeeOurProject title='See our projects' isBackground={true} />
+				</ButtonSee>
+				<ImageBackground className='image'>
+					<Image
+						layout='fixed'
+						className='image'
+						src={imageSrc}
+						width='468px'
+						height='325px'
+					/>
+				</ImageBackground>
+				<Polygon className='polygon'>
+					<Image
+						layout='fixed'
+						className='polygon'
+						src='/polygon.svg'
+						width='568px'
+						height='492px'
+					/>
+				</Polygon>
+			</CardContent>
+		</Card>
 	);
 };
 
@@ -67,9 +62,11 @@ export default CategoryPortfolioCard;
 
 // Styled Sheet
 
-const Card = styled(MuiCard)(({ theme }) => {
+const Card = styled(BoxMui)(({ theme }) => {
 	return {
 		position: "relative",
+		width: "100%",
+		height: 450,
 		background: "linear-gradient(0deg, #FFFFFF, #FFFFFF), #FFFAF5",
 		"&:hover": {
 			background: "rgba(1, 16, 33, 0.1)",
@@ -185,5 +182,13 @@ const Polygon = styled("div")(({ theme }) => {
 		transform: "translateX(100px)",
 		zIndex: 1,
 		opacity: 0,
+	};
+});
+
+const CardContent = styled(BoxMui)(({ theme }) => {
+	return {
+		position: "absolute",
+		width: "100%",
+		height: "100%",
 	};
 });

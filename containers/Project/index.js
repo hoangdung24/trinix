@@ -4,10 +4,11 @@ import {
 	BottomLogo,
 } from "../../components";
 import { Stack } from "@mui/material";
+import { styled } from "@mui/styles";
 
 const Project = () => {
 	return (
-		<Stack spacing={2} direction='column'>
+		<StyledStack spacing={8} direction='column'>
 			<PortfolioCard />
 			<CategoryPortfolioCard
 				id='1'
@@ -34,8 +35,16 @@ const Project = () => {
 				imageSrc='/hover4.svg'
 			/>
 			<BottomLogo />
-		</Stack>
+		</StyledStack>
 	);
 };
 
 export default Project;
+
+// Styled Sheet
+const StyledStack = styled(Stack)(({ theme }) => {
+	return {
+		position: "relative",
+		width: "100%",
+	};
+});

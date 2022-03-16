@@ -1,9 +1,9 @@
 import React from "react";
 import { Image } from "../../hoc";
-import { GridContainer } from "../../components";
 import { ButtonSeeOurProject } from "../Button";
 import styled from "@emotion/styled";
 import { useState } from "react";
+import BoxMui from "@mui/material/Box";
 
 const DURATION = "all 2s";
 
@@ -16,43 +16,44 @@ const BottomLogo = () => {
 	const onMouseEnter = () => setHovering(true);
 	const onMouseLeave = () => setHovering(false);
 	return (
-		<GridContainer>
-			<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-				<ImageBackground className='imagebackground'>
-					{isHovering ? (
-						<Image
-							className='image'
-							src={LOGO2}
-							width='732px'
-							height='450px'
-							layout='fixed'
-						/>
-					) : (
-						<Image
-							className='image'
-							src={LOGO1}
-							width='732px'
-							height='450px'
-							layout='fixed'
-						/>
-					)}
-				</ImageBackground>
-				<ButtonClick className='button'>
-					<ButtonSeeOurProject title='See our project' />
-				</ButtonClick>
-			</Wrapper>
-		</GridContainer>
+		<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+			<ImageBackground className='imagebackground'>
+				{isHovering ? (
+					<Image
+						className='image'
+						src={LOGO2}
+						width='732px'
+						height='450px'
+						layout='fixed'
+					/>
+				) : (
+					<Image
+						className='image'
+						src={LOGO1}
+						width='732px'
+						height='450px'
+						layout='fixed'
+					/>
+				)}
+			</ImageBackground>
+			<ButtonClick className='button'>
+				<ButtonSeeOurProject title='See our project' />
+			</ButtonClick>
+		</Wrapper>
 	);
 };
 
 export default BottomLogo;
 
 // Styled Sheet
-const Wrapper = styled("div")(({ theme }) => {
+const Wrapper = styled(BoxMui)(({ theme }) => {
 	return {
 		position: "relative",
+		height: "100%",
+		width: "100%",
 		"&:hover": {
 			background: theme.palette.common.black,
+			transition: DURATION,
 		},
 		"&:hover .button": {
 			opacity: 1,
@@ -64,7 +65,7 @@ const Wrapper = styled("div")(({ theme }) => {
 	};
 });
 
-const ImageBackground = styled("div")(({ theme }) => {
+const ImageBackground = styled(BoxMui)(({ theme }) => {
 	return {
 		position: "relative",
 		right: "-20%",
