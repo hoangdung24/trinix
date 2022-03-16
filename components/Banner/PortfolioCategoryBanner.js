@@ -4,7 +4,7 @@ import { Image } from "../../hoc";
 
 import { Button, GridContainer, PortfolioCard } from "..";
 
-const PortfolioBanner = () => {
+const PortfolioCategoryBanner = () => {
   return (
     <Box
       sx={{
@@ -83,4 +83,4 @@ const Background = styled(Box)(({ theme }) => {
   };
 });
 
-export default PortfolioBanner;
+export default PortfolioCategoryBanner;

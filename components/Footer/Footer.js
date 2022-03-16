@@ -10,7 +10,9 @@ const Footer = () => {
     <GridContainer
       OuterProps={{
         sx: {
-          backgroundColor: "primary.main",
+          backgroundColor: (theme) => {
+            return theme.palette.common.black;
+          },
         },
       }}
     >
@@ -20,6 +22,7 @@ const Footer = () => {
         alignItems={"center"}
         sx={{
           paddingY: 3,
+          width: "inherit",
         }}
       >
         <Typography color="common.white" variant="title2">

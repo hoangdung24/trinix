@@ -8,6 +8,7 @@ const GridContainer = ({ OuterProps = {}, InnerProps = {}, children }) => {
 
   return (
     <Box
+      className="container"
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -18,11 +19,15 @@ const GridContainer = ({ OuterProps = {}, InnerProps = {}, children }) => {
       {...restOuterProps}
     >
       <Box
+        className="row"
         sx={{
           width: (theme) => {
             return theme.breakpoints.values.xl * 0.9;
           },
-          justifyContent: "space-betwwen",
+
+          height: "inherit",
+          display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
           ...InnerSx,

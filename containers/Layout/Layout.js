@@ -1,6 +1,6 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 
-import { Footer, TopBanner, Header } from "../../components";
+import { Footer, Header } from "../../components";
 
 const Layout = ({ children }) => {
   return (
@@ -16,10 +16,11 @@ const Layout = ({ children }) => {
         minWidth: "100%",
       }}
     >
-      <Header />
-      <TopBanner />
-      {children}
-      <Footer />
+      <Paper>
+        <Header />
+        {children}
+        <Footer />
+      </Paper>
     </Box>
   );
 };

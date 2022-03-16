@@ -1,4 +1,4 @@
-import { PortfolioCategory } from "../containers";
+import { PortfolioCategory } from "../../containers";
 
 const PortfolioCategoryPage = () => {
   return <PortfolioCategory />;

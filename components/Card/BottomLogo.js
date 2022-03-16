@@ -1,83 +1,95 @@
-import React from "react";
+import { useRef } from "react";
 import { Image } from "../../hoc";
-import { GridContainer } from "../../components";
-import { ButtonSeeOurProject } from "../Button";
-import styled from "@emotion/styled";
-import { useState } from "react";
+import { GridContainer, Button } from "../../components";
 
-const DURATION = "all 2s";
+import { useHoverDirty } from "react-use";
+
+import { Box, styled } from "@mui/material";
+
+const DURATION = "all 1s";
 
 const LOGO1 = "/bottomlogo1.svg";
-
 const LOGO2 = "/bottomlogo.svg";
 
 const BottomLogo = () => {
-	const [isHovering, setHovering] = useState(false);
-	const onMouseEnter = () => setHovering(true);
-	const onMouseLeave = () => setHovering(false);
-	return (
-		<GridContainer>
-			<Wrapper onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-				<ImageBackground className='imagebackground'>
-					{isHovering ? (
-						<Image
-							className='image'
-							src={LOGO2}
-							width='732px'
-							height='450px'
-							layout='fixed'
-						/>
-					) : (
-						<Image
-							className='image'
-							src={LOGO1}
-							width='732px'
-							height='450px'
-							layout='fixed'
-						/>
-					)}
-				</ImageBackground>
-				<ButtonClick className='button'>
-					<ButtonSeeOurProject title='See our project' />
-				</ButtonClick>
-			</Wrapper>
-		</GridContainer>
-	);
+  const ref = useRef(null);
+
+  const isHovering = useHoverDirty(ref);
+
+  return (
+    <Wrapper ref={ref} className="bottomLogo">
+      <GridContainer
+        OuterProps={{
+          sx: {
+            height: "100%",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "inherit",
+          }}
+        >
+          <ImageBackground className="imageBackground">
+            {isHovering ? (
+              <Image className="image" src={LOGO2} width="100%" height="500px" />
+            ) : (
+              <Image className="image" src={LOGO1} width="100%" height="500px" />
+            )}
+          </ImageBackground>
+          <ButtonWrapper className="button">
+            <Button title="See our project" />
+          </ButtonWrapper>
+        </Box>
+      </GridContainer>
+    </Wrapper>
+  );
 };
 
 export default BottomLogo;
 
 // Styled Sheet
 const Wrapper = styled("div")(({ theme }) => {
-	return {
-		position: "relative",
-		"&:hover": {
-			background: theme.palette.common.black,
-		},
-		"&:hover .button": {
-			opacity: 1,
-		},
-		"&:hover .imagebackground": {
-			transform: "translateX(-100px)",
-		},
-		"&:hover .image": {},
-	};
+  return {
+    position: "relative",
+    transition: DURATION,
+    height: "500px",
+    "&:hover": {
+      background: theme.palette.common.black,
+    },
+    "&:hover .button": {
+      opacity: 1,
+    },
+    "&:hover .imageBackground": {
+      left: 0,
+      transform: "translateX(0px)",
+    },
+  };
 });
 
-const ImageBackground = styled("div")(({ theme }) => {
-	return {
-		position: "relative",
-		right: "-20%",
-		transition: DURATION,
-	};
+const ImageBackground = styled(Box)(({ theme }) => {
+  return {
+    position: "absolute",
+    width: "732px",
+    height: "500px",
+    top: 0,
+    left: "50%",
+    transform: "translateX(-50%)",
+    transition: DURATION,
+  };
 });
 
-const ButtonClick = styled("div")(({ theme }) => {
-	return {
-		position: "absolute",
-		opacity: 0,
-		transition: DURATION,
-		top: "50%",
-		right: "10%",
-	};
+const ButtonWrapper = styled(Box)(({ theme }) => {
+  return {
+    position: "absolute",
+    opacity: 0,
+    transition: DURATION,
+    top: "50%",
+    right: "10%",
+    transform: "translateY(-50%)",
+  };
 });
