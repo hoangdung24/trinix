@@ -7,9 +7,21 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const TRANSITION = "all 0.5s";
 
-const ButtonSeeOurProject = ({ title, isBackground = false, isIcon = true, IconProps = {} }) => {
+const ButtonSeeOurProject = ({
+  title,
+  isBackground = false,
+  isIcon = true,
+  IconProps = {},
+  ...props
+}) => {
   return (
-    <ButtonStyled isBackground={isBackground} isIcon={isIcon} disableFocusRipple disableTouchRipple>
+    <ButtonStyled
+      isBackground={isBackground}
+      isIcon={isIcon}
+      disableFocusRipple
+      disableTouchRipple
+      {...props}
+    >
       <Title className="text" variant="title2">
         {title}
         <Underline className="underline" />

@@ -1,189 +1,212 @@
-import * as React from "react";
-import MuiCard from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
-import { GridContainer } from "../GridContainer";
-import Image from "next/image";
-import { ButtonSeeOurProject } from "../Button";
-import { useEffect, useState, useRef } from "react";
+import { Box, Typography, styled } from "@mui/material";
 
-const DURATION = "all 2s";
+import { GridContainer, Button } from "../../components";
 
-const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc }) => {
-	return (
-		<GridContainer>
-			<Card sx={{ maxWidth: "100%", height: "450px" }}>
-				<CardContent sx={{ height: "100%", width: "100%" }} className='card'>
-					<BackgroundSvg className='backgroundsvg'>
-						<Image
-							layout='fixed'
-							src='/backbutton.svg'
-							width='67px'
-							height='58px'
-						/>
-						<Number variant='h2'>{id}.</Number>
-					</BackgroundSvg>
-					<Title className='title' variant='h2' sx={{ height: 49, width: 241 }}>
-						{title}
-					</Title>
-					<Line className='line' sx={{ width: 400 }}>
-						<hr color='#000000'></hr>
-					</Line>
-					<SubTitle
-						className='subTitle'
-						variant='bodyText'
-						sx={{ width: 158, height: 32 }}>
-						{subTitle}
-					</SubTitle>
-					<ButtonSee className='button'>
-						<ButtonSeeOurProject title='See our projects' isBackground={true} />
-					</ButtonSee>
-					<ImageBackground className='image'>
-						<Image
-							layout='fixed'
-							className='image'
-							src={imageSrc}
-							width='468px'
-							height='325px'
-						/>
-					</ImageBackground>
-					<Polygon className='polygon'>
-						<Image
-							layout='fixed'
-							className='polygon'
-							src='/polygon.svg'
-							width='568px'
-							height='492px'
-						/>
-					</Polygon>
-				</CardContent>
-			</Card>
-		</GridContainer>
-	);
+import { Image } from "../../hoc";
+
+const DURATION = "all 1s";
+
+const PADDING_LEFT = 40;
+
+const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc, width, height = 450 }) => {
+  if (width === undefined) {
+    width = height;
+  }
+
+  return (
+    <Wrapper height={height}>
+      <GridContainer
+        OuterProps={{
+          sx: {
+            height: "100%",
+          },
+        }}
+        InnerProps={{
+          sx: {
+            paddingX: 4,
+          },
+        }}
+      >
+        <Box
+          className="leftSide"
+          sx={{
+            position: "relative",
+            width: "35%",
+            transition: DURATION,
+          }}
+        >
+          <BackgroundSvg className="backgroundsvg">
+            <Box
+              sx={{
+                position: "relative",
+              }}
+            >
+              <Number variant="h2">{id}</Number>
+              <Box
+                sx={{
+                  position: "absolute",
+                  left: "-30px",
+                  bottom: "-5px",
+                }}
+              >
+                <Image layout="fixed" src="/backbutton.svg" width="67px" height="58px" />
+              </Box>
+            </Box>
+          </BackgroundSvg>
+          <Box
+            sx={{
+              position: "relative",
+              width: "fit-content",
+            }}
+          >
+            <Title className="title" variant="h2">
+              {title}
+            </Title>
+            <Box
+              className="subTitle"
+              sx={{
+                position: "relative",
+                textAlign: "right",
+                transition: DURATION,
+                transform: "translateX(0)",
+              }}
+            >
+              <SubTitle variant="bodyText">{subTitle}</SubTitle>
+            </Box>
+          </Box>
+        </Box>
+      </GridContainer>
+
+      <SeeMoreButton className="seeMore">
+        <Button title="See our projects" isBackground={true} />
+      </SeeMoreButton>
+
+      <Box
+        sx={{
+          position: "absolute",
+          width,
+          height,
+          top: 0,
+          right: 0,
+          transform: `translateX(${height * 1.7}px)`,
+          transition: DURATION,
+        }}
+        className="rightSide"
+      >
+        <ImageWrapper>
+          <Image src={imageSrc} width={height} height={height} />
+        </ImageWrapper>
+
+        <Shape width={width} height={height} />
+      </Box>
+    </Wrapper>
+  );
 };
 
 export default CategoryPortfolioCard;
 
 // Styled Sheet
 
-const Card = styled(MuiCard)(({ theme }) => {
-	return {
-		position: "relative",
-		background: "linear-gradient(0deg, #FFFFFF, #FFFFFF), #FFFAF5",
-		"&:hover": {
-			background: "rgba(1, 16, 33, 0.1)",
-		},
-		"&:hover .backgroundsvg": {
-			transform: "translateX(100px)",
-		},
-		"&:hover .title": {
-			transform: "translateX(100px)",
-		},
-		"&:hover .subTitle": {
-			transform: "translateX(100px)",
-		},
-		"&:hover .button": {
-			transform: "translateX(100px)",
-		},
-		"&:hover .line": {
-			transform: "translateX(0px)",
-		},
-		"&:hover .image": {
-			transform: "translateX(0px)",
-			opacity: 1,
-		},
-		"&:hover .polygon": {
-			transform: "translateX(0px)",
-			opacity: 1,
-		},
-	};
+const Wrapper = styled(Box, {
+  shouldForwardProp: (prop) => {
+    return prop !== "height";
+  },
+})(({ theme, height }) => {
+  const sharedStyle = {
+    transform: "translateX(100px)",
+  };
+
+  return {
+    position: "relative",
+    overflow: "hidden",
+    height: `${height}px`,
+    backgroundColor: "transparent",
+    transition: DURATION,
+
+    "&:hover": {
+      backgroundColor: "rgba(1, 16, 33, 0.1)",
+      "& .leftSide": {
+        ...sharedStyle,
+      },
+      "& .seeMore": {
+        transform: "translate(80px, -50%)",
+      },
+      "& .rightSide": {
+        transform: `translateX(${height * 0.5}px)`,
+      },
+    },
+  };
 });
 
-const BackgroundSvg = styled("span")(({ theme }) => {
-	return {
-		position: "absolute",
-		right: "83%",
-		top: "20%",
-		transform: "translateX(0px)",
-		transition: DURATION,
-	};
+const BackgroundSvg = styled("div")(({ theme }) => {
+  return {
+    transform: "translateX(0px)",
+    paddingLeft: PADDING_LEFT,
+    transition: DURATION,
+  };
 });
 
 const Number = styled(Typography)(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "15%",
-		right: "0%",
-	};
+  return {};
 });
 
-const ButtonSee = styled("span")(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "50%",
-		right: "30%",
-		transition: DURATION,
-		zIndex: 3,
-	};
+const SeeMoreButton = styled(Box)(({ theme }) => {
+  return {
+    position: "absolute",
+    top: "50%",
+    right: "25%",
+    transform: "translateY(-50%)",
+    transition: DURATION,
+    zIndex: 3,
+  };
 });
 
 const Title = styled(Typography)(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "30%",
-		right: "65%",
-		background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
-		WebkitBackgroundClip: "text",
-		WebkitTextFillColor: "transparent",
-		backgroundClip: "text",
-		height: "fit-content",
-		width: "fit-content",
-		transition: DURATION,
-	};
-});
-
-const Line = styled("div")(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "50%",
-		left: "0%",
-		border: "1px",
-		transition: DURATION,
-		transform: "translateX(-100px)",
-	};
+  return {
+    background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+    whiteSpace: "nowrap",
+    transition: DURATION,
+    paddingLeft: PADDING_LEFT * 2,
+  };
 });
 
 const SubTitle = styled(Typography)(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "48%",
-		right: "65%",
-		transition: DURATION,
-		textAlign: "right",
-	};
+  return {
+    "&:before": {
+      content: '""',
+      position: "absolute",
+      top: "50%",
+      left: "-150%",
+      width: "150%",
+      height: "2px",
+      backgroundColor: theme.palette.common.black,
+      transform: "translateY(-50%)",
+      transition: DURATION,
+    },
+  };
 });
 
-const ImageBackground = styled("div")(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "21%",
-		right: "7%",
-		transition: DURATION,
-		transform: "translateX(100px)",
-		zIndex: 2,
-		opacity: 0,
-	};
+const ImageWrapper = styled(Box)(({ theme }) => {
+  return {
+    position: "absolute",
+    top: 0,
+    left: "-65%",
+    zIndex: 3,
+  };
 });
 
-const Polygon = styled("div")(({ theme }) => {
-	return {
-		position: "absolute",
-		top: "0%",
-		right: "-10.5%",
-		transition: DURATION,
-		transform: "translateX(100px)",
-		zIndex: 1,
-		opacity: 0,
-	};
+const Shape = styled(Box)(({ theme, height }) => {
+  return {
+    position: "absolute",
+    width: height,
+    height: height,
+    zIndex: 2,
+    transition: DURATION,
+    top: 0,
+    backgroundColor: theme.palette.common.black,
+    clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+  };
 });
