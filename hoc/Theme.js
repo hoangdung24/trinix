@@ -47,7 +47,7 @@ const theme = createTheme({
       lineHeight: "49px",
       fontWeight: 700,
     },
-    title1: factoryFont("40px", "49px", 500),
+    title1: factoryFont("30px", "36px", 500),
     title2: factoryFont("20px", "24px", 500),
     category: factoryFont("16px", "19px", 400),
     categoryBold: factoryFont("16px", "19px", 700),

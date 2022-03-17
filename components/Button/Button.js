@@ -11,13 +11,15 @@ const ButtonSeeOurProject = ({
 	isBackground = false,
 	isIcon = true,
 	IconProps = {},
+	...props
 }) => {
 	return (
 		<ButtonStyled
 			isBackground={isBackground}
 			isIcon={isIcon}
 			disableFocusRipple
-			disableTouchRipple>
+			disableTouchRipple
+			{...props}>
 			<Title className='text' variant='title2'>
 				{title}
 				<Underline className='underline' />
