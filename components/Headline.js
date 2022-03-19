@@ -1,8 +1,6 @@
 import { Typography as MuiTypography, styled } from "@mui/material";
 
 const Headline = ({ children, ...props }) => {
-  console.log(children);
-
   return <Typography {...props}>{children}</Typography>;
 };
 

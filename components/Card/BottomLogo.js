@@ -1,20 +1,24 @@
 import { useRef } from "react";
+import { useRouter } from "next/router";
 import { Image } from "../../hoc";
 import { GridContainer, Button } from "../../components";
 
 import { useHoverDirty } from "react-use";
-
 import { Box, styled } from "@mui/material";
 
 const DURATION = "all 1s";
 
-const LOGO1 = "/bottomlogo1.svg";
-const LOGO2 = "/bottomlogo.svg";
+// const LOGO1 = "/bottomlogo1.svg";
+// const LOGO2 = "/bottomlogo.svg";
 
-const BottomLogo = () => {
+const HEIGHT = "500px";
+
+const BottomLogo = ({ ...props }) => {
   const ref = useRef(null);
-
+  const router = useRouter();
   const isHovering = useHoverDirty(ref);
+
+  const { id, banner } = props;
 
   return (
     <Wrapper ref={ref} className="bottomLogo">
@@ -32,17 +36,23 @@ const BottomLogo = () => {
             justifyContent: "center",
             alignItems: "center",
             height: "inherit",
+            width: "inherit",
           }}
         >
           <ImageBackground className="imageBackground">
             {isHovering ? (
-              <Image className="image" src={LOGO2} width="100%" height="500px" />
+              <Image className="image" src={banner} width="100%" height={HEIGHT} alt="Trinix" />
             ) : (
-              <Image className="image" src={LOGO1} width="100%" height="500px" />
+              <Image className="image" src={banner} width="100%" height={HEIGHT} alt="Trinix" />
             )}
           </ImageBackground>
           <ButtonWrapper className="button">
-            <Button title="See our project" />
+            <Button
+              title="See our project"
+              onClick={() => {
+                router.push(`${router.pathname}/${id}`);
+              }}
+            />
           </ButtonWrapper>
         </Box>
       </GridContainer>
@@ -57,7 +67,7 @@ const Wrapper = styled("div")(({ theme }) => {
   return {
     position: "relative",
     transition: DURATION,
-    height: "500px",
+    height: HEIGHT,
     "&:hover": {
       background: theme.palette.common.black,
     },
@@ -75,7 +85,7 @@ const ImageBackground = styled(Box)(({ theme }) => {
   return {
     position: "absolute",
     width: "732px",
-    height: "500px",
+    height: HEIGHT,
     top: 0,
     left: "50%",
     transform: "translateX(-50%)",

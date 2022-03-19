@@ -1,15 +1,11 @@
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-
-import { styled } from "@mui/material/styles";
-import Image from "next/image";
+import { styled, Button, Typography, Box } from "@mui/material";
+import { Image } from "../../hoc";
 
 const ButtonBack = ({ position, title }) => {
   return (
     <ButtonStyled>
       <BackgroundSvg position={position}>
-        <Image layout="fixed" src="/backbutton.svg" width="38px" height="32px" />
+        <Image layout="fixed" src="/backbutton.svg" width="38px" height="32px" alt="Trinix" />
       </BackgroundSvg>
       <Title variant="title2">{title}</Title>
     </ButtonStyled>

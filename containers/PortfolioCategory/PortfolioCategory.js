@@ -8,37 +8,12 @@ import {
   GridContainer,
 } from "../../components";
 
-const data = [
-  {
-    id: "1.",
-    title: "2D Projects",
-    subTitle: "Artwork, Graphic Design, Photography",
-    imageSrc: "/background2.png",
-  },
-  {
-    id: "2.",
-    title: "3D Projects",
-    subTitle: "Artwork, Graphic Design, Photography",
-    imageSrc: "/background2.png",
-  },
-  {
-    id: "3.",
-    title: "Visual Effects",
-    subTitle: "TVC, Viral Videos, MV",
-    imageSrc: "/background2.png",
-  },
-  {
-    id: "4.",
-    title: "UX/UI Design",
-    subTitle: "Application, Website, Game.",
-    imageSrc: "/background2.png",
-  },
-];
+const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
+  console.log(portfolioCategory);
 
-const PortfolioCategory = () => {
   return (
     <Box>
-      <PortfolioCategoryBanner />
+      <PortfolioCategoryBanner data={portfolioCategory} />
 
       <GridContainer>
         <Box
@@ -51,11 +26,15 @@ const PortfolioCategory = () => {
         </Box>
       </GridContainer>
 
-      {data.map((el) => {
-        return <CategoryPortfolioCard key={el?.id} {...el} />;
-      })}
+      {portfolioCategoryDetail.items.map((el, idx) => {
+        const { is_special } = el;
 
-      <BottomLogo />
+        if (is_special) {
+          return <BottomLogo key={el.id} {...el} />;
+        } else {
+          return <CategoryPortfolioCard key={el.id} {...el} counter={idx + 1} />;
+        }
+      })}
     </Box>
   );
 };

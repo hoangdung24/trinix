@@ -48,7 +48,7 @@ const PortfolioBanner = () => {
           />
         </Content>
       </GridContainer>
-      <Image src="/background2.png" width={1920} height={1080} />
+      <Image src="/background2.png" width={1920} height={1080} alt="Trinix" />
       <Background />
     </Box>
   );

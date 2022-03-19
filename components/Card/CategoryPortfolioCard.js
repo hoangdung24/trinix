@@ -1,3 +1,6 @@
+import get from "lodash/get";
+import { useRouter } from "next/router";
+
 import { Box, Typography, styled } from "@mui/material";
 
 import { GridContainer, Button } from "../../components";
@@ -8,25 +11,24 @@ const DURATION = "all 1s";
 
 const PADDING_LEFT = 40;
 
-const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc, width, height = 450 }) => {
+const CategoryPortfolioCard = ({
+  id,
+  title,
+  subtitle,
+  thumbnail_image,
+  meta,
+  width,
+  counter,
+  height = 450,
+}) => {
   if (width === undefined) {
     width = height;
   }
+  const router = useRouter();
 
   return (
     <Wrapper height={height}>
-      <GridContainer
-        OuterProps={{
-          sx: {
-            height: "100%",
-          },
-        }}
-        InnerProps={{
-          sx: {
-            paddingX: 4,
-          },
-        }}
-      >
+      <GridContainer>
         <Box
           className="leftSide"
           sx={{
@@ -41,7 +43,7 @@ const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc, width, height = 
                 position: "relative",
               }}
             >
-              <Number variant="h2">{id}</Number>
+              <Number variant="h2">{counter}.</Number>
               <Box
                 sx={{
                   position: "absolute",
@@ -49,7 +51,7 @@ const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc, width, height = 
                   bottom: "-5px",
                 }}
               >
-                <Image layout="fixed" src="/backbutton.svg" width="67px" height="58px" />
+                <Image layout="fixed" src="/backbutton.svg" width="67px" height="58px" alt="" />
               </Box>
             </Box>
           </BackgroundSvg>
@@ -71,14 +73,20 @@ const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc, width, height = 
                 transform: "translateX(0)",
               }}
             >
-              <SubTitle variant="bodyText">{subTitle}</SubTitle>
+              <SubTitle variant="bodyText">{subtitle}</SubTitle>
             </Box>
           </Box>
         </Box>
       </GridContainer>
 
       <SeeMoreButton className="seeMore">
-        <Button title="See our projects" isBackground={true} />
+        <Button
+          onClick={() => {
+            router.push(`${router.pathname}/${id}`);
+          }}
+          title="See our projects"
+          isBackground={true}
+        />
       </SeeMoreButton>
 
       <Box
@@ -94,7 +102,7 @@ const CategoryPortfolioCard = ({ id, title, subTitle, imageSrc, width, height = 
         className="rightSide"
       >
         <ImageWrapper>
-          <Image src={imageSrc} width={height} height={height} />
+          <Image src={thumbnail_image} width={height} height={height} alt="" />
         </ImageWrapper>
 
         <Shape width={width} height={height} />
@@ -122,6 +130,9 @@ const Wrapper = styled(Box, {
     height: `${height}px`,
     backgroundColor: "transparent",
     transition: DURATION,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
 
     "&:hover": {
       backgroundColor: "rgba(1, 16, 33, 0.1)",
@@ -179,8 +190,8 @@ const SubTitle = styled(Typography)(({ theme }) => {
       content: '""',
       position: "absolute",
       top: "50%",
-      left: "-150%",
-      width: "150%",
+      left: "-200%",
+      width: "200%",
       height: "2px",
       backgroundColor: theme.palette.common.black,
       transform: "translateY(-50%)",

@@ -38,6 +38,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
             ...(src.includes("http") && {
               loader,
             }),
+            alt: "Trinix",
             ...props,
           }}
         />
@@ -48,6 +49,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
       <NextImage
         {...{
           src,
+          alt: "Trinix",
           layout,
           placeholder: "blur",
           objectFit: "contain",

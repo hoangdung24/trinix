@@ -1,3 +1,5 @@
+import { SettingConfig } from "../../contexts";
+
 import { Box, Paper } from "@mui/material";
 
 import { Footer, Header } from "../../components";
@@ -17,9 +19,11 @@ const Layout = ({ children }) => {
       }}
     >
       <Paper>
-        <Header />
-        {children}
-        <Footer />
+        <SettingConfig>
+          <Header />
+          {children}
+          <Footer />
+        </SettingConfig>
       </Paper>
     </Box>
   );

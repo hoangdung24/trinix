@@ -1,10 +1,12 @@
 import { Box, Typography as MuiTypography, styled } from "@mui/material";
-
 import { Image } from "../../hoc";
+import { Button, GridContainer, PortfolioCard } from "../../components";
 
-import { Button, GridContainer, PortfolioCard } from "..";
+import get from "lodash/get";
 
-const PortfolioCategoryBanner = () => {
+const PortfolioCategoryBanner = ({ data }) => {
+  data = get(data, "items[0]");
+
   return (
     <Box
       sx={{
@@ -19,8 +21,8 @@ const PortfolioCategoryBanner = () => {
               marginBottom: "50px",
             }}
           >
-            <Typography variant="h1">LET OUR WORKS</Typography>
-            <Typography variant="h1">SPEAK FOR ITSELF</Typography>
+            <Typography variant="h1">{get(data, "title")}</Typography>
+            <Typography variant="h1">{get(data, "subtitle")}</Typography>
           </Box>
 
           <Box
@@ -28,11 +30,7 @@ const PortfolioCategoryBanner = () => {
               marginBottom: "150px",
             }}
           >
-            <Typography variant="title2">
-              Trinix đã và đang làm việc với nhiều thương hiệu nổi tiếng tại Việt Nam và toàn thế
-              giới. Mỗi dự án được thực hiện tại Trinix không chỉ là dự án của khách hàng, mà còn là
-              dự án tâm huyết của riêng Trinix.
-            </Typography>
+            <Typography variant="title2">{get(data, "description")}</Typography>
           </Box>
           <Button
             title={"Scroll down"}
@@ -48,7 +46,7 @@ const PortfolioCategoryBanner = () => {
           />
         </Content>
       </GridContainer>
-      <Image src="/background2.png" width={1920} height={1080} />
+      <Image src={get(data, "banner")} width={1920} height={1080} alt="Trinix" />
       <Background />
     </Box>
   );

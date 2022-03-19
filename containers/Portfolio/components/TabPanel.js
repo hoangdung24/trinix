@@ -4,69 +4,54 @@ import { Box, Tabs, Typography } from "@mui/material";
 
 import { GridContainer, Tab, Headline } from "../../../components";
 
-const TabPanel = ({ value, onChange }) => {
+const TabPanel = ({ data, value, onChange, isSpecial }) => {
   return (
     <Box
       sx={{
         position: "absolute",
-        top: "30%",
+        bottom: 0,
         left: 0,
         width: "100%",
-        height: "500px",
-        background:
-          "linear-gradient(0deg, #FFFFFF 30.3%, rgba(255, 255, 255, 0.88) 40.66%, rgba(255, 255, 255, 0) 78.94%);",
+        height: "540px",
+        background: isSpecial
+          ? "linear-gradient(360deg, #000000 22.43%, rgba(0, 0, 0, 0) 100%);"
+          : "linear-gradient(0deg, #FFFFFF 30.3%, rgba(255, 255, 255, 0.88) 40.66%, rgba(255, 255, 255, 0) 78.94%);",
       }}
     >
-      <GridContainer
-        InnerProps={{
-          sx: {
-            justifyContent: "center",
-          },
-        }}
-      >
+      <GridContainer>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            pointerEvents: "none",
+            userSelect: "none",
           }}
         >
-          {value === "1" && (
-            <Fragment>
-              <Headline
-                variant="h1"
-                children={"2D Projects"}
-                sx={{
-                  marginBottom: 4,
-                }}
-              />
-              <Typography
-                variant="title1"
-                children={"It's a visual world and people respond to visuals."}
-              />
-            </Fragment>
-          )}
-
-          {value === "2" && (
-            <Fragment>
-              <Headline
-                variant="h1"
-                children={"3D Project"}
-                sx={{
-                  marginBottom: 4,
-                }}
-              />
-              <Typography
-                variant="title1"
-                children={"The idea part is simple but the implementation process is complex."}
-              />
-            </Fragment>
-          )}
+          {data.items.map((el) => {
+            if (value == el.id) {
+              return (
+                <Fragment key={el.id}>
+                  <Headline
+                    variant="h1"
+                    children={el.title}
+                    sx={{
+                      marginBottom: 4,
+                    }}
+                  />
+                  <Typography variant="title1" children={el.description} />
+                </Fragment>
+              );
+            } else {
+              return null;
+            }
+          })}
         </Box>
 
         <Box>
           <Tabs
+            value={value}
             onChange={onChange}
             sx={{
               position: "absolute",
@@ -86,7 +71,7 @@ const TabPanel = ({ value, onChange }) => {
                   transform: "translateY(-50%)",
                   right: 0,
                 },
-                "&:nth-last-child(1):before": {
+                "&:nth-last-of-type(1):before": {
                   display: "none",
                 },
               },
@@ -97,9 +82,19 @@ const TabPanel = ({ value, onChange }) => {
               },
             }}
           >
-            <Tab label="Item One" className="tab" value="1" isActive={value === "1"} />
-            <Tab label="Item Two" className="tab" value="2" isActive={value === "2"} />
-            <Tab label="Item Three" className="tab" value="3" isActive={value === "3"} />
+            {data.items.map((el) => {
+              return (
+                <Tab
+                  key={el.id}
+                  label={el.title}
+                  value={el.id.toString()}
+                  isActive={el.id == value}
+                  sx={{
+                    color: isSpecial ? "common.white" : "common.black",
+                  }}
+                />
+              );
+            })}
           </Tabs>
         </Box>
       </GridContainer>
@@ -108,3 +103,5 @@ const TabPanel = ({ value, onChange }) => {
 };
 
 export default TabPanel;
+//
+//

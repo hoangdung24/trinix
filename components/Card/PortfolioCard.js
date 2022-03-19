@@ -1,8 +1,8 @@
-import MuiCard from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
-const PortfolioCard = () => {
+import { styled, Card as MuiCard, CardContent, Typography, Box } from "@mui/material";
+
+import { Image } from "../../hoc";
+
+const PortfolioCard = ({ title, banner }) => {
   return (
     <Card>
       <CardContent
@@ -11,12 +11,25 @@ const PortfolioCard = () => {
         }}
       >
         <Title variant="title1" component="p">
-          Project
+          {title}
         </Title>
         <Client variant="body2" component="p">
           Client
         </Client>
         <Background className="background" />
+
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+            zIndex: 1,
+          }}
+        >
+          <Image src={banner} alt="Trinix" width="100%" height="100%" objectFit="cover" />
+        </Box>
       </CardContent>
     </Card>
   );
@@ -40,6 +53,7 @@ const Background = styled("div")(({ theme }) => {
     right: 0,
     bottom: 0,
     opacity: 0,
+    zIndex: 2,
     transition: "all 0.3s",
     "&:hover": {
       background: "linear-gradient(360deg, #000111 10.95%, rgba(0, 1, 17, 0) 100%)",
@@ -57,7 +71,7 @@ const Title = styled(Typography)(({ theme }) => {
     background: "linear-gradient(180deg, #FC5493 0%, #8303D8 100%)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
-    zIndex: 2,
+    zIndex: 3,
   };
 });
 
@@ -67,6 +81,6 @@ const Client = styled(Typography)(({ theme }) => {
     left: "7.69%",
     bottom: "14%",
     color: "#fff",
-    zIndex: 2,
+    zIndex: 3,
   };
 });
