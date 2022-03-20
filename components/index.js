@@ -12,6 +12,7 @@ export { Header } from "./Header";
 export { Footer, Footer2 } from "./Footer";
 export { Navbar } from "./Navbar";
 export { GridContainer } from "./GridContainer";
+export { Popup } from "./Popup";
 export { default as Headline } from "./Headline";
 export { default as Tab } from "./Tab";
 export { default as ErrorFallback } from "./ErrorFallback";
