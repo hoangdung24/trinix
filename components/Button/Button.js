@@ -11,20 +11,15 @@ const ButtonSeeOurProject = ({
   title,
   isBackground = false,
   isIcon = true,
+  isUnderline = true,
   IconProps = {},
   ...props
 }) => {
   return (
-    <ButtonStyled
-      isBackground={isBackground}
-      isIcon={isIcon}
-      disableFocusRipple
-      disableTouchRipple
-      {...props}
-    >
+    <ButtonStyled isBackground={isBackground} isIcon={isIcon} {...props}>
       <Title className="text" variant="title2">
         {title}
-        <Underline className="underline" />
+        {isUnderline && <Underline className="underline" />}
       </Title>
       {isIcon && <Icon {...IconProps} />}
     </ButtonStyled>

@@ -1,10 +1,14 @@
 import { SettingConfig } from "../../contexts";
 
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 
-import { Footer, Header } from "../../components";
+import { Footer, Header, Footer2 } from "../../components";
+
+import { useDevice } from "../../hooks";
 
 const Layout = ({ children }) => {
+  const { isMobile } = useDevice();
+
   return (
     <Box
       sx={{
@@ -16,15 +20,22 @@ const Layout = ({ children }) => {
         flexDirection: "column",
         maxWidth: "100%",
         minWidth: "100%",
+        minHeight: "100vh",
       }}
     >
-      <Paper>
-        <SettingConfig>
-          <Header />
+      <SettingConfig>
+        <Header />
+        <Box
+          sx={{
+            flexGrow: 1,
+            width: "100%",
+          }}
+        >
           {children}
-          <Footer />
-        </SettingConfig>
-      </Paper>
+        </Box>
+
+        {!isMobile ? <Footer /> : <Footer2 />}
+      </SettingConfig>
     </Box>
   );
 };

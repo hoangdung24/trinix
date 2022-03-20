@@ -2,19 +2,22 @@ import { styled, Card as MuiCard, CardContent, Typography, Box } from "@mui/mate
 
 import { Image } from "../../hoc";
 
-const PortfolioCard = ({ title, banner }) => {
+const PortfolioCard = ({ title, banner, subtitle, ...props }) => {
   return (
     <Card>
       <CardContent
         sx={{
-          minHeight: 300,
+          minHeight: {
+            xs: 225,
+            sm: 300,
+          },
         }}
       >
-        <Title variant="title1" component="p">
+        <Title variant="title1" component="p" className="title">
           {title}
         </Title>
-        <Client variant="body2" component="p">
-          Client
+        <Client variant="body2" component="p" className="client">
+          {subtitle}
         </Client>
         <Background className="background" />
 
@@ -40,8 +43,17 @@ export default PortfolioCard;
 const Card = styled(MuiCard)(({ theme }) => {
   return {
     position: "relative",
-    backgroundColor: "#C4C4C4",
+    backgroundColor: "transparent",
     borderRadius: "20px",
+    overflow: "hidden",
+    "&:hover": {
+      ".title": {
+        opacity: 1,
+      },
+      ".client": {
+        opacity: 1,
+      },
+    },
   };
 });
 
@@ -54,7 +66,7 @@ const Background = styled("div")(({ theme }) => {
     bottom: 0,
     opacity: 0,
     zIndex: 2,
-    transition: "all 0.3s",
+    transition: `${theme.transitions.duration.standard}ms`,
     "&:hover": {
       background: "linear-gradient(360deg, #000111 10.95%, rgba(0, 1, 17, 0) 100%)",
       opacity: 1,
@@ -72,6 +84,8 @@ const Title = styled(Typography)(({ theme }) => {
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     zIndex: 3,
+    opacity: 0,
+    transition: `${theme.transitions.duration.standard}ms`,
   };
 });
 
@@ -82,5 +96,7 @@ const Client = styled(Typography)(({ theme }) => {
     bottom: "14%",
     color: "#fff",
     zIndex: 3,
+    opacity: 0,
+    transition: `${theme.transitions.duration.standard}ms`,
   };
 });

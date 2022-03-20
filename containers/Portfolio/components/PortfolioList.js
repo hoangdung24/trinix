@@ -1,5 +1,4 @@
 import { Grid, Box, Fade } from "@mui/material";
-
 import { GridContainer, PortfolioCard, LoadingIcon } from "../../../components";
 
 const PortfolioList = ({ loading, data, onClick }) => {
@@ -11,7 +10,7 @@ const PortfolioList = ({ loading, data, onClick }) => {
         ) : (
           data?.items?.map((el) => {
             return (
-              <Grid key={el.id} item xs={6}>
+              <Grid key={el.id} item xs={12} md={6}>
                 <Fade
                   in
                   timeout={{

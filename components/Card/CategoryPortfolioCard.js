@@ -1,11 +1,12 @@
-import get from "lodash/get";
 import { useRouter } from "next/router";
 
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Typography, styled, Stack } from "@mui/material";
 
-import { GridContainer, Button } from "../../components";
+import { GridContainer, Button, Headline } from "../../components";
 
 import { Image } from "../../hoc";
+
+import { useDevice } from "../../hooks";
 
 const DURATION = "all 1s";
 
@@ -21,94 +22,172 @@ const CategoryPortfolioCard = ({
   counter,
   height = 450,
 }) => {
+  const { isMobile } = useDevice();
+
   if (width === undefined) {
     width = height;
   }
   const router = useRouter();
 
-  return (
-    <Wrapper height={height}>
-      <GridContainer>
-        <Box
-          className="leftSide"
-          sx={{
-            position: "relative",
-            width: "35%",
-            transition: DURATION,
-          }}
-        >
-          <BackgroundSvg className="backgroundsvg">
-            <Box
-              sx={{
-                position: "relative",
-              }}
-            >
-              <Number variant="h2">{counter}.</Number>
-              <Box
-                sx={{
-                  position: "absolute",
-                  left: "-30px",
-                  bottom: "-5px",
-                }}
-              >
-                <Image layout="fixed" src="/backbutton.svg" width="67px" height="58px" alt="" />
-              </Box>
-            </Box>
-          </BackgroundSvg>
+  if (!isMobile) {
+    return (
+      <Wrapper height={height}>
+        <GridContainer>
           <Box
+            className="leftSide"
             sx={{
               position: "relative",
-              width: "fit-content",
+              width: "35%",
+              transition: DURATION,
             }}
           >
-            <Title className="title" variant="h2">
-              {title}
-            </Title>
+            <BackgroundSvg className="backgroundsvg">
+              <Box
+                sx={{
+                  position: "relative",
+                }}
+              >
+                <Number variant="h2">{counter}.</Number>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    left: "-30px",
+                    bottom: "-5px",
+                    transform: "scaleX(-1)",
+                  }}
+                >
+                  <Image
+                    layout="fixed"
+                    src="/solid-triangle-shape.svg"
+                    width="67px"
+                    height="58px"
+                    alt=""
+                  />
+                </Box>
+              </Box>
+            </BackgroundSvg>
             <Box
-              className="subTitle"
               sx={{
                 position: "relative",
-                textAlign: "right",
-                transition: DURATION,
-                transform: "translateX(0)",
+                width: "fit-content",
               }}
             >
-              <SubTitle variant="bodyText">{subtitle}</SubTitle>
+              <Title className="title" variant="h2">
+                {title}
+              </Title>
+              <Box
+                className="subTitle"
+                sx={{
+                  position: "relative",
+                  textAlign: "right",
+                  transition: DURATION,
+                  transform: "translateX(0)",
+                }}
+              >
+                <SubTitle variant="bodyText">{subtitle}</SubTitle>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </GridContainer>
+        </GridContainer>
 
-      <SeeMoreButton className="seeMore">
-        <Button
-          onClick={() => {
-            router.push(`${router.pathname}/${id}`);
+        <SeeMoreButton className="seeMore">
+          <Button
+            onClick={() => {
+              router.push(`${router.pathname}/${id}`);
+            }}
+            title="See our projects"
+            isBackground={true}
+          />
+        </SeeMoreButton>
+
+        <Box
+          sx={{
+            position: "absolute",
+            width,
+            height,
+            top: 0,
+            right: 0,
+            transform: `translateX(${height * 1.7}px)`,
+            transition: DURATION,
           }}
-          title="See our projects"
-          isBackground={true}
-        />
-      </SeeMoreButton>
+          className="rightSide"
+        >
+          <ImageWrapper>
+            <Image src={thumbnail_image} width={height} height={height} alt="" />
+          </ImageWrapper>
 
-      <Box
+          <Shape width={width} height={height} />
+        </Box>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Stack
         sx={{
-          position: "absolute",
-          width,
-          height,
-          top: 0,
-          right: 0,
-          transform: `translateX(${height * 1.7}px)`,
-          transition: DURATION,
+          alignItems: "center",
+          marginBottom: 10,
         }}
-        className="rightSide"
       >
-        <ImageWrapper>
-          <Image src={thumbnail_image} width={height} height={height} alt="" />
-        </ImageWrapper>
-
-        <Shape width={width} height={height} />
-      </Box>
-    </Wrapper>
-  );
+        <Box
+          sx={{
+            position: "relative",
+            width: "fit-content",
+            marginBottom: 2,
+          }}
+        >
+          <Box
+            sx={{
+              transform: "scaleX(-1)",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+            }}
+          >
+            <Image src={"/solid-triangle-shape.svg"} width="35px" height="30px" />
+          </Box>
+          <Headline
+            variant="title1"
+            onClick={() => {
+              router.push(`${router.pathname}/${id}`);
+            }}
+            sx={{
+              fontWeight: 700,
+              paddingX: 4.5,
+              paddingY: 1.5,
+            }}
+          >
+            {title}
+          </Headline>
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+            }}
+          >
+            <Image src={"/solid-triangle-shape.svg"} width="35px" height="30px" />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "10px",
+              fontWeight: 500,
+              width: "50%",
+              textAlign: "center",
+            }}
+          >
+            {subtitle}
+          </Typography>
+        </Box>
+      </Stack>
+    );
+  }
 };
 
 export default CategoryPortfolioCard;

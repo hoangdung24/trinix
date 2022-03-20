@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+
 const GridContainer = ({ OuterProps = {}, children }) => {
   const { sx: OuterSx = {}, ...restOuterProps } = OuterProps;
 
@@ -9,7 +10,16 @@ const GridContainer = ({ OuterProps = {}, children }) => {
         width: "100%",
         marginX: "auto",
         maxWidth: (theme) => {
-          return theme.breakpoints.values.xl * 0.9;
+          return {
+            xs: 0.9,
+            xl: theme.breakpoints.values.xl * 0.9,
+          };
+        },
+        paddingX: (theme) => {
+          return {
+            xs: theme.spacing(2),
+            xl: theme.spacing(0),
+          };
         },
         ...OuterSx,
       }}

@@ -4,11 +4,12 @@ export { default as Social } from "./Social";
 export { default as Loading } from "./Loading";
 export { default as LoadingIcon } from "./LoadingIcon";
 export { default as Spinner } from "./Spinner";
+export { default as Metadata } from "./Metadata";
 
 export { TopBanner, PortfolioCategoryBanner } from "./Banner";
 
 export { Header } from "./Header";
-export { Footer } from "./Footer";
+export { Footer, Footer2 } from "./Footer";
 export { Navbar } from "./Navbar";
 export { GridContainer } from "./GridContainer";
 export { default as Headline } from "./Headline";

@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import {
   PortfolioCategoryBanner,
@@ -8,8 +8,12 @@ import {
   GridContainer,
 } from "../../components";
 
+import get from "lodash/get";
+
+import { useDevice } from "../../hooks";
+
 const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
-  console.log(portfolioCategory);
+  const { isMobile } = useDevice();
 
   return (
     <Box>
@@ -22,7 +26,32 @@ const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
             marginBottom: 12,
           }}
         >
-          <Headline variant="h1">WHAT WE DO...</Headline>
+          {!isMobile ? (
+            <Headline variant="h1">WHAT WE DO...</Headline>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="title1" marginBottom={3}>
+                {get(portfolioCategory, "items[0].title")}
+              </Typography>
+              <Typography marginBottom={3}>
+                {get(portfolioCategory, "items[0].subtitle")}
+              </Typography>
+              <Box
+                sx={{
+                  width: "50%",
+                  height: "1px",
+                  backgroundColor: "common.black",
+                }}
+              ></Box>
+            </Box>
+          )}
         </Box>
       </GridContainer>
 

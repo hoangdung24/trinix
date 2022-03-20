@@ -11,6 +11,9 @@ import { ErrorFallback } from "../components";
 import "../axios.config";
 import "../styles/globals.css";
 import "../node_modules/nprogress/nprogress.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { useRouting } from "../hooks";
 
 const clientSideEmotionCache = createEmotionCache();

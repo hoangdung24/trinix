@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "../../hoc";
 import { Stack, Typography, Box } from "@mui/material";
 
 import { GridContainer, Social } from "../../components";
@@ -11,6 +10,7 @@ const Footer = () => {
         backgroundColor: (theme) => {
           return theme.palette.common.black;
         },
+        width: "100%",
       }}
     >
       <GridContainer>
@@ -26,7 +26,7 @@ const Footer = () => {
           <Typography color="common.white" variant="title2">
             {"Let's work together"}
           </Typography>
-          {/* <Social /> */}
+          <Social />
         </Stack>
       </GridContainer>
     </Box>

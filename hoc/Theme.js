@@ -58,6 +58,24 @@ const theme = createTheme({
       lineHeight: "10px",
     },
   },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+        disableTouchRipple: true,
+      },
+    },
+    MuiTypography: {
+      defaultProps: {
+        textTransform: "none",
+      },
+    },
+    MuiUseMediaQuery: {
+      defaultProps: {
+        noSsr: true,
+      },
+    },
+  },
 });
 
 export default ({ children }) => {

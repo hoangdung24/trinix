@@ -18,8 +18,10 @@
     "@mui/material": "^5.5.0",
     "@mui/styles": "^5.5.0",
     "axios": "^0.26.1",
+    "classnames": "^2.3.1",
     "dompurify": "^2.3.6",
     "jsdom": "^19.0.0",
+    "json2mq": "^0.2.0",
     "lodash": "^4.17.21",
     "next": "12.1.0",
     "nprogress": "^0.2.0",
@@ -27,7 +29,9 @@
     "react-dom": "17.0.2",
     "react-error-boundary": "^3.1.4",
     "react-intl": "^5.24.7",
+    "react-slick": "^0.28.1",
     "react-use": "^17.3.2",
+    "slick-carousel": "^1.8.1",
     "swr": "^1.2.2"
   },
   "devDependencies": {

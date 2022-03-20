@@ -4,17 +4,15 @@ import { Box, Fade } from "@mui/material";
 import { useRouter } from "next/router";
 import { useUpdateEffect, useToggle } from "react-use";
 import { useState, useEffect, useCallback, Fragment, useMemo } from "react";
+
 import isEqual from "lodash/isEqual";
-
-import { TopBanner, LoadingIcon } from "../../components";
-
 import TabPanel from "./components/TabPanel";
 import PortfolioList from "./components/PortfolioList";
-
 import { ROUTES } from "../../routes";
-import { PAGES, PORTFOLIO_DETAIL } from "../../api";
-
 import { getElement } from "./utils";
+import { TopBanner, LoadingIcon } from "../../components";
+import { PAGES, PORTFOLIO_DETAIL } from "../../api";
+import { useDevice } from "../../hooks";
 
 const PortfolioDetailDialog = dynamic(() => import("./components/PortfolioDetailDialog"), {
   ssr: false,
@@ -30,6 +28,8 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isSpecial, setIsSpecial] = useState(false);
 
+  const { isMobile } = useDevice();
+
   const { data: resData } = useSWR(() => {
     if (currentPanel === null) {
       return;
@@ -39,7 +39,6 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
 
   useEffect(() => {
     setPanel(router.query.portfolio);
-
     setSelectedCategory(getElement(router.query.portfolio, portfolioCategoryList.items));
   }, []);
 
@@ -66,11 +65,16 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
 
     const item = getElement(currentPanel, portfolioCategoryList?.items);
 
+    if (isMobile) {
+      return null;
+    }
+
     return (
       <Fade
         in={true}
         timeout={{
           enter: 1000,
+          exit: 1000,
         }}
       >
         <Box>
@@ -138,7 +142,7 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
       </Box>
       {open && (
         <PortfolioDetailDialog
-          {...{ open, toggle, categoryMeta: selectedCategory, ...selectedPortfolio }}
+          {...{ open, toggle, categoryMeta: selectedCategory, isSpecial, ...selectedPortfolio }}
         />
       )}
     </Fragment>

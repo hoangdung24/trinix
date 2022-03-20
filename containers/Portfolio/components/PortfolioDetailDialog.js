@@ -1,5 +1,6 @@
 import React from "react";
 import createDOMPurify from "dompurify";
+import NextImage from "next/image";
 
 import {
   Dialog,
@@ -10,18 +11,37 @@ import {
   styled,
   Stack,
   IconButton,
+  Fade,
+  Button,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import { useSetting } from "../../../hooks";
 import { Image } from "../../../hoc";
-import Footer from "./Footer";
 
-const PortfolioDetailDialog = ({ open, toggle, categoryMeta, ...props }) => {
+import { GridContainer, Footer2 as Footer } from "../../../components";
+import { useDevice } from "../../../hooks";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return (
+    <Fade
+      ref={ref}
+      {...props}
+      timeout={{
+        enter: 500,
+      }}
+    />
+  );
+});
+
+const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props }) => {
   const { studio_logo } = useSetting();
+  const { title, body = [], background_color } = props;
+  const { isMobile } = useDevice();
 
-  const { title, body } = props;
+  console.log(body, props);
 
   return (
     <Dialog
@@ -30,36 +50,61 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, ...props }) => {
         toggle(false);
       }}
       fullScreen
+      TransitionComponent={Transition}
+      keepMounted
     >
       <DialogTitle>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">
-          <Stack direction={"row"} spacing={2}>
-            <Image src={studio_logo} width={200} height={50} />
-            <Stack>
-              <Typography
-                variant="title2"
-                sx={{
-                  textTransformz: "uppercase",
-                }}
-              >
-                {title}
-              </Typography>
-              <Typography variant="category">{categoryMeta?.title}</Typography>
+          {!isMobile && (
+            <Stack direction={"row"} spacing={2}>
+              <Image src={studio_logo} width={200} height={50} />
+              <Stack>
+                <Typography
+                  variant="title2"
+                  sx={{
+                    textTransformz: "uppercase",
+                  }}
+                >
+                  {title}
+                </Typography>
+                <Typography variant="category">{categoryMeta?.title}</Typography>
+              </Stack>
             </Stack>
-          </Stack>
-          <IconButton
-            sx={{
-              color: "common.white",
-            }}
-            onClick={() => {
-              toggle(false);
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
+          )}
+          {!isMobile ? (
+            <IconButton
+              sx={{
+                color: "common.white",
+              }}
+              onClick={() => {
+                toggle(false);
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : (
+            <Button
+              sx={{
+                color: "common.white",
+              }}
+              onClick={() => {
+                toggle(false);
+              }}
+              startIcon={<ArrowBackIosIcon />}
+            >
+              Back
+            </Button>
+          )}
         </Stack>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent
+        sx={{
+          // backgroundColor: isSpecial ? "common.black" : "common.white",
+          backgroundColor: background_color,
+          wordBreak: "break-word",
+          overflowX: "hidden",
+        }}
+      >
         <Box
           sx={{
             padding: (theme) => {
@@ -67,6 +112,18 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, ...props }) => {
             },
           }}
         >
+          {isMobile && (
+            <Stack
+              alignItems="center"
+              sx={{
+                color: isSpecial ? "common.white" : "common.black",
+              }}
+            >
+              <Typography variant="h1">{title}</Typography>
+              <Typography variant="category">{categoryMeta?.title}</Typography>
+            </Stack>
+          )}
+
           {body.map((el, idx) => {
             const { block_type, value } = el;
 
@@ -74,29 +131,59 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, ...props }) => {
               const { content, text_color } = value;
 
               return (
-                <div
-                  style={{
-                    color: text_color,
-                  }}
+                <GridContainer
                   key={idx}
-                  dangerouslySetInnerHTML={{
-                    __html: createDOMPurify.sanitize(content),
-                  }}
-                ></div>
+                  OuterProps={[
+                    isMobile && {
+                      sx: {
+                        maxWidth: 1,
+                        paddingX: 0,
+                      },
+                    },
+                  ]}
+                >
+                  <div
+                    style={{
+                      color: text_color,
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: createDOMPurify.sanitize(content),
+                    }}
+                  ></div>
+                </GridContainer>
               );
             } else if (block_type === "images") {
               return (
                 <Stack key={idx} direction="row">
-                  {value.map((el, i) => {
+                  {value.map((el, idx) => {
                     return (
-                      <Image
-                        key={i}
+                      <img
                         src={el}
-                        height={300}
-                        width={`${100 / value.length}%`}
-                        objectFit="cover"
+                        style={{
+                          width: `${100 / value.length}%`,
+                          objectFit: "contain",
+                        }}
                       />
                     );
+
+                    // return (
+                    //   <Image
+                    //     key={idx}
+                    //     src={el}
+                    //     width={`${100 / value.length}%`}
+                    //     layout="responsive"
+                    //   />
+                    // );
+
+                    // return (
+                    //   <Image
+                    //     key={idx}
+                    //     src={el}
+                    //     width={`${100 / value.length}%`}
+                    //     height={"100%"}
+                    //     objectFit="cover"
+                    //   />
+                    // );
                   })}
                 </Stack>
               );

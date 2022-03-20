@@ -21,7 +21,3 @@ export const PAGES_API = `${DOMAIN_NAME}${PAGES}`;
 // export const PORTFOLIO_CATEGORY_LIST_API = `${DOMAIN_NAME}${PAGES}?type=${PORTFOLIO_CATEGORY_LIST}`;
 // export const PORTFOLIO_CATEGORY_API = `${DOMAIN_NAME}${PAGES}?type=${PORTFOLIO_CATEGORY}`;
 // export const PORTFOLIO_DETAIL_API = `${DOMAIN_NAME}${PAGES}?type=${PORTFOLIO_DETAIL}`;
-
-export const ROUTES = {
-  PORTFOLIO_CATEGORY: "/portfolio-category",
-};

@@ -1,10 +1,14 @@
-import { Box, Typography as MuiTypography, styled } from "@mui/material";
 import { Image } from "../../hoc";
-import { Button, GridContainer, PortfolioCard } from "../../components";
+import { Button, GridContainer } from "../../components";
+import { Box, Typography as MuiTypography, styled } from "@mui/material";
+
+import { useDevice } from "../../hooks";
 
 import get from "lodash/get";
 
 const PortfolioCategoryBanner = ({ data }) => {
+  const { isMobile } = useDevice();
+
   data = get(data, "items[0]");
 
   return (
@@ -14,40 +18,54 @@ const PortfolioCategoryBanner = ({ data }) => {
         overflow: "hidden",
       }}
     >
-      <GridContainer>
-        <Content>
-          <Box
-            sx={{
-              marginBottom: "50px",
-            }}
-          >
-            <Typography variant="h1">{get(data, "title")}</Typography>
-            <Typography variant="h1">{get(data, "subtitle")}</Typography>
-          </Box>
+      {!isMobile && (
+        <GridContainer>
+          <Content>
+            <Box
+              sx={{
+                marginBottom: "50px",
+              }}
+            >
+              <Typography variant="h1">{get(data, "title")}</Typography>
+              <Typography variant="h1">{get(data, "subtitle")}</Typography>
+            </Box>
 
-          <Box
-            sx={{
-              marginBottom: "150px",
-            }}
-          >
-            <Typography variant="title2">{get(data, "description")}</Typography>
-          </Box>
-          <Button
-            title={"Scroll down"}
-            isBackground={false}
-            IconProps={{
-              sx: {
-                transform: "rotate(90deg)",
-              },
-            }}
-            sx={{
-              paddingLeft: 0,
-            }}
-          />
-        </Content>
-      </GridContainer>
-      <Image src={get(data, "banner")} width={1920} height={1080} alt="Trinix" />
-      <Background />
+            <Box
+              sx={{
+                marginBottom: "150px",
+              }}
+            >
+              <Typography variant="title2">{get(data, "description")}</Typography>
+            </Box>
+            <Button
+              title={"Scroll down"}
+              isBackground={false}
+              IconProps={{
+                sx: {
+                  transform: "rotate(90deg)",
+                },
+              }}
+              sx={{
+                paddingLeft: 0,
+              }}
+            />
+          </Content>
+        </GridContainer>
+      )}
+
+      {!isMobile ? (
+        <Image src={get(data, "banner")} width={1920} height={1080} alt="Trinix" />
+      ) : (
+        <Image
+          src={get(data, "banner")}
+          width={"100%"}
+          height={400}
+          alt="Trinix"
+          objectFit="cover"
+        />
+      )}
+
+      {!isMobile && <Background />}
     </Box>
   );
 };

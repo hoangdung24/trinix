@@ -1,45 +1,43 @@
-import { useRef } from "react";
-
-import { useHoverDirty } from "react-use";
-
-import { Stack, Divider } from "@mui/material";
+import { Stack } from "@mui/material";
+import { useRouter } from "next/router";
+import { useToggle } from "react-use";
 
 import NavItem from "./NavItem";
+import Contact from "../Contact";
 
-const data = ["2D Projects", "3D Projects", "Visual Effects", "UI/UX Design", "Gaming"];
+import { NAVBAR } from "../../routes";
 
 const NavList = () => {
-  const navRef = useRef(null);
-  const isHovering = useHoverDirty(navRef);
+  const router = useRouter();
+  const [open, toggle] = useToggle();
+
   return (
-    <Stack
-      ref={navRef}
-      direction="row"
-      spacing={0.5}
-      divider={
-        <Divider
+    <Stack direction="row" spacing={0.5}>
+      {NAVBAR.map((el, idx) => {
+        let onClick;
+
+        if (el.route === "/contact") {
+          onClick = () => {
+            toggle(true);
+          };
+        } else {
+          onClick = () => {
+            router.push(el.route, el.route, {
+              shallow: true,
+            });
+          };
+        }
+
+        return <NavItem key={idx} title={el.name} onClick={onClick} />;
+      })}
+      {open && (
+        <Contact
           {...{
-            orientation: "vertical",
-            flexItem: true,
-            sx: {
-              transition: (theme) => {
-                return `${theme.transitions.duration.standard}ms`;
-              },
-              borderColor: (theme) => {
-                return isHovering ? "transparent" : theme.palette.common.white;
-              },
-              backgroundColor: (theme) => {
-                return isHovering ? "transparent" : theme.palette.common.white;
-              },
-              borderWidth: 0.5,
-            },
+            open,
+            toggle,
           }}
         />
-      }
-    >
-      {data.map((el, index) => {
-        return <NavItem key={index} title={el} />;
-      })}
+      )}
     </Stack>
   );
 };
