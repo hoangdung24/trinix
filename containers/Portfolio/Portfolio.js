@@ -140,11 +140,10 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
           }}
         />
       </Box>
-      {open && (
-        <PortfolioDetailDialog
-          {...{ open, toggle, categoryMeta: selectedCategory, isSpecial, ...selectedPortfolio }}
-        />
-      )}
+
+      <PortfolioDetailDialog
+        {...{ open, toggle, categoryMeta: selectedCategory, isSpecial, ...selectedPortfolio }}
+      />
     </Fragment>
   );
 };

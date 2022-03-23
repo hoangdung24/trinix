@@ -13,10 +13,15 @@ const useDevice = () => {
     return theme.breakpoints.up("md");
   });
 
+  const isMediumDesktop = useMediaQuery((theme) => {
+    return theme.breakpoints.up("lg");
+  });
+
   return {
     isMobile,
     isTablet,
     isDesktop,
+    isMediumDesktop,
   };
 };
 

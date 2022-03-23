@@ -31,6 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
       {...props}
       timeout={{
         enter: 500,
+        exit: 500,
       }}
     />
   );
@@ -40,8 +41,6 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
   const { studio_logo } = useSetting();
   const { title, body = [], background_color } = props;
   const { isMobile } = useDevice();
-
-  console.log(body, props);
 
   return (
     <Dialog
@@ -103,6 +102,8 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
           backgroundColor: background_color,
           wordBreak: "break-word",
           overflowX: "hidden",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <Box
@@ -110,6 +111,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             padding: (theme) => {
               return theme.spacing(2, 3);
             },
+            flexGrow: "1",
           }}
         >
           {isMobile && (
@@ -158,6 +160,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                   {value.map((el, idx) => {
                     return (
                       <img
+                        key={idx}
                         src={el}
                         style={{
                           width: `${100 / value.length}%`,
@@ -175,13 +178,20 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                     //   />
                     // );
 
+                    // let height = 300;
+
                     // return (
                     //   <Image
                     //     key={idx}
                     //     src={el}
                     //     width={`${100 / value.length}%`}
-                    //     height={"100%"}
-                    //     objectFit="cover"
+                    //     height={height}
+                    //     objectFit="contain"
+                    //     onLoadingComplete={({ naturalHeight, naturalWidth }) => {
+                    //       console.log(this);
+
+                    //       height = naturalHeight;
+                    //     }}
                     //   />
                     // );
                   })}
@@ -192,7 +202,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             }
           })}
         </Box>
-        <Footer />
+        <Footer isSpecial={isSpecial} />
       </DialogContent>
     </Dialog>
   );

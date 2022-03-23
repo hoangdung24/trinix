@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import {
   Box,
   styled,
@@ -7,14 +9,138 @@ import {
   Dialog as MuiDialog,
   DialogContent as MuiDialogContent,
 } from "@mui/material";
+
 import { Image } from "../../hoc";
 import { Button, Headline, Social } from "../../components";
+import { useSetting, useDevice } from "../../hooks";
 
-const IMAGE_SRC = "/background2.png";
+const Contact = ({ open, toggle, data, error, ...props }) => {
+  const setting = useSetting();
+  const { isMobile, isDesktop, isMediumDesktop } = useDevice();
 
-const SIZE = 20;
+  const { addresses } = setting;
 
-const Contact = ({ open, toggle, ...props }) => {
+  const businessInfo = addresses?.[0];
+
+  const children = useMemo(() => {
+    if (error) {
+      return "Error";
+    }
+
+    if (data === undefined) {
+      return "Loading...";
+    }
+
+    const imgSrc = data?.items?.[0]?.banner;
+
+    // console.log(imgSrc);
+
+    return (
+      <Grid container spacing={3}>
+        <Grid
+          item
+          xs={12}
+          lg={4}
+          sx={[
+            !isMediumDesktop && {
+              order: 2,
+            },
+          ]}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                ...(!isMediumDesktop && {
+                  textAlign: "center",
+                }),
+              }}
+            >
+              <Headline
+                variant="h1"
+                sx={{
+                  marginBottom: 6,
+                }}
+              >
+                Contact Us
+              </Headline>
+
+              <Wrapper>
+                <SubTitle variant="categoryBold">Address:</SubTitle>
+                <Text>{businessInfo?.address}</Text>
+              </Wrapper>
+              <Wrapper>
+                <SubTitle variant="categoryBold">Contact Info:</SubTitle>
+                <Text>
+                  {"Hotline: "}
+                  {businessInfo?.phone_numbers.map((el, idx) => {
+                    return (
+                      <Text key={idx} component={"span"}>
+                        {idx !== 0 && " - "}
+                        {el?.value}
+                      </Text>
+                    );
+                  })}
+                </Text>
+
+                <Text>Email: {businessInfo?.email}</Text>
+              </Wrapper>
+
+              <Wrapper>
+                <SubTitle variant="categoryBold">Social Network:</SubTitle>
+                <Social />
+              </Wrapper>
+
+              <Box>
+                <Button
+                  title="WORK WITH US"
+                  isIcon={false}
+                  isBackground={false}
+                  sx={{
+                    paddingLeft: 0,
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          lg={8}
+          sx={[
+            !isMediumDesktop && {
+              order: 1,
+            },
+          ]}
+        >
+          <Box
+            sx={{
+              width: 1,
+              height: !isMediumDesktop ? 400 : 1,
+            }}
+          >
+            <Image
+              src={imgSrc}
+              width={"100%"}
+              height={"100%"}
+              objectFit="cover"
+              objectPosition="center"
+            />
+          </Box>
+        </Grid>
+      </Grid>
+    );
+  });
+
   return (
     <Dialog
       {...{
@@ -24,69 +150,24 @@ const Contact = ({ open, toggle, ...props }) => {
         },
         PaperProps: {
           sx: {
-            width: "75vw",
-            maxWidth: "75vw",
-            maxHeight: "80vh",
+            width: isMediumDesktop ? "80vw" : "100vw",
+            maxWidth: isMediumDesktop ? "80vw" : "100vw",
+            maxHeight: isMediumDesktop ? "40vw" : "100vh",
+            margin: 0,
           },
         },
         ...props,
       }}
     >
-      <DialogContent>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
-              <Box>
-                <Headline
-                  variant="h1"
-                  sx={{
-                    marginBottom: 6,
-                  }}
-                >
-                  Contact Us
-                </Headline>
-
-                <Wrapper>
-                  <SubTitle variant="categoryBold">Address:</SubTitle>
-                  <Text>158/20 Hoàng Hoa Thám, phường 12, quận Tân Bình</Text>
-                </Wrapper>
-                <Wrapper>
-                  <SubTitle variant="categoryBold">Contact Info:</SubTitle>
-
-                  <Text>Hotline: (+84) 989 743 598</Text>
-                  <Text>Email: contact@trinix.studio</Text>
-                </Wrapper>
-
-                <Wrapper>
-                  <SubTitle variant="categoryBold">Social Network:</SubTitle>
-                  <Social />
-                </Wrapper>
-
-                <Box>
-                  <Button
-                    title="WORK WITH US"
-                    isIcon={false}
-                    isBackground={false}
-                    sx={{
-                      paddingLeft: 0,
-                    }}
-                  />
-                </Box>
-              </Box>
-            </Box>
-          </Grid>
-
-          <Grid item xs={8}>
-            <Image src={IMAGE_SRC} width="100%" height="600px" />
-          </Grid>
-        </Grid>
+      <DialogContent
+        sx={{
+          overflowX: "hidden",
+          ...(!isMediumDesktop && {
+            padding: 0,
+          }),
+        }}
+      >
+        {children}
       </DialogContent>
     </Dialog>
   );

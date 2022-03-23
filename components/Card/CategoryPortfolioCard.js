@@ -300,11 +300,3 @@ const Shape = styled(Box)(({ theme, height }) => {
     clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
   };
 });
-
-const CardContent = styled(BoxMui)(({ theme }) => {
-  return {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  };
-});

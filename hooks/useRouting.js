@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import Router from "next/router";
 import NProgress from "nprogress";
 import { Spinner } from "../components";
+import { useEffect } from "react";
 
 const useRouting = () => {
   useEffect(() => {

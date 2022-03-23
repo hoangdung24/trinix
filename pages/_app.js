@@ -3,6 +3,7 @@ import axios from "axios";
 import { SWRConfig } from "swr";
 import { ErrorBoundary } from "react-error-boundary";
 import { createEmotionCache } from "../libs";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { Theme as CustomMuiTheme, Cache as EmotionCache } from "../hoc";
 import { Layout } from "../containers";
@@ -37,6 +38,7 @@ function MyApp(props) {
         >
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Layout>
+              <CssBaseline />
               <Component {...pageProps} />
             </Layout>
           </ErrorBoundary>

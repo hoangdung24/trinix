@@ -16,6 +16,8 @@ export const PORTFOLIO_CATEGORY_LIST = "portfolio.PortfolioCategoryListingPage";
 export const PORTFOLIO_CATEGORY = "portfolio.PortfolioCategoryDetailPage";
 export const PORTFOLIO_DETAIL = "portfolio.PortfolioDetailPage";
 
+export const CONTACT = "contact.ContactPage";
+
 export const SETTING_API = `${DOMAIN_NAME}${SETTING}`;
 export const PAGES_API = `${DOMAIN_NAME}${PAGES}`;
 // export const PORTFOLIO_CATEGORY_LIST_API = `${DOMAIN_NAME}${PAGES}?type=${PORTFOLIO_CATEGORY_LIST}`;

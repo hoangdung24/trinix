@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Box, Tabs, Stack } from "@mui/material";
+import { Box, Tabs, Stack, Typography } from "@mui/material";
 
 import { GridContainer, Tab, Metadata } from "../../../components";
 
@@ -67,6 +67,7 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
                 position: "absolute",
                 top: "80%",
                 left: "50%",
+                width: "100%",
                 transform: "translate(-50%, -50%)",
 
                 "& .tab": {
@@ -85,6 +86,10 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
                     display: "none",
                   },
                 },
+                "& .MuiTabs-flexContainer": {
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                },
               }}
               TabIndicatorProps={{
                 sx: {
@@ -100,6 +105,7 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
                     label={el.title}
                     value={el.id.toString()}
                     isActive={el.id == value}
+                    component={Typography}
                     sx={{
                       color: isSpecial ? "common.white" : "common.black",
                     }}
@@ -131,12 +137,14 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
 
           <Box>
             <Tabs
+              variant="fullWidth"
               value={value}
               onChange={onChange}
               sx={[
                 {
                   "& .tab": {
                     position: "relative",
+                    // whiteSpace: "nowrap",
                     "&:before": {
                       position: "absolute",
                       content: '""',
