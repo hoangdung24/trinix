@@ -3,6 +3,7 @@ export { Button, ButtonShape } from "./Button";
 export { default as Social } from "./Social";
 export { default as Loading } from "./Loading";
 export { default as LoadingIcon } from "./LoadingIcon";
+export { default as FailToFetchData } from "./FailToFetchData";
 export { default as Spinner } from "./Spinner";
 export { default as Metadata } from "./Metadata";
 

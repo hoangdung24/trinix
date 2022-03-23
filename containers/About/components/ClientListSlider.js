@@ -1,26 +1,27 @@
-import React, { Component } from "react";
 import Slider from "react-slick";
-
+import React, { Component } from "react";
 import { Box } from "@mui/material";
-
 import { Image } from "../../../hoc";
-
-const SLIDE_TO_SHOW = 7;
 
 export default class SimpleSlider extends Component {
   render() {
+    const data = this.props?.data || [];
+    const { isMediumDesktop } = this.props;
+
     const settings = {
       infinite: true,
       speed: 500,
-      slidesToShow: SLIDE_TO_SHOW,
-      slidesToScroll: Math.floor(SLIDE_TO_SHOW / 2),
+      slidesToShow: isMediumDesktop ? 6 : 4,
+      slidesToScroll: 3,
     };
     return (
       <Slider {...settings}>
-        {[...new Array(10)].map((el, index) => {
+        {data.map((el, index) => {
+          const { image } = el.value;
+
           return (
             <Box key={index}>
-              <Image src={"/background2.png"} width={150} height={150} objectFit="cover" />
+              <Image src={image} width={150} height={150} objectFit="cover" />
             </Box>
           );
         })}

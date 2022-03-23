@@ -1,37 +1,55 @@
 import { useRef } from "react";
+import { useHoverDirty } from "react-use";
 
 import { styled, Button, Typography, Box } from "@mui/material";
-import { useHoverDirty } from "react-use";
+
+import { useDevice } from "../../hooks";
 
 import { Image } from "../../hoc";
 
-const ButtonBack = ({ position, title, ...props }) => {
+const ButtonShape = ({ position, title, ...props }) => {
   const ref = useRef(null);
-
+  const { isTablet } = useDevice();
   const isHovering = useHoverDirty(ref);
 
   return (
-    <ButtonStyled ref={ref} {...props}>
-      <BackgroundSvg position={position} isHovering={isHovering}>
-        <Image
-          layout="fixed"
-          src="/gradient-triangle-shape.svg"
-          width="38px"
-          height="32px"
-          alt="Trinix"
-          placeholder="empty"
-        />
-      </BackgroundSvg>
-      <Title variant="title2">{title}</Title>
+    <ButtonStyled ref={ref} isTablet={isTablet} {...props}>
+      {!isTablet && (
+        <BackgroundSvg position={position} isHovering={isHovering}>
+          <Image
+            layout="fixed"
+            src="/gradient-triangle-shape.svg"
+            width="38px"
+            height="32px"
+            alt="Trinix"
+            placeholder="empty"
+          />
+        </BackgroundSvg>
+      )}
+
+      <Title
+        variant={isTablet ? "category" : "title2"}
+        sx={[
+          isTablet && {
+            textTransform: "uppercase",
+          },
+        ]}
+      >
+        {title}
+      </Title>
     </ButtonStyled>
   );
 };
 
-export default ButtonBack;
+export default ButtonShape;
 
 // Styled Sheet
 
-const ButtonStyled = styled(Button)(({ theme }) => {
+const ButtonStyled = styled(Button, {
+  shouldForwardProp: (prop) => {
+    return prop !== "isTablet";
+  },
+})(({ theme, isTablet }) => {
   return {
     position: "relative",
     whiteSpace: "nowrap",
@@ -42,6 +60,9 @@ const ButtonStyled = styled(Button)(({ theme }) => {
     "&:hover": {
       backgroundColor: "unset",
     },
+    ...(isTablet && {
+      justifyContent: "flex-start",
+    }),
   };
 });
 
