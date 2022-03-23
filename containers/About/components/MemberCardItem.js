@@ -4,11 +4,11 @@ import { Image } from "../../../hoc";
 
 import { Headline } from "../../../components";
 
-const MemberCardItem = () => {
+const MemberCardItem = ({ name, title, image }) => {
   return (
     <Stack justifyContent="center" alignItems={"center"} marginBottom={5}>
       <Image
-        src={"/background2.png"}
+        src={image}
         width={300}
         height={300}
         alt={""}
@@ -26,14 +26,14 @@ const MemberCardItem = () => {
           textAlign: "center",
         }}
       >
-        <Headline variant="h2">Name</Headline>
+        <Headline variant="h2">{name}</Headline>
         <Typography
           variant="title1"
           sx={{
             fontWeight: 700,
           }}
         >
-          Title
+          {title}
         </Typography>
       </Box>
     </Stack>

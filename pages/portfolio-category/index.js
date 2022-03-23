@@ -38,7 +38,7 @@ export async function getServerSideProps({ params, query }) {
       props: {
         portfolioCategory: portfolioCategory,
         portfolioCategoryDetail: portfolioCategoryDetail,
-      }, // will be passed to the page component as props
+      },
     };
   } catch {
     return {

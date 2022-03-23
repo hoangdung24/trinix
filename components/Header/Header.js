@@ -1,22 +1,23 @@
 import { useRouter } from "next/router";
 
-import { Stack, Box, IconButton } from "@mui/material";
-
-import MenuIcon from "@mui/icons-material/Menu";
+import { Stack, Box, Typography } from "@mui/material";
 
 import { Image } from "../../hoc";
 import { Navbar, GridContainer, Social } from "../../components";
 import { useDevice } from "../../hooks";
 
+import Hamberger from "./Hamberger";
+
 const Header = () => {
-  const { isMobile } = useDevice();
+  const { isMobile, isDesktop, isTablet } = useDevice();
   const router = useRouter();
 
-  if (isMobile) {
+  if (isTablet) {
     return (
       <Box
         sx={{
           width: "100%",
+          minHeight: "64px",
           background: (theme) => {
             return theme.palette.common.black;
           },
@@ -30,16 +31,46 @@ const Header = () => {
             },
           }}
         >
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={[
+              isMobile && {
+                height: 40,
+              },
+            ]}
+          >
             <Stack direction="row" justifyContent="center" alignItems="center">
-              <IconButton
+              <Box
                 sx={{
-                  color: "common.white",
+                  position: "relative",
+                  width: 40,
+                  height: 40,
                 }}
               >
-                <MenuIcon />
-              </IconButton>
-              <Image src="/logo-trinix.svg" alt="Trinix" width="75px" height="30px" />
+                <Box
+                  sx={{
+                    position: "fixed",
+                    zIndex: "999",
+                  }}
+                >
+                  <Hamberger />
+                </Box>
+              </Box>
+              {router.pathname === "/" ? (
+                <Typography
+                  variant="categoryBold"
+                  sx={{
+                    color: "common.white",
+                    lineHeight: "16px",
+                  }}
+                >
+                  MENU
+                </Typography>
+              ) : (
+                <Image src="/logo-trinix.svg" alt="Trinix" width="75px" height="30px" />
+              )}
             </Stack>
             <Social />
           </Stack>

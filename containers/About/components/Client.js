@@ -1,10 +1,15 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Typography, styled, Grid } from "@mui/material";
 
 import { GridContainer } from "../../../components";
 
-import ClientList from "./ClientList";
+import ClientListSlider from "./ClientListSlider";
 
-const Client = () => {
+import { useDevice } from "../../../hooks";
+import { Image } from "../../../hoc";
+
+const Client = ({ data }) => {
+  const { isDesktop, isMediumDesktop } = useDevice();
+
   return (
     <Box>
       <TitleWrapper>
@@ -26,9 +31,35 @@ const Client = () => {
       </TitleWrapper>
 
       <GridContainer>
-        <Box marginY={8}>
-          <ClientList />
-        </Box>
+        {isDesktop ? (
+          <Box marginY={8}>
+            <ClientListSlider
+              {...{
+                data,
+                isMediumDesktop,
+              }}
+            />
+          </Box>
+        ) : (
+          <Grid container spacing={4}>
+            {data.map((el, idx) => {
+              const { image } = el.value;
+
+              return (
+                <Grid item xs={6} sm={4} key={idx}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Image src={image} width={150} height={150} objectFit="cover" />
+                  </Box>
+                </Grid>
+              );
+            })}
+          </Grid>
+        )}
       </GridContainer>
     </Box>
   );
