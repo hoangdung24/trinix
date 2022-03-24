@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
+import { useDevice } from "../../hooks";
+
 const TRANSITION = "all 0.5s";
 
 const ButtonSeeOurProject = ({
@@ -14,9 +16,11 @@ const ButtonSeeOurProject = ({
   IconProps = {},
   ...props
 }) => {
+  const { isMobile } = useDevice();
+
   return (
-    <ButtonStyled isBackground={isBackground} isIcon={isIcon} {...props}>
-      <Title className="text" variant="title2">
+    <ButtonStyled isBackground={isBackground} isIcon={isIcon} isMobile {...props}>
+      <Title className="text" variant={isMobile ? "categoryBold" : "title2"}>
         {title}
         {isUnderline && <Underline className="underline" />}
       </Title>
@@ -29,9 +33,9 @@ export default ButtonSeeOurProject;
 
 const ButtonStyled = styled(Button, {
   shouldForwardProp: (prop) => {
-    return prop !== "isBackground" && prop !== "isIcon";
+    return prop !== "isBackground" && prop !== "isIcon" && prop !== "isMobile";
   },
-})(({ theme, isBackground, isIcon }) => {
+})(({ theme, isBackground, isIcon, isMobile }) => {
   const blackColor = theme.palette.common.black;
   const borderWidth = "2px";
 
@@ -39,10 +43,13 @@ const ButtonStyled = styled(Button, {
     textTransform: "unset",
     whiteSpace: "nowrap",
     maxWidth: "fit-content",
-    paddingLeft: theme.spacing(1.5),
-    paddingRight: isIcon ? theme.spacing(4) : theme.spacing(1.5),
-    paddingTop: theme.spacing(1.125),
-    paddingBottom: theme.spacing(1.125),
+    // paddingLeft: theme.spacing(1.5),
+    // paddingRight: isIcon ? theme.spacing(4) : theme.spacing(1.5),
+    // paddingTop: theme.spacing(1.125),
+    // paddingBottom: theme.spacing(1.125),
+    padding: isMobile
+      ? theme.spacing(0.5, isIcon ? 2 : 1.125, 0.5, 1.125)
+      : theme.spacing(1.125, isIcon ? 4 : 1.5, 1.125, 1.125),
     position: "relative",
     transition: TRANSITION,
     "&:hover": {

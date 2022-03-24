@@ -11,7 +11,7 @@ import { PAGES, CONTACT } from "../../api";
 import { NAVBAR } from "../../routes";
 import { useDevice } from "../../hooks";
 
-const Contact = dynamic(import("../Contact"));
+const Contact = dynamic(import("../Contact/Contact"));
 
 const NavList = ({ passHandler = () => {} }) => {
   const router = useRouter();
@@ -45,7 +45,6 @@ const NavList = ({ passHandler = () => {} }) => {
         if (el.route === "/contact") {
           onClick = () => {
             toggle(true);
-            passHandler();
           };
         } else {
           onClick = () => {
@@ -90,6 +89,7 @@ const NavList = ({ passHandler = () => {} }) => {
           toggle,
           data,
           error,
+          passHandler,
         }}
       />
     </Stack>
