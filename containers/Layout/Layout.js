@@ -1,6 +1,10 @@
-import { SettingConfig } from "../../contexts";
+import { useMemo } from "react";
+
+import { useRouter } from "next/router";
 
 import { Box } from "@mui/material";
+
+import { SettingConfig } from "../../contexts";
 
 import { Footer, Header, Footer2 } from "../../components";
 
@@ -8,6 +12,15 @@ import { useDevice } from "../../hooks";
 
 const Layout = ({ children }) => {
   const { isMobile } = useDevice();
+  const router = useRouter();
+
+  const footerComponent = useMemo(() => {
+    if (router.pathname === "/") {
+      return null;
+    }
+
+    return !isMobile ? <Footer /> : <Footer2 />;
+  }, [router]);
 
   return (
     <Box
@@ -34,7 +47,7 @@ const Layout = ({ children }) => {
           {children}
         </Box>
 
-        {!isMobile ? <Footer /> : <Footer2 />}
+        {footerComponent}
       </SettingConfig>
     </Box>
   );

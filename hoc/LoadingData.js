@@ -1,6 +1,6 @@
 import { LoadingIcon, FailToFetchData, GridContainer } from "../components";
 
-const LoadingData = ({ data, error, children }) => {
+const LoadingData = ({ data, error, children, ...props }) => {
   if (error) {
     return (
       <GridContainer>
@@ -17,7 +17,7 @@ const LoadingData = ({ data, error, children }) => {
     );
   }
 
-  return children;
+  return children({ data, ...props });
 };
 
 export default LoadingData;

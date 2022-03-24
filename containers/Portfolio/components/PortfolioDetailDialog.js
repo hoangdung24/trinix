@@ -1,6 +1,5 @@
 import React from "react";
 import createDOMPurify from "dompurify";
-import NextImage from "next/image";
 
 import {
   Dialog,
@@ -98,7 +97,6 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
       </DialogTitle>
       <DialogContent
         sx={{
-          // backgroundColor: isSpecial ? "common.black" : "common.white",
           backgroundColor: background_color,
           wordBreak: "break-word",
           overflowX: "hidden",

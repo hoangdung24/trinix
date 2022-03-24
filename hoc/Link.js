@@ -67,3 +67,5 @@ const NextLinkComposed = forwardRef((props, ref) => {
     </NextLink>
   );
 });
+
+export default Link;

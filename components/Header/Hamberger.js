@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
-import { Stack, Box, IconButton, Slide, styled } from "@mui/material";
+import { Box, IconButton, Slide, styled } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 

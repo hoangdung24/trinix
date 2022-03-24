@@ -9,7 +9,7 @@ import { useDevice } from "../../hooks";
 import Hamberger from "./Hamberger";
 
 const Header = () => {
-  const { isMobile, isDesktop, isTablet } = useDevice();
+  const { isMobile, isTablet } = useDevice();
   const router = useRouter();
 
   if (isTablet) {
@@ -53,6 +53,7 @@ const Header = () => {
                   sx={{
                     position: "fixed",
                     zIndex: "999",
+                    backgroundColor: "black",
                   }}
                 >
                   <Hamberger />

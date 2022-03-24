@@ -17,7 +17,6 @@ const CategoryPortfolioCard = ({
   title,
   subtitle,
   thumbnail_image,
-  meta,
   width,
   counter,
   height = 450,
