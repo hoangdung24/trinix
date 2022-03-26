@@ -1,20 +1,14 @@
 import createDOMPurify from "dompurify";
 import { useRouter } from "next/router";
-
+import { Player } from "video-react";
 import { Box, Grid, useTheme } from "@mui/material";
-// background_color: "#000000"
-// banner: "http://trinix.t-solution.vn/media/original_images/0f06cf09cfdc389afb90d2bbb3467fbb.jpeg"
-// banner_video: {file: 'http://trinix.t-solution.vn/media/media/outputcompress-video-online.com.mp4', type: 'video', duration: 0, thumbnail: null}
-// description: "<p data-block-key=\"g1ys2\">WELCOME</p><p data-block-key=\"agmv4\">WE ARE TRINIX</p><p data-block-key=\"ev6je\">WE CREATE REALITY WITH YOUR THOUGHTS</p>"
-// description_color: "#ffffff"
-// id: 15
-// meta: {type: 'home.HomePage', detail_url: 'https://trinix.t-solution.vn/api/v2/pages/15/', url_path: '/homepage/', slug: 'homepage', seo_title: '', …}
-// title: "HomePage
 
 import { Button } from "../../components";
 import { Image } from "../../hoc";
 import { ROUTES } from "../../routes";
 import { useDevice, useSetting } from "../../hooks";
+
+import Video from "./components/Video";
 
 const Home = ({ initData, ...props }) => {
   const router = useRouter();
@@ -31,10 +25,6 @@ const Home = ({ initData, ...props }) => {
       sx={{
         backgroundColor: background_color,
         width: "100vw",
-        // height: "100vh",
-        // maxHeight: "100vh",
-        // minHeight: "100vh",
-        // maxHeight: isMobile ? `calc(100vh - 64px)` : "100vh",
       }}
     >
       <Grid
@@ -59,31 +49,40 @@ const Home = ({ initData, ...props }) => {
             isTablet && {
               order: 2,
               height: 1,
-              // height: "fit-content",
             },
           ]}
         >
-          {/* height={isTablet ? "300px" : "100%"} */}
-          <Image
-            src={banner}
-            width="100%"
-            WrapperProps={{
-              sx: {
-                height: (theme) => {
-                  if (isMobile) {
-                    return "300px";
-                  }
+          {banner_video ? (
+            <Box
+              height="100%"
+              sx={{
+                pointerEvents: "none",
+              }}
+            >
+              <Video src={banner_video.file} />
+            </Box>
+          ) : (
+            <Image
+              src={banner}
+              width="100%"
+              WrapperProps={{
+                sx: {
+                  height: (theme) => {
+                    if (isMobile) {
+                      return "300px";
+                    }
 
-                  if (isTablet) {
-                    return "400px";
-                  }
+                    if (isTablet) {
+                      return "400px";
+                    }
 
-                  return 1;
+                    return 1;
+                  },
                 },
-              },
-            }}
-            objectFit="cover"
-          />
+              }}
+              objectFit="cover"
+            />
+          )}
         </Grid>
 
         <Grid

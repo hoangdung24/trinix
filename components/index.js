@@ -6,6 +6,7 @@ export { default as LoadingIcon } from "./LoadingIcon";
 export { default as FailToFetchData } from "./FailToFetchData";
 export { default as Spinner } from "./Spinner";
 export { default as Metadata } from "./Metadata";
+export { DetailArticleDialog } from "./Dialog";
 
 export { TopBanner, PortfolioCategoryBanner } from "./Banner";
 

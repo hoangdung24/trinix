@@ -1,8 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import { TopBanner, GridContainer } from "../../../components";
 
-import { TopBanner, GridContainer } from "../../components";
-
-const Blog = () => {
+const Banner = ({ imageSrc }) => {
   return (
     <Box
       sx={{
@@ -20,8 +19,7 @@ const Blog = () => {
         },
       }}
     >
-      <TopBanner imageSrc={"/background2.png"} />
-
+      <TopBanner imageSrc={imageSrc} />
       <Box
         sx={{
           position: "absolute",
@@ -65,4 +63,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Banner;

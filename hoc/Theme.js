@@ -86,5 +86,3 @@ export default ({ children }) => {
     </ThemeProvider>
   );
 };
-
-//  add new

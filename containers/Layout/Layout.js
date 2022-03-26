@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
     }
 
     return !isMobile ? <Footer /> : <Footer2 />;
-  }, [router]);
+  }, [router, isMobile]);
 
   return (
     <Box

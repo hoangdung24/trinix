@@ -43,10 +43,6 @@ const ButtonStyled = styled(Button, {
     textTransform: "unset",
     whiteSpace: "nowrap",
     maxWidth: "fit-content",
-    // paddingLeft: theme.spacing(1.5),
-    // paddingRight: isIcon ? theme.spacing(4) : theme.spacing(1.5),
-    // paddingTop: theme.spacing(1.125),
-    // paddingBottom: theme.spacing(1.125),
     padding: isMobile
       ? theme.spacing(0.5, isIcon ? 2 : 1.125, 0.5, 1.125)
       : theme.spacing(1.125, isIcon ? 4 : 1.5, 1.125, 1.125),

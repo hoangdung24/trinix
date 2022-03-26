@@ -11,6 +11,8 @@ const About = ({ aboutData }) => {
 
   const { isMobile } = useDevice();
 
+  console.log(aboutData);
+
   return (
     <Box>
       <Box
@@ -46,7 +48,7 @@ const About = ({ aboutData }) => {
                 userSelect: "none",
                 position: "absolute",
                 left: "50%",
-                bottom: isMobile ? 0 : "50%",
+                bottom: isMobile ? 0 : "35%",
                 transform: "translate(-50%, 0)",
                 width: () => {
                   return isMobile ? "85%" : null;

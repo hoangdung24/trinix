@@ -11,6 +11,7 @@ import { ErrorFallback } from "../components";
 
 import "../axios.config";
 import "../styles/globals.css";
+import "video-react/dist/video-react.css";
 import "../node_modules/nprogress/nprogress.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
