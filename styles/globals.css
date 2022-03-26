@@ -19,7 +19,7 @@
 }
 
 .spinner-route > div {
-  background-color: #011021;
+  background-color: #fff;
   height: 100%;
   width: 6px;
   display: inline-block;
@@ -86,4 +86,12 @@
 
 .text-justify {
   text-align: justify;
+}
+
+.video-react-big-play-button {
+  display: none !important;
+}
+
+.video-react-video {
+  object-fit: cover;
 }

@@ -2,6 +2,7 @@ export const DOMAIN_NAME = "https://trinix.t-solution.vn";
 
 export const SETTING = "/api/v2";
 export const PAGES = "/api/v2/pages";
+export const TAGS = "/api/v2/blog-tags";
 
 // ?type=
 // portfolio.PortfolioCategoryListingPage

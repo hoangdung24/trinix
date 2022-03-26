@@ -6,12 +6,24 @@ import { Image } from "../../../hoc";
 export default class SimpleSlider extends Component {
   render() {
     const data = this.props?.data || [];
-    const { isMediumDesktop } = this.props;
+    const { isMobile, isTablet, isDesktop, isMediumDesktop } = this.props;
+
+    let slidesToShow = 4;
+
+    if (isMobile) {
+      slidesToShow = 3;
+    } else if (isTablet) {
+      slidesToShow = 3;
+    } else if (isMediumDesktop) {
+      slidesToShow = 6;
+    } else {
+      slidesToShow = 5;
+    }
 
     const settings = {
       infinite: true,
       speed: 500,
-      slidesToShow: isMediumDesktop ? 6 : 4,
+      slidesToShow: slidesToShow,
       slidesToScroll: 3,
     };
     return (
@@ -21,7 +33,15 @@ export default class SimpleSlider extends Component {
 
           return (
             <Box key={index}>
-              <Image src={image} width={150} height={150} objectFit="cover" />
+              <Image
+                src={image}
+                width={isMobile ? 80 : 150}
+                height={isMobile ? 80 : 150}
+                objectFit="cover"
+                WrapperProps={{
+                  marginX: "auto",
+                }}
+              />
             </Box>
           );
         })}

@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import createDOMPurify from "dompurify";
 
 import {
@@ -10,36 +10,26 @@ import {
   styled,
   Stack,
   IconButton,
-  Fade,
   Button,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-import { useSetting } from "../../../hooks";
-import { Image } from "../../../hoc";
+import { useSetting, useDevice } from "../../hooks";
+import { Image } from "../../hoc";
 
-import { GridContainer, Footer2 as Footer } from "../../../components";
-import { useDevice } from "../../../hooks";
+import { GridContainer, Footer2 as Footer, Headline } from "../../components";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return (
-    <Fade
-      ref={ref}
-      {...props}
-      timeout={{
-        enter: 500,
-        exit: 500,
-      }}
-    />
-  );
-});
-
-const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props }) => {
+const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
   const { studio_logo } = useSetting();
-  const { title, body = [], background_color } = props;
   const { isMobile } = useDevice();
+
+  if (selectedPost === null) {
+    return null;
+  }
+
+  const { title, tags, background_color, body } = selectedPost;
 
   return (
     <Dialog
@@ -48,7 +38,6 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
         toggle(false);
       }}
       fullScreen
-      TransitionComponent={Transition}
       keepMounted
     >
       <DialogTitle>
@@ -57,15 +46,26 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             <Stack direction={"row"} spacing={2}>
               <Image src={studio_logo} width={200} height={50} />
               <Stack>
-                <Typography
-                  variant="title2"
-                  sx={{
-                    textTransformz: "uppercase",
-                  }}
-                >
-                  {title}
-                </Typography>
-                <Typography variant="category">{categoryMeta?.title}</Typography>
+                <Box marginBottom={0.5}>
+                  <Typography
+                    variant="title2"
+                    sx={{
+                      textTransformz: "uppercase",
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                </Box>
+
+                <Stack direction="row" spacing={1}>
+                  {tags.map((el, idx) => {
+                    return (
+                      <Headline key={idx} variant="category">
+                        {el}
+                      </Headline>
+                    );
+                  })}
+                </Stack>
               </Stack>
             </Stack>
           )}
@@ -116,11 +116,10 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             <Stack
               alignItems="center"
               sx={{
-                color: isSpecial ? "common.white" : "common.black",
+                textAlign: "center",
               }}
             >
-              <Typography variant="h1">{title}</Typography>
-              <Typography variant="category">{categoryMeta?.title}</Typography>
+              <Typography variant="h2">{title}</Typography>
             </Stack>
           )}
 
@@ -174,7 +173,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             }
           })}
         </Box>
-        <Footer isSpecial={isSpecial} />
+        <Footer isSpecial={false} />
       </DialogContent>
     </Dialog>
   );

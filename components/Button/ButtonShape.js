@@ -7,7 +7,14 @@ import { useDevice } from "../../hooks";
 
 import { Image } from "../../hoc";
 
-const ButtonShape = ({ position, title, ...props }) => {
+const ButtonShape = ({
+  position,
+  title,
+  TitleProps,
+  alwaysVisible = false,
+  useSolid = false,
+  ...props
+}) => {
   const ref = useRef(null);
   const { isTablet } = useDevice();
   const isHovering = useHoverDirty(ref);
@@ -15,10 +22,23 @@ const ButtonShape = ({ position, title, ...props }) => {
   return (
     <ButtonStyled ref={ref} isTablet={isTablet} {...props}>
       {!isTablet && (
-        <BackgroundSvg position={position} isHovering={isHovering}>
+        <BackgroundSvg position={position} isHovering={isHovering || alwaysVisible}>
           <Image
             layout="fixed"
-            src="/gradient-triangle-shape.svg"
+            src={useSolid ? "/solid-triangle-shape.svg" : "/gradient-triangle-shape.svg"}
+            width="38px"
+            height="32px"
+            alt="Trinix"
+            placeholder="empty"
+          />
+        </BackgroundSvg>
+      )}
+
+      {alwaysVisible && (
+        <BackgroundSvg position={position} isHovering={alwaysVisible}>
+          <Image
+            layout="fixed"
+            src={useSolid ? "/solid-triangle-shape.svg" : "/gradient-triangle-shape.svg"}
             width="38px"
             height="32px"
             alt="Trinix"
@@ -34,6 +54,7 @@ const ButtonShape = ({ position, title, ...props }) => {
             textTransform: "uppercase",
           },
         ]}
+        {...TitleProps}
       >
         {title}
       </Title>

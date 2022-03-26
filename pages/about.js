@@ -12,7 +12,7 @@ export default AboutPage;
 
 export async function getServerSideProps({ params, query }) {
   try {
-    const urls = [`${PAGES}?type=${ABOUT}&fields=*`];
+    const urls = [`${PAGES}?type=${ABOUT}&fields=*&limit=100`];
 
     const resList = await Promise.all(
       urls.map((url) =>

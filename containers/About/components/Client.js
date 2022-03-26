@@ -8,7 +8,7 @@ import { useDevice } from "../../../hooks";
 import { Image } from "../../../hoc";
 
 const Client = ({ data }) => {
-  const { isDesktop, isMediumDesktop } = useDevice();
+  const { isMobile, isTablet, isMediumDesktop, isDesktop } = useDevice();
 
   return (
     <Box>
@@ -31,7 +31,19 @@ const Client = ({ data }) => {
       </TitleWrapper>
 
       <GridContainer>
-        {isDesktop ? (
+        <Box marginY={8}>
+          <ClientListSlider
+            {...{
+              data,
+              isMediumDesktop,
+              isMobile,
+              isTablet,
+              isDesktop,
+            }}
+          />
+        </Box>
+
+        {/* {isDesktop ? (
           <Box marginY={8}>
             <ClientListSlider
               {...{
@@ -59,7 +71,7 @@ const Client = ({ data }) => {
               );
             })}
           </Grid>
-        )}
+        )} */}
       </GridContainer>
     </Box>
   );
