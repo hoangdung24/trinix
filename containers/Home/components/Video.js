@@ -1,22 +1,9 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef } from "react";
 
 import { Player, ControlBar } from "video-react";
 
 const Video = ({ src }) => {
-  console.log(src);
-
   const ref = useRef(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      // ref.current.subscribeToStateChange(test);
-      // console.log(ref.current.getState().player);
-    }
-  }, [ref]);
-
-  const test = useCallback((...props) => {
-    console.log(props);
-  }, []);
 
   return (
     <Player

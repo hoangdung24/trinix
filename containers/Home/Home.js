@@ -1,6 +1,5 @@
 import createDOMPurify from "dompurify";
 import { useRouter } from "next/router";
-import { Player } from "video-react";
 import { Box, Grid, useTheme } from "@mui/material";
 
 import { Button } from "../../components";
@@ -32,12 +31,8 @@ const Home = ({ initData, ...props }) => {
         sx={[
           {
             width: "100%",
-            maxHeight: "100vh",
             minHeight: "100vh",
           },
-          // isMobile && {
-          //   flexDirection: "column",
-          // },
         ]}
       >
         <Grid
@@ -54,9 +49,19 @@ const Home = ({ initData, ...props }) => {
         >
           {banner_video ? (
             <Box
-              height="100%"
               sx={{
                 pointerEvents: "none",
+                height: (theme) => {
+                  if (isMobile) {
+                    return "300px";
+                  }
+
+                  if (isTablet) {
+                    return "400px";
+                  }
+
+                  return 1;
+                },
               }}
             >
               <Video src={banner_video.file} />
