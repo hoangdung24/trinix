@@ -21,14 +21,14 @@ const CategoryPortfolioCard = ({
   counter,
   height = 450,
 }) => {
-  const { isMobile } = useDevice();
+  const { isTablet } = useDevice();
 
   if (width === undefined) {
     width = height;
   }
   const router = useRouter();
 
-  if (!isMobile) {
+  if (!isTablet) {
     return (
       <Wrapper height={height}>
         <GridContainer>
@@ -50,7 +50,7 @@ const CategoryPortfolioCard = ({
                 <Box
                   sx={{
                     position: "absolute",
-                    left: "-30px",
+                    left: "-10px",
                     bottom: "-5px",
                     transform: "scaleX(-1)",
                   }}
@@ -136,7 +136,6 @@ const CategoryPortfolioCard = ({
         >
           <Box
             sx={{
-              transform: "scaleX(-1)",
               position: "absolute",
               bottom: 0,
               left: 0,
@@ -162,6 +161,7 @@ const CategoryPortfolioCard = ({
               position: "absolute",
               bottom: 0,
               right: 0,
+              transform: "scaleX(-1)",
             }}
           >
             <Image src={"/solid-triangle-shape.svg"} width="35px" height="30px" />

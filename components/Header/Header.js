@@ -52,7 +52,7 @@ const Header = () => {
                 <Box
                   sx={{
                     position: "fixed",
-                    zIndex: "999",
+                    zIndex: 1301,
                     backgroundColor: "black",
                   }}
                 >

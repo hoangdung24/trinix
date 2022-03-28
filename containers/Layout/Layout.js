@@ -11,7 +11,7 @@ import { Footer, Header, Footer2 } from "../../components";
 import { useDevice } from "../../hooks";
 
 const Layout = ({ children }) => {
-  const { isMobile } = useDevice();
+  const { isMobile, isTablet } = useDevice();
   const router = useRouter();
 
   const footerComponent = useMemo(() => {
@@ -19,8 +19,8 @@ const Layout = ({ children }) => {
       return null;
     }
 
-    return !isMobile ? <Footer /> : <Footer2 />;
-  }, [router, isMobile]);
+    return !isTablet ? <Footer /> : <Footer2 />;
+  }, [router, isTablet]);
 
   return (
     <Box
