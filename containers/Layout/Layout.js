@@ -19,8 +19,12 @@ const Layout = ({ children }) => {
       return null;
     }
 
+    if (router.pathname === "/contact" && isTablet) {
+      return null;
+    }
+
     return !isTablet ? <Footer /> : <Footer2 />;
-  }, [router, isTablet]);
+  }, [router, isTablet, isMobile]);
 
   return (
     <Box

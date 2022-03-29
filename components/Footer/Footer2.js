@@ -5,13 +5,13 @@ import { Social } from "../../components";
 
 const Footer = ({ isSpecial }) => {
   const { studio_logo, gaming_logo, footer_background, ...props } = useSetting();
-  const { isMobile } = useDevice();
+  const { isMobile, isTablet, isDesktop } = useDevice();
 
   return (
     <BoxWrapper
       sx={{
-        height: !isMobile ? 800 : 272,
-        minHeight: !isMobile ? 800 : 272,
+        height: isMobile ? 400 : isTablet ? 600 : 800,
+        minHeight: isMobile ? 400 : isTablet ? 600 : 800,
       }}
     >
       <Box
@@ -20,6 +20,7 @@ const Footer = ({ isSpecial }) => {
           left: "50%",
           top: "15%",
           transform: "translateX(-50%)",
+          width: isMobile ? "90%" : null,
         }}
       >
         <Stack direction="column" justifyContent={"center"} alignItems={"center"} spacing={4}>
@@ -46,10 +47,17 @@ const Footer = ({ isSpecial }) => {
       </Box>
       <BackgroundEffect
         sx={{
-          height: !isMobile ? 800 : 272,
+          height: isMobile ? 400 : isTablet ? 600 : 800,
         }}
-        footer_background={footer_background}
-      />
+      >
+        <Image
+          src={footer_background}
+          width="100%"
+          height="100%"
+          objectFit="cover"
+          objectPosition="bottom"
+        />
+      </BackgroundEffect>
     </BoxWrapper>
   );
 };
@@ -73,14 +81,14 @@ const BackgroundEffect = styled(Box, {
   shouldForwardProp: (prop) => {
     return prop !== "footer_background";
   },
-})(({ theme, footer_background }) => {
+})(({ theme }) => {
   return {
     position: "absolute",
     bottom: 0,
     left: 0,
     width: "100%",
-    backgroundImage: `url('${footer_background}')`,
-    backgroundPosition: "bottom",
+    height: "100%",
+    pointerEvents: "none",
     objectFit: "contain",
     objectPosition: "center bottom",
   };
