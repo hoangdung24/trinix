@@ -7,9 +7,9 @@ import { Button, Headline, Social } from "../../components";
 
 const ContactContent = ({ data }) => {
   const setting = useSetting();
-  const { isMediumDesktop } = useDevice();
+  const { isTablet, isMediumDesktop } = useDevice();
 
-  const { addresses, work_with_us_link } = setting;
+  const { addresses, work_with_us_link, footer_background } = setting;
 
   const businessInfo = addresses?.[0];
 
@@ -41,14 +41,18 @@ const ContactContent = ({ data }) => {
               }),
             }}
           >
-            <Headline
-              variant="h1"
-              sx={{
-                marginBottom: 6,
-              }}
-            >
-              Contact Us
-            </Headline>
+            <Wrapper>
+              <Headline
+                variant={isTablet ? "title1" : "h1"}
+                sx={[
+                  isTablet && {
+                    fontWeight: 700,
+                  },
+                ]}
+              >
+                Contact Us
+              </Headline>
+            </Wrapper>
 
             <Wrapper>
               <SubTitle variant="categoryBold">Address:</SubTitle>
@@ -81,7 +85,7 @@ const ContactContent = ({ data }) => {
                 <Button
                   title="WORK WITH US"
                   onClick={() => {
-                    window.location(work_with_us_link);
+                    window.location = work_with_us_link;
                   }}
                   isIcon={false}
                   isBackground={false}
@@ -92,13 +96,13 @@ const ContactContent = ({ data }) => {
               </Box>
             )}
 
-            {!isMediumDesktop && (
-              <Box
-                sx={{
-                  paddingY: 5,
-                }}
-              ></Box>
-            )}
+            <Image
+              src={footer_background}
+              width="100%"
+              height="150px"
+              objectFit="cover"
+              objectPosition="bottom"
+            />
           </Box>
         </Box>
       </Grid>

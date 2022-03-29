@@ -10,7 +10,7 @@ const Tag = ({ items, selectedItem, ...props }) => {
   }, []);
 
   return (
-    <Stack spacing={2} direction="row">
+    <Stack spacing={2} direction="row" flexWrap={"wrap"}>
       {items.map((el) => {
         return (
           <Chip
@@ -19,6 +19,9 @@ const Tag = ({ items, selectedItem, ...props }) => {
             variant={selectedItem === el ? "filled" : "outlined"}
             clickable
             onClick={onClick(el)}
+            sx={{
+              marginBottom: 1,
+            }}
           />
         );
       })}
