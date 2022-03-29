@@ -14,7 +14,7 @@ const Hamberger = () => {
         sx={{
           color: "common.white",
         }}
-        onClick={() => {
+        onClick={(e) => {
           setIsOpen((prev) => {
             return !prev;
           });

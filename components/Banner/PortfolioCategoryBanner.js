@@ -7,7 +7,7 @@ import { useDevice } from "../../hooks";
 import get from "lodash/get";
 
 const PortfolioCategoryBanner = ({ data }) => {
-  const { isMobile } = useDevice();
+  const { isTablet } = useDevice();
 
   data = get(data, "items[0]");
 
@@ -18,7 +18,7 @@ const PortfolioCategoryBanner = ({ data }) => {
         overflow: "hidden",
       }}
     >
-      {!isMobile && (
+      {!isTablet && (
         <GridContainer>
           <Content>
             <Box
@@ -53,8 +53,14 @@ const PortfolioCategoryBanner = ({ data }) => {
         </GridContainer>
       )}
 
-      {!isMobile ? (
-        <Image src={get(data, "banner")} width={1920} height={1080} alt="Trinix" />
+      {!isTablet ? (
+        <Image
+          src={get(data, "banner")}
+          width={"100%"}
+          height={1080}
+          objectFit="cover"
+          alt="Trinix"
+        />
       ) : (
         <Image
           src={get(data, "banner")}
@@ -65,7 +71,7 @@ const PortfolioCategoryBanner = ({ data }) => {
         />
       )}
 
-      {!isMobile && <Background />}
+      {!isTablet && <Background />}
     </Box>
   );
 };

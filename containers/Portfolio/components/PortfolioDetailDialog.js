@@ -14,7 +14,6 @@ import {
   Button,
 } from "@mui/material";
 
-import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import { useSetting } from "../../../hooks";
@@ -78,7 +77,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                 toggle(false);
               }}
             >
-              <CloseIcon />
+              <Image src="/close.svg" width="30px" height="35px" />
             </IconButton>
           ) : (
             <Button

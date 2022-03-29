@@ -13,7 +13,7 @@ import get from "lodash/get";
 import { useDevice } from "../../hooks";
 
 const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
-  const { isMobile } = useDevice();
+  const { isTablet } = useDevice();
 
   return (
     <Box>
@@ -26,7 +26,7 @@ const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
             marginBottom: 12,
           }}
         >
-          {!isMobile ? (
+          {!isTablet ? (
             <Headline variant="h1">WHAT WE DO...</Headline>
           ) : (
             <Box

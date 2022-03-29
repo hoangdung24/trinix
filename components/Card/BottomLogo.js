@@ -17,10 +17,10 @@ const BottomLogo = ({ ...props }) => {
   const router = useRouter();
   const isHovering = useHoverDirty(ref);
 
-  const { isMobile } = useDevice();
+  const { isTablet } = useDevice();
   const { id, thumbnail_image, invert_thumbnail_image } = props;
 
-  if (!isMobile) {
+  if (!isTablet) {
     return (
       <Wrapper ref={ref} className="bottomLogo">
         <GridContainer
