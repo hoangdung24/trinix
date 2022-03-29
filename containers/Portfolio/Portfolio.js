@@ -78,7 +78,7 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
         }}
       >
         <Box>
-          <TopBanner imageSrc={item.banner} />
+          <TopBanner imageSrc={item.banner} width="100%" objectFit="cover" />
         </Box>
       </Fade>
     );

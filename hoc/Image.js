@@ -14,7 +14,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
         sx={{
           ...{
             position: "relative",
-            maxWidth: width,
+            minWidth: width,
             width,
             height,
           },

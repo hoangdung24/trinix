@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { Box, Typography } from "@mui/material";
 import { TopBanner, GridContainer } from "../../components";
 import { Image } from "../../hoc";
@@ -9,9 +11,25 @@ const About = ({ aboutData }) => {
   const setting = useSetting();
   const data = aboutData?.items?.[0];
 
-  const { isMobile } = useDevice();
+  const { isMobile, isTablet, isDesktop, isMediumDesktop } = useDevice();
 
-  console.log(aboutData);
+  const BackgroundMemo = useMemo(() => {
+    let height = 1080;
+    let objectFit = "cover";
+    if (isMobile) {
+      height = 400;
+    } else if (isTablet) {
+      height = 600;
+    } else if (isMediumDesktop) {
+      height = 1080;
+    } else {
+      height = 800;
+    }
+
+    return (
+      <TopBanner imageSrc={data?.banner} width={"100%"} height={height} objectFit={objectFit} />
+    );
+  }, [isMobile, isTablet, data]);
 
   return (
     <Box>
@@ -20,11 +38,7 @@ const About = ({ aboutData }) => {
           position: "relative",
         }}
       >
-        {isMobile ? (
-          <TopBanner imageSrc={data?.banner} width={"100%"} height={400} objectFit="cover" />
-        ) : (
-          <TopBanner imageSrc={data?.banner} width={1920} height={1080} />
-        )}
+        {BackgroundMemo}
 
         <Box
           sx={{

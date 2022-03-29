@@ -1,12 +1,20 @@
-import { useMemo } from "react";
+import { useMemo, Fragment } from "react";
 
-import { styled, Dialog as MuiDialog, DialogContent as MuiDialogContent } from "@mui/material";
+import {
+  styled,
+  Dialog as MuiDialog,
+  DialogContent as MuiDialogContent,
+  Box,
+  IconButton,
+} from "@mui/material";
 
 import { LoadingData } from "../../hoc";
 
 import { useDevice } from "../../hooks";
 
 import ContactContent from "./ContactContent";
+
+import { Image } from "../../hoc";
 
 const Contact = ({ open, toggle, data, error, passHandler, ...props }) => {
   const { isMediumDesktop } = useDevice();
@@ -47,7 +55,26 @@ const Contact = ({ open, toggle, data, error, passHandler, ...props }) => {
           }),
         }}
       >
-        {children}
+        <Fragment>
+          {children}
+          <Box
+            sx={[
+              {
+                position: "absolute",
+                top: "5px",
+                right: "5px",
+              },
+            ]}
+          >
+            <IconButton
+              onClick={() => {
+                toggle(false);
+              }}
+            >
+              <Image src={"/close.svg"} width="30px" height="35px" />
+            </IconButton>
+          </Box>
+        </Fragment>
       </DialogContent>
     </Dialog>
   );

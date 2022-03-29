@@ -1,18 +1,21 @@
-import { Box, Typography, styled, Grid } from "@mui/material";
+import { Fragment } from "react";
+
+import { Box, Typography, styled } from "@mui/material";
 
 import { GridContainer } from "../../../components";
 
 import ClientListSlider from "./ClientListSlider";
 
 import { useDevice } from "../../../hooks";
-import { Image } from "../../../hoc";
 
 const Client = ({ data }) => {
   const { isMobile, isTablet, isMediumDesktop, isDesktop } = useDevice();
 
   return (
-    <Box>
-      <TitleWrapper>
+    <Fragment>
+      {isMobile && <LineHeight />}
+
+      <TitleWrapper isMobile={isMobile}>
         <Typography
           variant="h2"
           sx={{
@@ -22,7 +25,11 @@ const Client = ({ data }) => {
               return theme.palette.common.white;
             },
             padding: (theme) => {
-              return theme.spacing(2, 15);
+              if (isMobile) {
+                return theme.spacing(2, 2);
+              } else {
+                return theme.spacing(2, 15);
+              }
             },
           }}
         >
@@ -31,7 +38,16 @@ const Client = ({ data }) => {
       </TitleWrapper>
 
       <GridContainer>
-        <Box marginY={8}>
+        <Box
+          sx={[
+            {
+              marginY: 8,
+            },
+            isMobile && {
+              marginTop: 4,
+            },
+          ]}
+        >
           <ClientListSlider
             {...{
               data,
@@ -42,56 +58,43 @@ const Client = ({ data }) => {
             }}
           />
         </Box>
-
-        {/* {isDesktop ? (
-          <Box marginY={8}>
-            <ClientListSlider
-              {...{
-                data,
-                isMediumDesktop,
-              }}
-            />
-          </Box>
-        ) : (
-          <Grid container spacing={4}>
-            {data.map((el, idx) => {
-              const { image } = el.value;
-
-              return (
-                <Grid item xs={6} sm={4} key={idx}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Image src={image} width={150} height={150} objectFit="cover" />
-                  </Box>
-                </Grid>
-              );
-            })}
-          </Grid>
-        )} */}
       </GridContainer>
-    </Box>
+    </Fragment>
   );
 };
 
 export default Client;
 
-const TitleWrapper = styled(Box)(({ theme }) => {
+const TitleWrapper = styled(Box, {
+  shouldForwardProp: (prop) => {
+    return prop !== "isMobile";
+  },
+})(({ theme, isMobile }) => {
+  if (isMobile) {
+    return {};
+  } else {
+    return {
+      position: "relative",
+      ":before": {
+        content: '""',
+        position: "absolute",
+        backgroundColor: theme.palette.common.black,
+        height: "4px",
+        width: "100%",
+        top: "50%",
+        left: 0,
+        transform: "translateY(-50%)",
+        zIndex: -1,
+      },
+    };
+  }
+});
+
+const LineHeight = styled(Box)(({ theme }) => {
   return {
-    position: "relative",
-    ":before": {
-      content: '""',
-      position: "absolute",
-      backgroundColor: theme.palette.common.black,
-      height: "4px",
-      width: "100%",
-      top: "50%",
-      left: 0,
-      transform: "translateY(-50%)",
-      zIndex: -1,
-    },
+    height: "2px",
+    width: "60%",
+    margin: "0 auto 36px",
+    backgroundColor: theme.palette.common.black,
   };
 });

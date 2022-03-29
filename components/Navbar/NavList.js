@@ -12,7 +12,7 @@ import { PAGES, CONTACT } from "../../api";
 import { NAVBAR } from "../../routes";
 import { useDevice } from "../../hooks";
 
-const Contact = dynamic(import("../Contact/Contact"));
+const ContactPopup = dynamic(import("../Contact/ContactPopup"));
 
 const NavList = ({ passHandler = () => {} }) => {
   const router = useRouter();
@@ -102,7 +102,7 @@ const NavList = ({ passHandler = () => {} }) => {
         })}
       </Stack>
 
-      <Contact
+      <ContactPopup
         {...{
           open,
           toggle,

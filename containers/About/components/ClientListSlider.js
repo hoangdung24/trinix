@@ -6,7 +6,7 @@ import { Image } from "../../../hoc";
 export default class SimpleSlider extends Component {
   render() {
     const data = this.props?.data || [];
-    const { isMobile, isTablet, isDesktop, isMediumDesktop } = this.props;
+    const { isMobile, isTablet, isMediumDesktop } = this.props;
 
     let slidesToShow = 4;
 
