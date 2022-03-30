@@ -62,18 +62,20 @@ const About = ({ aboutData }) => {
                 userSelect: "none",
                 position: "absolute",
                 left: "50%",
-                bottom: isMobile ? 0 : "35%",
+                bottom: isTablet ? 0 : "35%",
                 transform: "translate(-50%, 0)",
                 width: () => {
-                  return isMobile ? "85%" : null;
+                  return isTablet ? "85%" : null;
                 },
               }}
             >
               <Box>
                 {isMobile ? (
-                  <Image src={setting?.studio_logo} width="250px" height="90px" />
+                  <Image src={data?.front_image} width="250px" height="90px" />
+                ) : isTablet ? (
+                  <Image src={data?.front_image} width="350px" height="120px" />
                 ) : (
-                  <Image src={setting?.studio_logo} width="600px" height="300px" />
+                  <Image src={data?.front_image} width="600px" height="300px" />
                 )}
               </Box>
 
@@ -85,7 +87,7 @@ const About = ({ aboutData }) => {
                   },
                   height: 4,
                   backgroundColor: "common.black",
-                  marginTop: 6,
+                  marginTop: 0,
                   marginBottom: 2,
                 }}
               />
@@ -120,10 +122,10 @@ const About = ({ aboutData }) => {
         </Box>
       </Box>
       <Box
-        maxWidth={"50%"}
+        maxWidth={"60%"}
         marginX="auto"
         sx={[
-          isMobile && {
+          isTablet && {
             marginTop: 8,
           },
         ]}

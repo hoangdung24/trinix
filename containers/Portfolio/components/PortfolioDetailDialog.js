@@ -127,7 +127,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             const { block_type, value } = el;
 
             if (block_type === "richtext") {
-              const { content, text_color } = value;
+              const { content, text_color, text_alignment } = value;
 
               return (
                 <GridContainer
@@ -144,6 +144,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                   <div
                     style={{
                       color: text_color,
+                      textAlign: text_alignment,
                     }}
                     dangerouslySetInnerHTML={{
                       __html: createDOMPurify.sanitize(content),

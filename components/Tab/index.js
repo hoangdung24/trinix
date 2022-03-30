@@ -33,7 +33,7 @@ const CustomTab = styled(MuiTab, {
       "&:before": {
         position: "absolute",
         content: '""',
-        width: "1px",
+        width: "1.25px",
         height: "65%",
         backgroundColor: isSpecial ? theme.palette.common.white : theme.palette.common.black,
         top: "50%",
@@ -55,7 +55,7 @@ const Shadow = styled(Typography, {
     position: "absolute",
     top: "50%",
     left: "50%",
-    fontSize: "0.875rem",
+    fontSize: "1rem",
     lineHeight: "1.25",
     fontWeight: "500",
     transform: "translate(-50%, -50%)",
