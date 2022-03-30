@@ -1,11 +1,12 @@
 import { Stack, Box, Typography, styled } from "@mui/material";
-import { useSetting, useDevice } from "../../hooks";
+import { useSetting, useDevice, useGlobal } from "../../hooks";
 import { Image } from "../../hoc";
 import { Social } from "../../components";
 
 const Footer = ({ isSpecial }) => {
   const { studio_logo, gaming_logo, footer_background, ...props } = useSetting();
-  const { isMobile, isTablet, isDesktop } = useDevice();
+  const { isMobile, isTablet } = useDevice();
+  const context = useGlobal();
 
   return (
     <BoxWrapper
@@ -24,7 +25,7 @@ const Footer = ({ isSpecial }) => {
         }}
       >
         <Stack direction="column" justifyContent={"center"} alignItems={"center"} spacing={4}>
-          {isSpecial ? (
+          {isSpecial || context.state.isSpecial ? (
             <Image src={gaming_logo} width={isMobile ? 150 : 500} height={isMobile ? 70 : 240} />
           ) : (
             <Image src={studio_logo} width={isMobile ? 150 : 700} height={isMobile ? 67 : 200} />

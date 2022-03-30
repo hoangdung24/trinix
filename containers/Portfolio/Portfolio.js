@@ -12,7 +12,7 @@ import { ROUTES } from "../../routes";
 import { getElement } from "./utils";
 import { TopBanner, LoadingIcon } from "../../components";
 import { PAGES, PORTFOLIO_DETAIL } from "../../api";
-import { useDevice } from "../../hooks";
+import { useDevice, useGlobal } from "../../hooks";
 
 const PortfolioDetailDialog = dynamic(() => import("./components/PortfolioDetailDialog"), {
   ssr: false,
@@ -27,6 +27,8 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
   const [selectedPortfolio, setSelectedPortfolio] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isSpecial, setIsSpecial] = useState(false);
+
+  const context = useGlobal();
 
   const { isMobile } = useDevice();
 
@@ -43,7 +45,15 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
   }, []);
 
   useEffect(() => {
-    setIsSpecial(getElement(currentPanel, portfolioCategoryList?.items)?.is_special);
+    const is_special = getElement(currentPanel, portfolioCategoryList?.items)?.is_special;
+    setIsSpecial(is_special);
+
+    context.set((prev) => {
+      return {
+        ...prev,
+        isSpecial: is_special,
+      };
+    });
   }, [currentPanel]);
 
   useUpdateEffect(() => {

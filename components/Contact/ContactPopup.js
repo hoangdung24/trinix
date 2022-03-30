@@ -38,9 +38,9 @@ const Contact = ({ open, toggle, data, error, passHandler, ...props }) => {
         },
         PaperProps: {
           sx: {
-            width: isMediumDesktop ? "80vw" : "90vw",
-            maxWidth: isMediumDesktop ? "80vw" : "90vw",
-            maxHeight: isMediumDesktop ? "40vw" : "90vh",
+            width: "90vw",
+            maxWidth: "90vw",
+            maxHeight: "90vh",
             margin: 0,
           },
         },

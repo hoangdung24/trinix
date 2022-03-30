@@ -53,11 +53,11 @@ const Home = ({ initData, ...props }) => {
                 pointerEvents: "none",
                 height: (theme) => {
                   if (isMobile) {
-                    return "300px";
+                    return "500px";
                   }
 
                   if (isTablet) {
-                    return "400px";
+                    return "600px";
                   }
 
                   return 1;

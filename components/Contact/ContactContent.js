@@ -7,7 +7,7 @@ import { Button, Headline, Social } from "../../components";
 
 const ContactContent = ({ data }) => {
   const setting = useSetting();
-  const { isTablet, isMediumDesktop } = useDevice();
+  const { isTablet, isMediumDesktop, isDesktop } = useDevice();
 
   const { addresses, work_with_us_link, footer_background } = setting;
 
@@ -96,13 +96,17 @@ const ContactContent = ({ data }) => {
               </Box>
             )}
 
-            <Image
-              src={footer_background}
-              width="100%"
-              height="150px"
-              objectFit="cover"
-              objectPosition="bottom"
-            />
+            {isTablet ? (
+              <Image
+                src={footer_background}
+                width="100%"
+                height="150px"
+                objectFit="cover"
+                objectPosition="bottom"
+              />
+            ) : (
+              <Box paddingY={4}></Box>
+            )}
           </Box>
         </Box>
       </Grid>

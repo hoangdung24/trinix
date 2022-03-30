@@ -128,25 +128,6 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
               onChange={onChange}
               sx={[
                 {
-                  "& .tab": {
-                    position: "relative",
-                    // whiteSpace: "nowrap",
-                    "&:before": {
-                      position: "absolute",
-                      content: '""',
-                      width: "1px",
-                      height: "65%",
-                      backgroundColor: isSpecial ? "common.white" : "common.black",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      right: 0,
-                    },
-                    "&:nth-last-of-type(1):before": {
-                      display: "none",
-                    },
-                  },
-                },
-                {
                   "& .MuiTabs-flexContainer": {
                     flexWrap: "wrap",
                     justifyContent: "center",
@@ -159,7 +140,7 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
                 },
               }}
             >
-              {data.items.map((el) => {
+              {data.items.map((el, idx) => {
                 return (
                   <Tab
                     className="tab"
@@ -167,6 +148,9 @@ const TabPanel = ({ data, value, onChange, isSpecial }) => {
                     label={el.title}
                     value={el.id.toString()}
                     isActive={el.id == value}
+                    isSpecial={isSpecial}
+                    component={Typography}
+                    isLast={data.items.length - 1 == idx}
                     sx={{
                       color: isSpecial ? "common.white" : "common.black",
                     }}

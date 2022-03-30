@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { Box } from "@mui/material";
 
-import { SettingConfig } from "../../contexts";
+import { SettingConfig, GlobalConfig } from "../../contexts";
 
 import { Footer, Header, Footer2 } from "../../components";
 
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
       return null;
     }
 
-    return !isTablet ? <Footer /> : <Footer2 />;
+    return isTablet ? <Footer2 /> : <Footer />;
   }, [router, isTablet, isMobile]);
 
   return (
@@ -41,17 +41,19 @@ const Layout = ({ children }) => {
       }}
     >
       <SettingConfig>
-        <Header />
-        <Box
-          sx={{
-            flexGrow: 1,
-            width: "100%",
-          }}
-        >
-          {children}
-        </Box>
+        <GlobalConfig>
+          <Header />
+          <Box
+            sx={{
+              flexGrow: 1,
+              width: "100%",
+            }}
+          >
+            {children}
+          </Box>
 
-        {footerComponent}
+          {footerComponent}
+        </GlobalConfig>
       </SettingConfig>
     </Box>
   );

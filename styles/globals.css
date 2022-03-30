@@ -72,26 +72,11 @@
   }
 }
 
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
 .video-react-big-play-button {
   display: none !important;
 }
 
 .video-react-video {
   object-fit: cover;
+  object-position: bottom;
 }
