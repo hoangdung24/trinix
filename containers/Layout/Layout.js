@@ -4,11 +4,9 @@ import { useRouter } from "next/router";
 
 import { Box } from "@mui/material";
 
-import { SettingConfig, GlobalConfig } from "../../contexts";
-
-import { Footer, Header, Footer2 } from "../../components";
-
 import { useDevice } from "../../hooks";
+import { Footer, Header, Footer2 } from "../../components";
+import { SettingConfig, GlobalConfig } from "../../contexts";
 
 const Layout = ({ children }) => {
   const { isMobile, isTablet } = useDevice();

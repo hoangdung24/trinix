@@ -1,4 +1,5 @@
 export { default as Tab } from "./Tab";
+export { default as Backdrop } from "./BackDrop";
 export { default as Social } from "./Social";
 export { default as Loading } from "./Loading";
 export { default as Spinner } from "./Spinner";

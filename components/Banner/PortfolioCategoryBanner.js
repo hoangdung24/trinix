@@ -27,7 +27,6 @@ const PortfolioCategoryBanner = ({ data }) => {
               }}
             >
               <Typography variant="h1">{get(data, "title")}</Typography>
-              <Typography variant="h1">{get(data, "subtitle")}</Typography>
             </Box>
 
             <Box
@@ -39,6 +38,9 @@ const PortfolioCategoryBanner = ({ data }) => {
             </Box>
             <Button
               title={"Scroll down"}
+              onClick={() => {
+                window.location = "#headline";
+              }}
               isBackground={false}
               IconProps={{
                 sx: {
@@ -88,7 +90,7 @@ const Content = styled(Box)(({ theme }) => {
     zIndex: 2,
     top: "50%",
     transform: "translateY(-50%)",
-    width: "35%",
+    width: "45%",
   };
 });
 

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Box, Grid, useTheme } from "@mui/material";
 
 import { Button } from "../../components";
-import { Image } from "../../hoc";
+import { Image, SEO } from "../../hoc";
 import { ROUTES } from "../../routes";
 import { useDevice, useSetting } from "../../hooks";
 
@@ -26,6 +26,7 @@ const Home = ({ initData, ...props }) => {
         width: "100vw",
       }}
     >
+      <SEO data={items?.[0]?.meta} />
       <Grid
         container
         sx={[
@@ -133,6 +134,7 @@ const Home = ({ initData, ...props }) => {
 
               <Box
                 sx={{
+                  wordWrap: "break-word",
                   color: description_color,
 
                   ...(isMobile && {
