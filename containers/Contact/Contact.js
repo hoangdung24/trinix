@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Box } from "@mui/material";
 import { useDevice } from "../../hooks";
 import { ContactContent } from "../../components";
+import { SEO } from "../../hoc";
 
 const Contact = ({ initContactPage }) => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const Contact = ({ initContactPage }) => {
         backgroundColor: "common.black",
       }}
     >
+      <SEO data={initContactPage?.items?.[0]?.meta} />
       <ContactContent
         {...{
           data: initContactPage,

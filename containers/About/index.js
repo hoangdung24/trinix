@@ -2,16 +2,17 @@ import { useMemo } from "react";
 
 import { Box, Typography } from "@mui/material";
 import { TopBanner, GridContainer } from "../../components";
-import { Image } from "../../hoc";
-import { useSetting, useDevice } from "../../hooks";
+import { Image, SEO } from "../../hoc";
+import { useDevice } from "../../hooks";
 import MemberList from "./components/MemberList";
 import Client from "./components/Client";
 
 const About = ({ aboutData }) => {
-  const setting = useSetting();
   const data = aboutData?.items?.[0];
 
-  const { isMobile, isTablet, isDesktop, isMediumDesktop } = useDevice();
+  console.log(data);
+
+  const { isMobile, isTablet, isMediumDesktop } = useDevice();
 
   const BackgroundMemo = useMemo(() => {
     let height = 1080;
@@ -33,6 +34,7 @@ const About = ({ aboutData }) => {
 
   return (
     <Box>
+      <SEO data={data.meta} />
       <Box
         sx={{
           position: "relative",

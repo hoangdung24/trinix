@@ -11,14 +11,15 @@ import {
 import get from "lodash/get";
 
 import { useDevice } from "../../hooks";
+import { SEO } from "../../hoc";
 
 const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
   const { isTablet } = useDevice();
 
   return (
     <Box>
+      <SEO data={portfolioCategory?.items?.[0]?.meta} />
       <PortfolioCategoryBanner data={portfolioCategory} />
-
       <GridContainer>
         <Box
           sx={{
@@ -27,7 +28,9 @@ const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
           }}
         >
           {!isTablet ? (
-            <Headline variant="h1">WHAT WE DO...</Headline>
+            <Headline id="headline" variant="h1">
+              {get(portfolioCategory?.items?.[0], "subtitle")}
+            </Headline>
           ) : (
             <Box
               sx={{
@@ -38,11 +41,10 @@ const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
               }}
             >
               <Typography variant="title1" marginBottom={3}>
-                {get(portfolioCategory, "items[0].title")}
-              </Typography>
-              <Typography marginBottom={3}>
                 {get(portfolioCategory, "items[0].subtitle")}
               </Typography>
+              <Typography marginBottom={3}>{get(portfolioCategory, "items[0].title")}</Typography>
+
               <Box
                 sx={{
                   width: "50%",

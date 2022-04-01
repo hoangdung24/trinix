@@ -38,8 +38,9 @@ const Contact = ({ open, toggle, data, error, passHandler, ...props }) => {
         },
         PaperProps: {
           sx: {
-            width: "90vw",
-            maxWidth: "90vw",
+            minWidth: "fit-content",
+            width: "fit-content",
+            // maxWidth: "calc(90vh * 1532 / 766)",
             maxHeight: "90vh",
             margin: 0,
           },

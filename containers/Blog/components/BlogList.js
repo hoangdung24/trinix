@@ -18,6 +18,7 @@ import BlogListItem from "./BlogListItem";
 
 import { updatePathname, transformSearchParams } from "../../../libs";
 import { useDevice } from "../../../hooks";
+import { SEO } from "../../../hoc";
 
 const DetailArticleDialog = dynamic(
   import("../../../components").then((Component) => {
@@ -142,6 +143,8 @@ const BlogList = ({ initBlogListPage, initTagList }) => {
         },
       }}
     >
+      {selectedPost && open && <SEO data={selectedPost.meta} />}
+
       <Grid container spacing={3}>
         <Grid item xs={12} lg={10}>
           <Grid container spacing={2}>

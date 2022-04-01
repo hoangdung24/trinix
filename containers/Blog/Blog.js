@@ -6,6 +6,7 @@ import Banner from "./components/Banner";
 import BlogList from "./components/BlogList";
 
 import { useDevice } from "../../hooks";
+import { SEO } from "../../hoc";
 
 const Blog = ({ initBlogPage, initBlogListPage, initTagList }) => {
   const { isMobile } = useDevice();
@@ -15,6 +16,7 @@ const Blog = ({ initBlogPage, initBlogListPage, initTagList }) => {
 
   return (
     <Fragment>
+      <SEO data={items?.[0]?.meta} />
       {!isMobile ? (
         <Banner imageSrc={imageSrc} />
       ) : (

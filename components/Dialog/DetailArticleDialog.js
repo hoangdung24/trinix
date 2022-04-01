@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import createDOMPurify from "dompurify";
 
 import {
@@ -18,7 +17,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useSetting, useDevice } from "../../hooks";
 import { Image } from "../../hoc";
 
-import { GridContainer, Footer2 as Footer, Headline } from "../../components";
+import { GridContainer, Footer2 as Footer, Headline, Backdrop } from "../../components";
 
 const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
   const { studio_logo } = useSetting();
@@ -36,8 +35,15 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
       onClose={() => {
         toggle(false);
       }}
-      fullScreen
-      keepMounted
+      fullScreen={isMobile}
+      PaperProps={{
+        sx: [
+          !isMobile && {
+            maxWidth: "90vw",
+          },
+        ],
+      }}
+      BackdropComponent={Backdrop}
     >
       <DialogTitle>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">
@@ -144,6 +150,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
                     style={{
                       color: text_color,
                       textAlign: text_alignment,
+                      wordWrap: "break-word",
                     }}
                     dangerouslySetInnerHTML={{
                       __html: createDOMPurify.sanitize(content),

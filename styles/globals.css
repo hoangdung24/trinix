@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .loading {
   width: 50px;
   height: 12px;

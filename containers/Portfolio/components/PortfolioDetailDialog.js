@@ -19,25 +19,12 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useSetting } from "../../../hooks";
 import { Image } from "../../../hoc";
 
-import { GridContainer, Footer2 as Footer } from "../../../components";
+import { GridContainer, Footer2 as Footer, Backdrop } from "../../../components";
 import { useDevice } from "../../../hooks";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return (
-    <Fade
-      ref={ref}
-      {...props}
-      timeout={{
-        enter: 500,
-        exit: 500,
-      }}
-    />
-  );
-});
 
 const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props }) => {
   const { studio_logo } = useSetting();
-  const { title, body = [], background_color } = props;
+  const { title, body = [], background_color, subtitle } = props;
   const { isMobile } = useDevice();
 
   return (
@@ -46,9 +33,16 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
       onClose={() => {
         toggle(false);
       }}
-      fullScreen
-      TransitionComponent={Transition}
+      fullScreen={isMobile}
+      PaperProps={{
+        sx: [
+          !isMobile && {
+            maxWidth: "90vw",
+          },
+        ],
+      }}
       keepMounted
+      BackdropComponent={Backdrop}
     >
       <DialogTitle>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">
@@ -64,7 +58,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                 >
                   {title}
                 </Typography>
-                <Typography variant="category">{categoryMeta?.title}</Typography>
+                <Typography variant="category">{subtitle}</Typography>
               </Stack>
             </Stack>
           )}
@@ -145,6 +139,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                     style={{
                       color: text_color,
                       textAlign: text_alignment,
+                      wordWrap: "break-word",
                     }}
                     dangerouslySetInnerHTML={{
                       __html: createDOMPurify.sanitize(content),

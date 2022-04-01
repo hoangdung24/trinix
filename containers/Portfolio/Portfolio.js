@@ -13,24 +13,26 @@ import { getElement } from "./utils";
 import { TopBanner, LoadingIcon } from "../../components";
 import { PAGES, PORTFOLIO_DETAIL } from "../../api";
 import { useDevice, useGlobal } from "../../hooks";
+import { SEO } from "../../hoc";
 
 const PortfolioDetailDialog = dynamic(() => import("./components/PortfolioDetailDialog"), {
   ssr: false,
 });
 
 const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
-  const [data, setData] = useState(portfolioDetailList);
+  const router = useRouter();
+  const context = useGlobal();
+  const { isMobile } = useDevice();
+  const [open, toggle] = useToggle(false);
   const [loading, setLoading] = useState(false);
   const [currentPanel, setPanel] = useState(null);
-  const router = useRouter();
-  const [open, toggle] = useToggle(false);
-  const [selectedPortfolio, setSelectedPortfolio] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [data, setData] = useState(portfolioDetailList);
   const [isSpecial, setIsSpecial] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedPortfolio, setSelectedPortfolio] = useState(null);
 
-  const context = useGlobal();
-
-  const { isMobile } = useDevice();
+  console.log("");
+  console.log(selectedPortfolio, selectedCategory);
 
   const { data: resData } = useSWR(() => {
     if (currentPanel === null) {
@@ -118,6 +120,8 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
 
   return (
     <Fragment>
+      <SEO data={(open && selectedPortfolio.meta) || selectedCategory.meta} />
+
       <Box
         sx={{
           position: "relative",
