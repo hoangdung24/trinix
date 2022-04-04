@@ -38,6 +38,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
         sx: [
           !isMobile && {
             maxWidth: "90vw",
+            minWidth: "90vw",
           },
         ],
       }}
@@ -109,11 +110,13 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             <Stack
               alignItems="center"
               sx={{
+                color: "common.white",
                 color: isSpecial ? "common.white" : "common.black",
+                // filter: isSpecial && "invert(1)",
               }}
             >
               <Typography variant="h1">{title}</Typography>
-              <Typography variant="category">{categoryMeta?.title}</Typography>
+              <Typography variant="category">{subtitle}</Typography>
             </Stack>
           )}
 

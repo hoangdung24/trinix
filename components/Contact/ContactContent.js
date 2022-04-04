@@ -9,7 +9,7 @@ import { Button, Headline, Social } from "../../components";
 const ContactContent = ({ data }) => {
   const setting = useSetting();
   const containerRef = useRef(null);
-  const { isTablet, isMediumDesktop } = useDevice();
+  const { isMobile, isTablet, isMediumDesktop } = useDevice();
   const { addresses, work_with_us_link, footer_background } = setting;
   const [height, setHeight] = useState(0);
   const businessInfo = addresses?.[0];
@@ -21,21 +21,28 @@ const ContactContent = ({ data }) => {
   }, [containerRef]);
 
   return (
-    <Stack direction="row" spacing={3} ref={containerRef}>
+    <Stack direction={isTablet ? "column" : "row"} spacing={isTablet ? 0 : 3} ref={containerRef}>
       <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          // flex: "1 1 auto",
-        }}
+        sx={[
+          {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          },
+          isTablet && {
+            order: 2,
+          },
+        ]}
       >
         <Box
           sx={{
             width: "100%",
             ...(!isMediumDesktop && {
               textAlign: "center",
+            }),
+            ...(isTablet && {
+              marginTop: 3,
             }),
           }}
         >
@@ -108,10 +115,21 @@ const ContactContent = ({ data }) => {
         </Box>
       </Box>
       <Box
-        sx={{
-          width: (height * 942) / 722,
-          height: height,
-        }}
+        sx={[
+          isTablet
+            ? {
+                width: "100vw",
+                height: "105vw",
+              }
+            : {
+                width: (height * 942) / 722,
+                height: height,
+              },
+
+          isTablet && {
+            order: 1,
+          },
+        ]}
       >
         <Image
           src={data.items[0].banner}
