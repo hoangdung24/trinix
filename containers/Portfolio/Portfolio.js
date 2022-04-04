@@ -31,9 +31,6 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPortfolio, setSelectedPortfolio] = useState(null);
 
-  console.log("");
-  console.log(selectedPortfolio, selectedCategory);
-
   const { data: resData } = useSWR(() => {
     if (currentPanel === null) {
       return;
