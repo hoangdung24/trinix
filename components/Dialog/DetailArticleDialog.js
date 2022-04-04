@@ -40,6 +40,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
         sx: [
           !isMobile && {
             maxWidth: "90vw",
+            minWidth: "90vw",
           },
         ],
       }}
