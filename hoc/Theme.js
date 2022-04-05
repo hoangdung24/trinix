@@ -38,24 +38,42 @@ const theme = createTheme({
   typography: {
     fontFamily,
     h1: {
-      fontSize: "80pt",
-      lineHeight: "97px",
+      fontSize: "65px",
+      lineHeight: "79px",
       fontWeight: 700,
     },
     h2: {
-      fontSize: "40pt",
+      fontSize: "40px",
       lineHeight: "49px",
       fontWeight: 700,
     },
-    title1: factoryFont("40pt", "49px", 500),
-    title2: factoryFont("20pt", "24px", 500),
-    category: factoryFont("16pt", "19px", 400),
-    categoryBold: factoryFont("16pt", "19px", 700),
+    title1: factoryFont("30px", "36px", 500),
+    title2: factoryFont("20px", "24px", 500),
+    category: factoryFont("16px", "19px", 400),
+    categoryBold: factoryFont("16px", "19px", 700),
     bodyText: factoryFont("14px", "17.1px", 400),
     bodyTextBold: factoryFont("14px", "17.1px", 700),
     caption: {
-      fontSize: "8pt",
+      fontSize: "8px",
       lineHeight: "10px",
+    },
+  },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+        disableTouchRipple: true,
+      },
+    },
+    MuiTypography: {
+      defaultProps: {
+        textTransform: "none",
+      },
+    },
+    MuiUseMediaQuery: {
+      defaultProps: {
+        noSsr: true,
+      },
     },
   },
 });

@@ -48,7 +48,9 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
             rel="stylesheet"
           />
-
+          {process.env.NODE_ENV === "production" && (
+            <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
+          )}
           {this.props.emotionStyleTags}
         </Head>
         <body>
