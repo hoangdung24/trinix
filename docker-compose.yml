@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-  docker-compose-with-next:
+  dockerize-nextjs:
     build:
       context: .
-      dockerfile: ./Dockerfile4
-    image: docker-compose-with-next
-    container_name: docker-compose-with-next-container
+      dockerfile: ./Dockerfile
     ports:
       - 3000:3000
+    image: dockerize-nextjs-image
+    container_name: dockerize-nextjs-container
     volumes:
       - .:/app
       - /app/node_modules
