@@ -32,7 +32,7 @@ export async function getServerSideProps({ params, query }) {
 
     return {
       redirect: {
-        destination: "/",
+        destination: "/404",
         permanent: false,
       },
     };
