@@ -33,7 +33,7 @@ export async function getServerSideProps({ params, query }) {
       },
     };
   } catch (err) {
-    console.log(err);
+    // console.log(err);
 
     return {
       redirect: {
