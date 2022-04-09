@@ -43,7 +43,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
         ],
       }}
       keepMounted
-      BackdropComponent={Backdrop}
+      // BackdropComponent={Backdrop}
     >
       <DialogTitle>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">

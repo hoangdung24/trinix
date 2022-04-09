@@ -8,8 +8,8 @@ const BackDropComponent = styled(Backdrop, {
   },
 })(({ theme }) => {
   return {
-    backgroundColor: alpha(theme.palette.common.black, 0.5),
-    backdropFilter: "blur(12px)",
+    backgroundColor: alpha(theme.palette.common.black, 0.6),
+    // backdropFilter: "blur(6px)",
   };
 });
 
