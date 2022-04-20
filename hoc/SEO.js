@@ -5,30 +5,38 @@ const SEO = ({ data = {} }) => {
 
   return (
     <NextSeo
-      title={seo_title || "Trinix"}
-      description={search_description || "Trinix"}
+      title={seo_title || "Trinix Studio Viet Nam | Post-production & 3D production"}
+      description={
+        search_description ||
+        "We specialize in 3D Animation, Game, VFX and Post-Production Services. Let's work together!"
+      }
       openGraph={{
-        url: "https://www.url.ie/a",
-        title: seo_title || "Trinix",
-        description: search_description || "Trinix",
+        url: "https://trinix.studio",
+        title: seo_title || "Trinix Studio Viet Nam | Post-production & 3D production",
+        description:
+          search_description ||
+          "We specialize in 3D Animation, Game, VFX and Post-Production Services. Let's work together!",
         images: [
           {
-            url: "https://www.example.ie/og-image-01.jpg",
+            url: "/trinix-banner.jpg",
             width: 800,
             height: 600,
-            alt: "Og Image Alt",
+            alt: "Trinix Studio Viet Nam | Post-production & 3D production",
             type: "image/jpeg",
           },
-          { url: "https://www.example.ie/og-image-03.jpg" },
-          { url: "https://www.example.ie/og-image-04.jpg" },
         ],
-        site_name: "Trinix",
+        site_name: "Trinix Studio Viet Nam | Post-production & 3D production",
       }}
-      twitter={{
-        handle: "@handle",
-        site: "@site",
-        cardType: "summary_large_image",
-      }}
+      additionalLinkTags={[
+        {
+          rel: "icon",
+          href: `/favicon.png`,
+        },
+        {
+          rel: "apple-touch-icon",
+          href: `/favicon.png`,
+        },
+      ]}
     />
   );
 };
