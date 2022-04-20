@@ -13,6 +13,7 @@ const SEO = ({ data = {} }) => {
       openGraph={{
         url: "https://trinix.studio",
         title: seo_title || "Trinix Studio Viet Nam | Post-production & 3D production",
+        type: "website",
         description:
           search_description ||
           "We specialize in 3D Animation, Game, VFX and Post-Production Services. Let's work together!",
