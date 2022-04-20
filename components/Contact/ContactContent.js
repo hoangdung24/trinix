@@ -1,6 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { useSetting, useDevice } from "../../hooks";
 
+import isEmpty from "lodash/isEmpty";
+
 import { Box, styled, Typography, Stack } from "@mui/material";
 
 import { Image } from "../../hoc";
@@ -9,7 +11,7 @@ import { Button, Headline, Social } from "../../components";
 const ContactContent = ({ data }) => {
   const setting = useSetting();
   const containerRef = useRef(null);
-  const { isMobile, isTablet, isMediumDesktop } = useDevice();
+  const { isTablet, isMediumDesktop } = useDevice();
   const { addresses, work_with_us_link, footer_background } = setting;
   const [height, setHeight] = useState(0);
   const businessInfo = addresses?.[0];
@@ -19,6 +21,10 @@ const ContactContent = ({ data }) => {
       setHeight(containerRef.current.clientHeight);
     }
   }, [containerRef]);
+
+  if (isEmpty(setting)) {
+    return null;
+  }
 
   return (
     <Stack direction={isTablet ? "column" : "row"} spacing={isTablet ? 0 : 3} ref={containerRef}>

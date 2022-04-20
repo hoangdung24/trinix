@@ -1,5 +1,5 @@
 import React from "react";
-import createDOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 import {
   Dialog,
@@ -49,7 +49,8 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">
           {!isMobile && (
             <Stack direction={"row"} spacing={2}>
-              <Image src={studio_logo} width={200} height={50} />
+              {studio_logo && <Image src={studio_logo} width={200} height={50} />}
+
               <Stack>
                 <Typography
                   variant="title2"
@@ -145,7 +146,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
                       wordWrap: "break-word",
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: createDOMPurify.sanitize(content),
+                      __html: DOMPurify.sanitize(content),
                     }}
                   ></div>
                 </GridContainer>

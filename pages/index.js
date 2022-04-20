@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { Home } from "../containers";
 
-import { PAGES, HOME } from "../api";
+import { PAGES, HOME, SETTING_API } from "../api";
 
 export default function HomePage({ ...props }) {
   return <Home {...props} />;
@@ -10,7 +10,7 @@ export default function HomePage({ ...props }) {
 
 export async function getServerSideProps({ params, query }) {
   try {
-    const urls = [`${PAGES}?type=${HOME}&fields=*`];
+    const urls = [`${PAGES}?type=${HOME}&fields=*`, SETTING_API];
 
     const resList = await Promise.all(
       urls.map((url) =>
@@ -20,17 +20,10 @@ export async function getServerSideProps({ params, query }) {
       )
     );
 
-    let homeData;
-
-    resList.forEach((el, idx) => {
-      if (idx === 0) {
-        homeData = el;
-      }
-    });
-
     return {
       props: {
-        initData: homeData,
+        initData: resList[0],
+        initSetting: resList[1],
       },
     };
   } catch {

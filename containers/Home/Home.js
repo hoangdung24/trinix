@@ -1,4 +1,4 @@
-import createDOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { useRouter } from "next/router";
 import { Box, Grid, useTheme } from "@mui/material";
 
@@ -16,8 +16,7 @@ const Home = ({ initData, ...props }) => {
   const { isMobile, isTablet } = useDevice();
   const { studio_logo } = useSetting();
 
-  const { background_color, banner, banner_video, description, description_color, title } =
-    items?.[0];
+  const { background_color, banner, banner_video, description, description_color } = items?.[0];
 
   return (
     <Box
@@ -128,7 +127,7 @@ const Home = ({ initData, ...props }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Image src={studio_logo} width="200px" height="90px" />
+                  {studio_logo && <Image src={studio_logo} width="200px" height="90px" />}
                 </Box>
               )}
 
@@ -175,7 +174,7 @@ const Home = ({ initData, ...props }) => {
                   },
                 }}
                 dangerouslySetInnerHTML={{
-                  __html: createDOMPurify.sanitize(description),
+                  __html: DOMPurify.sanitize(description),
                 }}
               ></Box>
               <Box
