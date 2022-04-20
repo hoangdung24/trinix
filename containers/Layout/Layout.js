@@ -1,14 +1,15 @@
 import { useMemo } from "react";
 import { useRouter } from "next/router";
-
 import { Box } from "@mui/material";
 
-import { useDevice } from "../../hooks";
+import isEmpty from "lodash/isEmpty";
+
+import { useDevice, useSetting } from "../../hooks";
 import { Footer, Header, Footer2 } from "../../components";
-import { SettingConfig, GlobalConfig } from "../../contexts";
 
 const Layout = ({ children }) => {
   const { isMobile, isTablet } = useDevice();
+  const setting = useSetting();
   const router = useRouter();
 
   const footerComponent = useMemo(() => {
@@ -37,21 +38,18 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      <SettingConfig>
-        <GlobalConfig>
-          <Header />
-          <Box
-            sx={{
-              flexGrow: 1,
-              width: "100%",
-            }}
-          >
-            {children}
-          </Box>
+      {!isEmpty(setting) && <Header />}
 
-          {footerComponent}
-        </GlobalConfig>
-      </SettingConfig>
+      <Box
+        sx={{
+          flexGrow: 1,
+          width: "100%",
+        }}
+      >
+        {children}
+      </Box>
+
+      {!isEmpty(setting) && footerComponent}
     </Box>
   );
 };

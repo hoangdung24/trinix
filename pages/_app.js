@@ -18,6 +18,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { useRouting } from "../hooks";
 
+import { SettingConfig, GlobalConfig } from "../contexts";
+
 const clientSideEmotionCache = createEmotionCache();
 
 function MyApp(props) {
@@ -38,10 +40,14 @@ function MyApp(props) {
           }}
         >
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Layout>
-              <CssBaseline />
-              <Component {...pageProps} />
-            </Layout>
+            <SettingConfig>
+              <GlobalConfig>
+                <Layout>
+                  <CssBaseline />
+                  <Component {...pageProps} />
+                </Layout>
+              </GlobalConfig>
+            </SettingConfig>
           </ErrorBoundary>
         </SWRConfig>
       </CustomMuiTheme>

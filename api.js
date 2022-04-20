@@ -1,4 +1,4 @@
-export const DOMAIN_NAME = "https://trinix.t-solution.vn";
+export const DOMAIN_NAME = "https://trinix.studio";
 
 export const SETTING = "/api/v2";
 export const PAGES = "/api/v2/pages";
