@@ -1,8 +1,7 @@
+import useSWR from "swr";
 import { createContext, Fragment } from "react";
 
-import useSWR from "swr";
 import { SETTING } from "../api";
-
 import { Loading } from "../components";
 
 export const Context = createContext({});
@@ -17,7 +16,7 @@ const Setting = ({ children }) => {
   return (
     <Fragment>
       <Loading isLoading={!data} />
-      {data !== undefined && <Context.Provider value={{ ...data }}>{children}</Context.Provider>}
+      <Context.Provider value={{ ...data }}>{children}</Context.Provider>
     </Fragment>
   );
 };

@@ -18,17 +18,18 @@ const Social = () => {
       spacing={1.5}
       position="relative"
     >
-      {social_networks.map((el, idx) => {
-        const {
-          value: { image, url },
-        } = el;
+      {social_networks &&
+        social_networks.map((el, idx) => {
+          const {
+            value: { image, url },
+          } = el;
 
-        return (
-          <a href={url} key={idx}>
-            <Image src={image} alt="Trinix" width={SIZE} height={SIZE} />
-          </a>
-        );
-      })}
+          return (
+            <a href={url} key={idx}>
+              <Image src={image} alt="Trinix" width={SIZE} height={SIZE} />
+            </a>
+          );
+        })}
     </Stack>
   );
 };

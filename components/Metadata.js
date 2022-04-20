@@ -7,7 +7,7 @@ import { Image } from "../hoc";
 import { Headline } from "../components";
 
 const Metadata = ({ isSpecial, data, imageSrc }) => {
-  const setting = useSetting();
+  const { gaming_logo } = useSetting();
   const { isMobile } = useDevice();
 
   return (
@@ -21,11 +21,13 @@ const Metadata = ({ isSpecial, data, imageSrc }) => {
               },
             ]}
           >
-            <Image
-              src={imageSrc || setting.gaming_logo}
-              width={!isMobile ? 600 : 300}
-              height={!isMobile ? 300 : 150}
-            />
+            {gaming_logo && (
+              <Image
+                src={imageSrc || gaming_logo}
+                width={!isMobile ? 600 : 300}
+                height={!isMobile ? 300 : 150}
+              />
+            )}
           </Box>
 
           {!isMobile && (

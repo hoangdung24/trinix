@@ -1,6 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
-import createDOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { PREVIEW_PAGE } from "../api";
 
 import { Stack, Box } from "@mui/material";
@@ -35,7 +35,7 @@ const PreviewPage = ({ previewData = {} }) => {
                   wordWrap: "break-word",
                 }}
                 dangerouslySetInnerHTML={{
-                  __html: createDOMPurify.sanitize(content),
+                  __html: DOMPurify.sanitize(content),
                 }}
               ></div>
             </GridContainer>
