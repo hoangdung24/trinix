@@ -18,7 +18,7 @@ const SEO = ({ data = {} }) => {
           "We specialize in 3D Animation, Game, VFX and Post-Production Services. Let's work together!",
         images: [
           {
-            url: "/trinix-banner.jpg",
+            url: "https://trinix.studio/trinix-banner.jpg",
             width: 800,
             height: 600,
             alt: "Trinix Studio Viet Nam | Post-production & 3D production",
