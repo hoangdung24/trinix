@@ -8,6 +8,10 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
 
   const { sx = {}, ...restWrapperProps } = WrapperProps;
 
+  if (!src) {
+    return null;
+  }
+
   if (layout === "fill") {
     return (
       <Box

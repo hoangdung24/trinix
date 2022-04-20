@@ -70,11 +70,11 @@ const theme = createTheme({
         textTransform: "none",
       },
     },
-    MuiUseMediaQuery: {
-      defaultProps: {
-        noSsr: true,
-      },
-    },
+    // MuiUseMediaQuery: {
+    //   defaultProps: {
+    //     noSsr: true,
+    //   },
+    // },
   },
 });
 
