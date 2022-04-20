@@ -19,7 +19,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useSetting } from "../../../hooks";
 import { Image } from "../../../hoc";
 
-import { GridContainer, Footer2 as Footer, Backdrop } from "../../../components";
+import { GridContainer, Footer2 as Footer } from "../../../components";
 import { useDevice } from "../../../hooks";
 
 const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props }) => {

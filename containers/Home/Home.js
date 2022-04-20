@@ -26,6 +26,7 @@ const Home = ({ initData, ...props }) => {
       }}
     >
       <SEO data={items?.[0]?.meta} />
+
       <Grid
         container
         sx={[
@@ -83,6 +84,7 @@ const Home = ({ initData, ...props }) => {
 
                     return 1;
                   },
+                  minHeight: "300px",
                 },
               }}
               objectFit="cover"
@@ -177,6 +179,7 @@ const Home = ({ initData, ...props }) => {
                   __html: DOMPurify.sanitize(description),
                 }}
               ></Box>
+
               <Box
                 sx={[
                   {

@@ -55,13 +55,19 @@ const CategoryPortfolioCard = ({
                     transform: "scaleX(-1)",
                   }}
                 >
-                  <Image
-                    layout="fixed"
-                    src="/solid-triangle-shape.svg"
-                    width="67px"
-                    height="58px"
-                    alt=""
-                  />
+                  <Box
+                    sx={{
+                      position: "relative",
+                    }}
+                  >
+                    <Image
+                      layout="fixed"
+                      src="/solid-triangle-shape.svg"
+                      width="67px"
+                      height="58px"
+                      alt=""
+                    />
+                  </Box>
                 </Box>
               </Box>
             </BackgroundSvg>
