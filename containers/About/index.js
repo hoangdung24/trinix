@@ -28,7 +28,12 @@ const About = ({ aboutData }) => {
     }
 
     return (
-      <TopBanner imageSrc={data?.banner} width={"100%"} height={height} objectFit={objectFit} />
+      <TopBanner
+        imageSrc={data?.banner}
+        width={"100%"}
+        height={height}
+        objectFit={objectFit}
+      />
     );
   }, [isMobile, isTablet, data]);
 

@@ -4,7 +4,13 @@ import { Image } from "../../../hoc";
 
 import { Headline } from "../../../components";
 
+import { useDevice } from "../../../hooks";
+
 const MemberCardItem = ({ name, title, image }) => {
+  const { isMobile } = useDevice();
+
+  console.log(isMobile);
+
   return (
     <Stack justifyContent="center" alignItems={"center"} marginBottom={5}>
       <Image
@@ -26,11 +32,20 @@ const MemberCardItem = ({ name, title, image }) => {
           textAlign: "center",
         }}
       >
-        <Headline variant="h2">{name}</Headline>
+        <Headline
+          variant={isMobile ? "categoryBold" : "h2"}
+          style={{
+            display: "block",
+            marginBottom: "5px",
+          }}
+        >
+          {name}
+        </Headline>
         <Typography
-          variant="title1"
+          variant={isMobile ? "category" : "title1"}
           sx={{
-            fontWeight: 700,
+            fontWeight: isMobile ? 400 : 700,
+            display: "block",
           }}
         >
           {title}

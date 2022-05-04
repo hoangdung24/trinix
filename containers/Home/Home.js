@@ -16,7 +16,8 @@ const Home = ({ initData, ...props }) => {
   const { isMobile, isTablet } = useDevice();
   const { studio_logo } = useSetting();
 
-  const { background_color, banner, banner_video, description, description_color } = items?.[0];
+  const { background_color, banner, banner_video, description, description_color } =
+    items?.[0];
 
   return (
     <Box
@@ -45,6 +46,7 @@ const Home = ({ initData, ...props }) => {
             isTablet && {
               order: 2,
               height: 1,
+              alignSelf: "flex-end",
             },
           ]}
         >
