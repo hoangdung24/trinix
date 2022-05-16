@@ -9,8 +9,6 @@ import { useDevice } from "../../../hooks";
 const MemberCardItem = ({ name, title, image }) => {
   const { isMobile } = useDevice();
 
-  console.log(isMobile);
-
   return (
     <Stack justifyContent="center" alignItems={"center"} marginBottom={5}>
       <Image
@@ -33,20 +31,30 @@ const MemberCardItem = ({ name, title, image }) => {
         }}
       >
         <Headline
-          variant={isMobile ? "categoryBold" : "h2"}
-          style={{
-            display: "block",
-            marginBottom: "5px",
-          }}
+          variant={isMobile ? "categoryBold" : "title1"}
+          sx={[
+            {
+              display: "block",
+              marginBottom: "5px",
+            },
+            isMobile
+              ? {}
+              : {
+                  fontWeight: 700,
+                },
+          ]}
         >
           {name}
         </Headline>
         <Typography
-          variant={isMobile ? "category" : "title1"}
-          sx={{
-            fontWeight: isMobile ? 400 : 700,
-            display: "block",
-          }}
+          variant={isMobile ? "category" : "title2"}
+          sx={[
+            {
+              fontWeight: isMobile ? 400 : 700,
+              display: "block",
+            },
+            isMobile ? {} : {},
+          ]}
         >
           {title}
         </Typography>

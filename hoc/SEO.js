@@ -43,5 +43,3 @@ const SEO = ({ data = {} }) => {
 };
 
 export default SEO;
-
-// console

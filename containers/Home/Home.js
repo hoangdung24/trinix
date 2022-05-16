@@ -107,13 +107,17 @@ const Home = ({ initData, ...props }) => {
           ]}
         >
           <Box
-            sx={{
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
+            sx={[
+              {
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              },
+              isTablet && {
+                alignItems: "center",
+              },
+            ]}
           >
             <Box
               sx={[
@@ -139,7 +143,6 @@ const Home = ({ initData, ...props }) => {
                 sx={{
                   wordWrap: "break-word",
                   color: description_color,
-
                   ...(isMobile && {
                     textAlign: "center",
                   }),
