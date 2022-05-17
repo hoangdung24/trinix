@@ -10,6 +10,7 @@ const PowerBy = () => {
       <Link
         href="https://t-solution.vn/"
         underline="none"
+        target="blank"
         sx={{
           color: "#FFF",
           fontSize: 14,
