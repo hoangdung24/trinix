@@ -8,8 +8,6 @@ const Video = ({ src }) => {
   useEffect(() => {
     if (ref.current) {
       ref.current.actions.play();
-
-      // console.log(ref.current.actions.play());
     }
   }, []);
 
@@ -28,7 +26,11 @@ const Video = ({ src }) => {
       }}
     >
       <source src={src} />
-      <ControlBar disableCompletely={true} autoHide={false} disableDefaultControls={true} />
+      <ControlBar
+        disableCompletely={true}
+        autoHide={false}
+        disableDefaultControls={true}
+      />
     </Player>
   );
 };

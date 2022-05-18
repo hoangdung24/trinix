@@ -16,7 +16,8 @@ const Home = ({ initData, ...props }) => {
   const { isMobile, isTablet } = useDevice();
   const { studio_logo } = useSetting();
 
-  const { background_color, banner, banner_video, description, description_color } = items?.[0];
+  const { background_color, banner, banner_video, description, description_color } =
+    items?.[0];
 
   return (
     <Box
@@ -45,6 +46,7 @@ const Home = ({ initData, ...props }) => {
             isTablet && {
               order: 2,
               height: 1,
+              alignSelf: "flex-end",
             },
           ]}
         >
@@ -105,13 +107,17 @@ const Home = ({ initData, ...props }) => {
           ]}
         >
           <Box
-            sx={{
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
+            sx={[
+              {
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              },
+              isTablet && {
+                alignItems: "center",
+              },
+            ]}
           >
             <Box
               sx={[
@@ -137,7 +143,6 @@ const Home = ({ initData, ...props }) => {
                 sx={{
                   wordWrap: "break-word",
                   color: description_color,
-
                   ...(isMobile && {
                     textAlign: "center",
                   }),

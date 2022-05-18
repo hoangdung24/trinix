@@ -10,8 +10,6 @@ import Client from "./components/Client";
 const About = ({ aboutData }) => {
   const data = aboutData?.items?.[0];
 
-  // console.log(data);
-
   const { isMobile, isTablet, isMediumDesktop } = useDevice();
 
   const BackgroundMemo = useMemo(() => {
@@ -28,7 +26,12 @@ const About = ({ aboutData }) => {
     }
 
     return (
-      <TopBanner imageSrc={data?.banner} width={"100%"} height={height} objectFit={objectFit} />
+      <TopBanner
+        imageSrc={data?.banner}
+        width={"100%"}
+        height={height}
+        objectFit={objectFit}
+      />
     );
   }, [isMobile, isTablet, data]);
 
@@ -124,7 +127,7 @@ const About = ({ aboutData }) => {
         </Box>
       </Box>
       <Box
-        maxWidth={"60%"}
+        maxWidth={"70%"}
         marginX="auto"
         sx={[
           isTablet && {
