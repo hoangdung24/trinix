@@ -6,7 +6,9 @@ import { useDevice } from "../../hooks";
 import { ContactContent } from "../../components";
 import { SEO } from "../../hoc";
 
-const Contact = ({ initContactPage }) => {
+const Contact = ({ initData }) => {
+  const [initContactPage] = initData;
+
   const router = useRouter();
 
   const { isDesktop } = useDevice();

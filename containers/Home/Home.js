@@ -9,12 +9,14 @@ import { useDevice, useSetting } from "../../hooks";
 
 import Video from "./components/Video";
 
-const Home = ({ initData, ...props }) => {
+const Home = ({ initData }) => {
   const router = useRouter();
-  const { items } = initData;
+  const [initHomeData] = initData;
+  const { items } = initHomeData;
+
   const { typography } = useTheme();
-  const { isMobile, isTablet } = useDevice();
   const { studio_logo } = useSetting();
+  const { isMobile, isTablet } = useDevice();
 
   const { background_color, banner, banner_video, description, description_color } =
     items?.[0];
@@ -107,13 +109,17 @@ const Home = ({ initData, ...props }) => {
           ]}
         >
           <Box
-            sx={{
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
+            sx={[
+              {
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              },
+              isTablet && {
+                alignItems: "center",
+              },
+            ]}
           >
             <Box
               sx={[
@@ -139,7 +145,6 @@ const Home = ({ initData, ...props }) => {
                 sx={{
                   wordWrap: "break-word",
                   color: description_color,
-
                   ...(isMobile && {
                     textAlign: "center",
                   }),

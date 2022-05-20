@@ -1,7 +1,8 @@
-import axios from "axios";
 import { Blog } from "../containers";
 
 import { PAGES, BLOG_LISTING, BLOG_DETAIL, TAGS } from "../api";
+
+import { prefetchData, transformUrl } from "../libs";
 
 const BlogPage = ({ ...props }) => {
   return <Blog {...props} />;
@@ -10,31 +11,36 @@ const BlogPage = ({ ...props }) => {
 export default BlogPage;
 
 export async function getServerSideProps({ params, query }) {
+  const { id } = query;
+
   try {
     const urls = [
-      `${PAGES}?type=${BLOG_LISTING}&fields=*`,
-      `${PAGES}?type=${BLOG_DETAIL}&fields=*`,
-      `${TAGS}?limit=20`,
+      transformUrl(PAGES, {
+        type: BLOG_LISTING,
+        fields: "*",
+      }),
+      transformUrl(PAGES, {
+        type: BLOG_DETAIL,
+        fields: "*",
+      }),
+      transformUrl(TAGS, {
+        limit: "20",
+      }),
     ];
 
-    const resList = await Promise.all(
-      urls.map((url) =>
-        axios.get(url).then(({ data }) => {
-          return data;
-        })
-      )
-    );
+    if (id) {
+      urls.push(transformUrl(`${PAGES}/${id}`));
+    }
+
+    const { resList, fallback } = await prefetchData(urls);
 
     return {
       props: {
-        initBlogPage: resList[0],
-        initBlogListPage: resList[1],
-        initTagList: resList[2],
+        initData: resList,
+        fallback,
       },
     };
   } catch (err) {
-    // console.log(err);
-
     return {
       redirect: {
         destination: "/404",

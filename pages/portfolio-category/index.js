@@ -1,6 +1,6 @@
-import axios from "axios";
 import { PortfolioCategory } from "../../containers";
 
+import { prefetchData, transformUrl } from "../../libs";
 import { PAGES, PORTFOLIO_CATEGORY_LIST, PORTFOLIO_CATEGORY } from "../../api";
 
 const PortfolioCategoryPage = ({ ...props }) => {
@@ -12,32 +12,22 @@ export default PortfolioCategoryPage;
 export async function getServerSideProps({ params, query }) {
   try {
     const urls = [
-      `${PAGES}?type=${PORTFOLIO_CATEGORY_LIST}&fields=*`,
-      `${PAGES}?type=${PORTFOLIO_CATEGORY}&fields=*`,
+      transformUrl(PAGES, {
+        type: PORTFOLIO_CATEGORY_LIST,
+        fields: "*",
+      }),
+      transformUrl(PAGES, {
+        type: PORTFOLIO_CATEGORY,
+        fields: "*",
+      }),
     ];
 
-    const resList = await Promise.all(
-      urls.map((url) =>
-        axios.get(url).then(({ data }) => {
-          return data;
-        })
-      )
-    );
-
-    let portfolioCategory, portfolioCategoryDetail;
-
-    resList.forEach((el, idx) => {
-      if (idx === 0) {
-        portfolioCategory = el;
-      } else if (idx === 1) {
-        portfolioCategoryDetail = el;
-      }
-    });
+    const { resList, fallback } = await prefetchData(urls);
 
     return {
       props: {
-        portfolioCategory: portfolioCategory,
-        portfolioCategoryDetail: portfolioCategoryDetail,
+        initData: resList,
+        fallback,
       },
     };
   } catch {

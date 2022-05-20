@@ -2,10 +2,10 @@ import { useCallback, useEffect } from "react";
 
 import { Chip, Stack } from "@mui/material";
 
-const Tag = ({ items, selectedItem, ...props }) => {
-  const onClick = useCallback((data) => {
+const Tag = ({ params, items, selectedItem, ...props }) => {
+  const onClick = useCallback((data, params) => {
     return (e) => {
-      props.onClick(e, data);
+      props.onClick(e, data, params);
     };
   }, []);
 
@@ -18,7 +18,7 @@ const Tag = ({ items, selectedItem, ...props }) => {
             label={el}
             variant={selectedItem === el ? "filled" : "outlined"}
             clickable
-            onClick={onClick(el)}
+            onClick={onClick(el, params)}
             sx={{
               marginBottom: 1,
             }}

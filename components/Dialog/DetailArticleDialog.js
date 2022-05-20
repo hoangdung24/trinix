@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import DOMPurify from "isomorphic-dompurify";
 
 import {
@@ -19,11 +20,18 @@ import { Image } from "../../hoc";
 
 import { GridContainer, Footer2 as Footer, Headline, Backdrop } from "../../components";
 
-const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
+const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
   const { studio_logo } = useSetting();
   const { isMobile } = useDevice();
 
-  if (selectedPost === null) {
+  const closeHandler = useCallback(() => {
+    setParams({
+      id: null,
+    });
+    toggle(false);
+  }, []);
+
+  if (selectedPost === null || selectedPost === undefined) {
     return null;
   }
 
@@ -32,9 +40,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
   return (
     <Dialog
       open={open}
-      onClose={() => {
-        toggle(false);
-      }}
+      onClose={closeHandler}
       fullScreen={isMobile}
       PaperProps={{
         sx: [
@@ -81,9 +87,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
               sx={{
                 color: "common.white",
               }}
-              onClick={() => {
-                toggle(false);
-              }}
+              onClick={closeHandler}
             >
               <Image src="/close.svg" width="30px" height="35px" />
             </IconButton>
@@ -92,9 +96,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
               sx={{
                 color: "common.white",
               }}
-              onClick={() => {
-                toggle(false);
-              }}
+              onClick={closeHandler}
               startIcon={<ArrowBackIosIcon />}
             >
               Back
@@ -182,7 +184,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, ...props }) => {
             }
           })}
         </Box>
-        <Footer isSpecial={false} />
+        <Footer isSpecial={false} isPowerBy={false} />
       </DialogContent>
     </Dialog>
   );

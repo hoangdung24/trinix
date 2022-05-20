@@ -46,13 +46,18 @@ const Metadata = ({ isSpecial, data, imageSrc }) => {
 
       <Headline
         variant={!isMobile ? "h1" : "title1"}
+        component={isMobile ? "p" : null}
         children={data.title}
         sx={{
           marginBottom: 4,
+          textAlign: "center",
+          textTransform: "uppercase",
+          fontWeight: "700",
         }}
       />
       <Typography
         variant="title1"
+        component="p"
         sx={[
           {
             color: isSpecial ? "common.white" : "common.black",

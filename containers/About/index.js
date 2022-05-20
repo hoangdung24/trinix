@@ -7,10 +7,10 @@ import { useDevice } from "../../hooks";
 import MemberList from "./components/MemberList";
 import Client from "./components/Client";
 
-const About = ({ aboutData }) => {
-  const data = aboutData?.items?.[0];
+const About = ({ initData }) => {
+  const [aboutData] = initData;
 
-  // console.log(data);
+  const data = aboutData?.items?.[0];
 
   const { isMobile, isTablet, isMediumDesktop } = useDevice();
 
@@ -129,7 +129,7 @@ const About = ({ aboutData }) => {
         </Box>
       </Box>
       <Box
-        maxWidth={"60%"}
+        maxWidth={"70%"}
         marginX="auto"
         sx={[
           isTablet && {

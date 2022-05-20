@@ -1,5 +1,4 @@
 import useSWR from "swr";
-import dynamic from "next/dynamic";
 import { Box, Fade } from "@mui/material";
 import { useRouter } from "next/router";
 import { useUpdateEffect, useToggle } from "react-use";
@@ -8,40 +7,69 @@ import { useState, useEffect, useCallback, Fragment, useMemo } from "react";
 import isEqual from "lodash/isEqual";
 import TabPanel from "./components/TabPanel";
 import PortfolioList from "./components/PortfolioList";
+import PortfolioDetailDialog from "./components/PortfolioDetailDialog";
 import { ROUTES } from "../../routes";
 import { getElement } from "./utils";
 import { TopBanner, LoadingIcon } from "../../components";
 import { PAGES, PORTFOLIO_DETAIL } from "../../api";
-import { useDevice, useGlobal } from "../../hooks";
+import { useDevice, useGlobal, useParams } from "../../hooks";
 import { SEO } from "../../hoc";
 
-const PortfolioDetailDialog = dynamic(() => import("./components/PortfolioDetailDialog"), {
-  ssr: false,
-});
+import { transformUrl } from "../../libs";
 
-const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
+const Portfolio = ({ initData }) => {
+  const [portfolioDetailList, portfolioCategoryList] = initData;
+
   const router = useRouter();
+
   const context = useGlobal();
   const { isMobile } = useDevice();
-  const [open, toggle] = useToggle(false);
-  const [loading, setLoading] = useState(false);
-  const [currentPanel, setPanel] = useState(null);
+
+  const [currentPanel, setPanel] = useState(router.query.portfolio);
   const [data, setData] = useState(portfolioDetailList);
+
   const [isSpecial, setIsSpecial] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedPortfolio, setSelectedPortfolio] = useState(null);
+  const [topBannerEffect, setTopBannerEffect] = useState(true);
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    getElement(router.query.portfolio, portfolioCategoryList.items)
+  );
+
+  const [params, setParams] = useParams({
+    initState: router.query,
+  });
+
+  const [selectedPortfolio, setSelectedPortfolio] = useState(() => {
+    const id = router.query.id;
+
+    if (id && portfolioDetailList) {
+      const { items } = portfolioDetailList;
+
+      const [filteredItem] = items.filter((el) => {
+        return el.id == id;
+      });
+
+      return filteredItem;
+    } else {
+      return null;
+    }
+  });
+
+  const [open, toggle] = useToggle(selectedPortfolio ? true : false);
 
   const { data: resData } = useSWR(() => {
     if (currentPanel === null) {
       return;
     }
-    return `${PAGES}?type=${PORTFOLIO_DETAIL}&child_of=${currentPanel}&fields=*`;
+
+    return transformUrl(PAGES, {
+      type: PORTFOLIO_DETAIL,
+      child_of: currentPanel,
+      fields: "*",
+    });
   });
 
-  useEffect(() => {
-    setPanel(router.query.portfolio);
-    setSelectedCategory(getElement(router.query.portfolio, portfolioCategoryList.items));
-  }, []);
+  const [loading, setLoading] = useState(resData ? false : true);
 
   useEffect(() => {
     const is_special = getElement(currentPanel, portfolioCategoryList?.items)?.is_special;
@@ -80,10 +108,10 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
 
     return (
       <Fade
-        in={true}
+        in={topBannerEffect}
         timeout={{
           enter: 1000,
-          exit: 1000,
+          exit: 0,
         }}
       >
         <Box>
@@ -96,20 +124,33 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
   const onChange = useCallback((e, newValue) => {
     setLoading(true);
     setPanel(newValue);
+    setTopBannerEffect(false);
 
-    setSelectedCategory(getElement(newValue, portfolioCategoryList.items));
+    const timer = setTimeout(() => {
+      setTopBannerEffect(true);
+    }, 250);
 
-    const pathname = `${ROUTES.PORTFOLIO_CATEGORY}/${newValue}`;
+    setSelectedCategory(getElement(newValue, portfolioCategoryList?.items));
 
-    router.push(pathname, pathname, { shallow: true });
+    setParams({
+      portfolio: newValue,
+    });
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   const projectDetailHandler = useCallback((data) => {
     return () => {
       toggle(true);
+
+      setParams({
+        id: data.id,
+      });
       setSelectedPortfolio(data);
     };
-  });
+  }, []);
 
   if (currentPanel === null) {
     return <LoadingIcon />;
@@ -131,6 +172,7 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
           value={currentPanel}
           onChange={onChange}
           isSpecial={isSpecial}
+          topBannerEffect={topBannerEffect}
         />
       </Box>
 
@@ -153,7 +195,14 @@ const Portfolio = ({ portfolioDetailList, portfolioCategoryList }) => {
       </Box>
 
       <PortfolioDetailDialog
-        {...{ open, toggle, categoryMeta: selectedCategory, isSpecial, ...selectedPortfolio }}
+        {...{
+          open,
+          toggle,
+          categoryMeta: selectedCategory,
+          isSpecial,
+          setParams,
+          ...selectedPortfolio,
+        }}
       />
     </Fragment>
   );

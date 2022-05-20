@@ -1,7 +1,11 @@
 import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
 
-import { GridContainer, Social } from "../../components";
+import { GridContainer, Social, Headline } from "../../components";
+
+import { Link } from "../../hoc";
+
+import PowerBy from "./PowerBy";
 
 const Footer = () => {
   return (
@@ -26,6 +30,9 @@ const Footer = () => {
           <Typography color="common.white" variant="title2">
             {"Let's work together"}
           </Typography>
+
+          <PowerBy />
+
           <Social />
         </Stack>
       </GridContainer>
