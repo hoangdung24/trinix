@@ -1,4 +1,4 @@
-import React from "react";
+import { useCallback } from "react";
 import DOMPurify from "isomorphic-dompurify";
 
 import {
@@ -22,17 +22,29 @@ import { Image } from "../../../hoc";
 import { GridContainer, Footer2 as Footer } from "../../../components";
 import { useDevice } from "../../../hooks";
 
-const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props }) => {
+const PortfolioDetailDialog = ({
+  open,
+  toggle,
+  categoryMeta,
+  isSpecial,
+  setParams,
+  ...props
+}) => {
   const { studio_logo } = useSetting();
   const { title, body = [], background_color, subtitle } = props;
   const { isMobile } = useDevice();
 
+  const closeHandler = useCallback(() => {
+    toggle(false);
+    setParams({
+      id: null,
+    });
+  }, []);
+
   return (
     <Dialog
       open={open}
-      onClose={() => {
-        toggle(false);
-      }}
+      onClose={closeHandler}
       fullScreen={isMobile}
       PaperProps={{
         sx: [
@@ -43,7 +55,6 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
         ],
       }}
       keepMounted
-      // BackdropComponent={Backdrop}
     >
       <DialogTitle>
         <Stack direction={"row"} justifyContent={"space-between"} alignItems="center">
@@ -69,9 +80,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
               sx={{
                 color: "common.white",
               }}
-              onClick={() => {
-                toggle(false);
-              }}
+              onClick={closeHandler}
             >
               <Image src="/close.svg" width="30px" height="35px" />
             </IconButton>
@@ -80,9 +89,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
               sx={{
                 color: "common.white",
               }}
-              onClick={() => {
-                toggle(false);
-              }}
+              onClick={closeHandler}
               startIcon={<ArrowBackIosIcon />}
             >
               Back
@@ -113,7 +120,6 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
               sx={{
                 color: "common.white",
                 color: isSpecial ? "common.white" : "common.black",
-                // filter: isSpecial && "invert(1)",
               }}
             >
               <Typography variant="h1">{title}</Typography>
@@ -173,7 +179,7 @@ const PortfolioDetailDialog = ({ open, toggle, categoryMeta, isSpecial, ...props
             }
           })}
         </Box>
-        <Footer isSpecial={isSpecial} />
+        <Footer isSpecial={isSpecial} isPowerBy={false} />
       </DialogContent>
     </Dialog>
   );

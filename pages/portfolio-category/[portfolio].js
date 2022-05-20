@@ -1,8 +1,6 @@
-import axios from "axios";
-
-import { PAGES, PORTFOLIO_CATEGORY, PORTFOLIO_DETAIL } from "../../api";
-
 import { Portfolio } from "../../containers";
+import { prefetchData, transformUrl } from "../../libs";
+import { PAGES, PORTFOLIO_CATEGORY, PORTFOLIO_DETAIL } from "../../api";
 
 const PortfolioPage = ({ ...props }) => {
   return <Portfolio {...props} />;
@@ -11,38 +9,32 @@ const PortfolioPage = ({ ...props }) => {
 export default PortfolioPage;
 
 export async function getServerSideProps({ params, query }) {
-  const { portfolio } = params;
-
   try {
+    const { portfolio } = params;
+
+    const detailUrl = transformUrl(PAGES, {
+      type: PORTFOLIO_DETAIL,
+      child_of: portfolio,
+      fields: "*",
+    });
+
     const urls = [
-      `${PAGES}?type=${PORTFOLIO_DETAIL}&child_of=${portfolio}&fields=*`,
-      `${PAGES}?type=${PORTFOLIO_CATEGORY}&fields=*`,
+      detailUrl,
+      transformUrl(PAGES, {
+        type: PORTFOLIO_CATEGORY,
+        fields: "*",
+      }),
     ];
 
-    const resList = await Promise.all(
-      urls.map((url) =>
-        axios.get(url).then(({ data }) => {
-          return data;
-        })
-      )
-    );
-
-    let portfolioDetailList, portfolioCategoryList;
-
-    resList.forEach((el, idx) => {
-      if (idx === 0) {
-        portfolioDetailList = el;
-      }
-
-      if (idx === 1) {
-        portfolioCategoryList = el;
-      }
-    });
+    const { resList, fallback } = await prefetchData(urls);
 
     return {
       props: {
-        portfolioDetailList,
-        portfolioCategoryList,
+        initData: resList,
+        fallback: {
+          ...fallback,
+          [detailUrl]: resList[0],
+        },
       },
     };
   } catch (err) {

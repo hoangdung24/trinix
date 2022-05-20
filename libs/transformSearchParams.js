@@ -1,15 +1,13 @@
-export const transformSearchParams = (data = {}, options = {}) => {
-  let { limit } = options;
+export const transformSearchParams = (data = {}) => {
+  let { limit } = data;
 
   if (limit === undefined) {
-    limit = 20;
-  }
-
-  if ("limit" in data) {
-    limit = data.limit;
+    limit = 8;
   }
 
   let newObj = {};
+
+  newObj["limit"] = limit;
 
   for (const key of Object.keys(data)) {
     if (key === "page") {

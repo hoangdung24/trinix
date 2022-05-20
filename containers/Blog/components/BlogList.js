@@ -1,14 +1,18 @@
 import useSWR from "swr";
-import dynamic from "next/dynamic";
 import queryString from "query-string";
 import { useRouter } from "next/router";
 import { useToggle, useUpdateEffect } from "react-use";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 
 import isEqual from "lodash/isEqual";
 
-import { Box, Typography, Grid, Stack, Button } from "@mui/material";
-import { GridContainer, LoadingIcon, ButtonShape } from "../../../components";
+import { Box, Typography, Grid, Stack } from "@mui/material";
+import {
+  GridContainer,
+  LoadingIcon,
+  ButtonShape,
+  DetailArticleDialog,
+} from "../../../components";
 import { LoadingData } from "../../../hoc";
 
 import { PAGES, BLOG_DETAIL } from "../../../api";
@@ -17,75 +21,33 @@ import TagList from "./TagList";
 import BlogListItem from "./BlogListItem";
 
 import { updatePathname, transformSearchParams } from "../../../libs";
-import { useDevice } from "../../../hooks";
+import { useDevice, useParams } from "../../../hooks";
 import { SEO } from "../../../hoc";
 
-const DetailArticleDialog = dynamic(
-  import("../../../components").then((Component) => {
-    return Component.DetailArticleDialog;
-  }),
-  {
-    loading: () => {
-      return <LoadingIcon />;
-    },
-  }
-);
-
-const BlogList = ({ initBlogListPage, initTagList }) => {
+const BlogList = ({ initBlogListPage, initTagList, initDetailBlog }) => {
   const router = useRouter();
-  const [data, setData] = useState(initBlogListPage?.items);
-  const [open, toggle] = useToggle(false);
-  const [loading, setLoading] = useState(false);
-  const [selectedPost, setSelectedPost] = useState(null);
-
-  const [params, setParams] = useState({
-    tags: null,
-    page: null,
-  });
-
   const { isMediumDesktop } = useDevice();
-
-  useEffect(() => {
-    let params = {};
-
-    for (const key of Object.keys(router.query)) {
-      if (router.query[key] !== "") {
-        params[key] = router.query[key];
-      }
-    }
-
-    if (!("page" in router.query)) {
-      params["page"] = 1;
-    } else {
-      const page = Number(router.query.page);
-
-      if (isNaN(page)) {
-        params["page"] = 1;
-      } else {
-        if (page < 1) {
-          params["page"] = 1;
-        } else {
-          params["page"] = page;
-        }
-      }
-    }
-
-    setParams(params);
-
-    updatePathname({
-      pathname: router.pathname,
-      query: params,
-    });
-  }, []);
+  const [open, toggle] = useToggle(initDetailBlog ? true : false);
+  const [loading, setLoading] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(initDetailBlog);
+  const [data, setData] = useState(initBlogListPage?.items);
+  const [params, setParams] = useParams({
+    initState: {},
+    excludeKeys: ["limit", "offset"],
+  });
 
   const { data: resData, error } = useSWR(() => {
     if (params.page === null) {
       return null;
     }
 
-    const stringifyParams = queryString.stringify(transformSearchParams(params));
+    const stringifyParams = queryString.stringify({
+      ...transformSearchParams(params),
+      type: BLOG_DETAIL,
+      fields: "*",
+    });
 
-    return `${PAGES}?type=${BLOG_DETAIL}&fields=*&${stringifyParams}`;
+    return `${PAGES}?${stringifyParams}`;
   });
 
   useUpdateEffect(() => {
@@ -100,40 +62,37 @@ const BlogList = ({ initBlogListPage, initTagList }) => {
     setLoading(false);
   }, [resData, data]);
 
-  const chooseHashtagHandler = useCallback((_, data) => {
-    setParams((prev) => {
-      if (prev.tags === data) {
-        updatePathname({
-          pathname: router.pathname,
-          query: {
-            tags: null,
-          },
-        });
-
-        return {
-          ...prev,
-          tags: null,
-        };
-      } else {
-        updatePathname({
-          pathname: router.pathname,
-          query: {
-            tags: data,
-          },
-        });
-
-        return {
-          ...prev,
-          tags: data,
-        };
-      }
-    });
-  }, []);
+  const chooseHashtagHandler = useCallback((_, data, params) => {
+    const { tags } = params;
+    if (tags === data) {
+      setParams({
+        tags: undefined,
+      });
+      return;
+    } else {
+      setParams({
+        tags: data,
+      });
+    }
+  });
 
   const choosePostHandler = useCallback((_, data) => {
     toggle(true);
+
+    setParams({
+      id: data.id,
+    });
+
     setSelectedPost(data);
   }, []);
+
+  // if (!isReady) {
+  //   return (
+  //     <Box>
+  //       <LoadingIcon />
+  //     </Box>
+  //   );
+  // }
 
   return (
     <GridContainer
@@ -169,7 +128,12 @@ const BlogList = ({ initBlogListPage, initTagList }) => {
               }}
             </LoadingData>
           </Grid>
-          <Stack direction="row" justifyContent={"space-between"} alignItems="center" marginY={6}>
+          <Stack
+            direction="row"
+            justifyContent={"space-between"}
+            alignItems="center"
+            marginY={6}
+          >
             {params.page > 1 ? (
               <ButtonShape
                 title="BACK"
@@ -203,7 +167,7 @@ const BlogList = ({ initBlogListPage, initTagList }) => {
               <Box></Box>
             )}
 
-            {Number(params.page) * Number(params?.limit || 20) <
+            {Number(params.page) * Number(params?.limit || 8) <
               initBlogListPage?.meta?.total_count && (
               <ButtonShape
                 title="MORE"
@@ -237,6 +201,7 @@ const BlogList = ({ initBlogListPage, initTagList }) => {
               open,
               toggle,
               selectedPost,
+              setParams,
             }}
           />
         </Grid>
@@ -258,7 +223,12 @@ const BlogList = ({ initBlogListPage, initTagList }) => {
               <Box marginBottom={2}>
                 <Typography variant="title2">Hashtag</Typography>
               </Box>
-              <TagList {...initTagList} selectedItem={params.tags} onClick={chooseHashtagHandler} />
+              <TagList
+                {...initTagList}
+                selectedItem={params.tags}
+                onClick={chooseHashtagHandler}
+                params={params}
+              />
             </Box>
           </Grid>
         )}

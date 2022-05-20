@@ -5,7 +5,7 @@ import { Image } from "../../hoc";
 import { Social } from "../../components";
 import PowerBy from "./PowerBy";
 
-const Footer = ({ isSpecial }) => {
+const Footer = ({ isSpecial, isPowerBy = true }) => {
   const { studio_logo, gaming_logo, footer_background, ...props } = useSetting();
   const { isMobile, isTablet } = useDevice();
   const context = useGlobal();
@@ -77,15 +77,18 @@ const Footer = ({ isSpecial }) => {
           />
         </BackgroundEffect>
       </BoxWrapper>
-      <Box
-        sx={{
-          backgroundColor: "#000",
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
-        <PowerBy />
-      </Box>
+
+      {isPowerBy && (
+        <Box
+          sx={{
+            backgroundColor: "#000",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <PowerBy />
+        </Box>
+      )}
     </Fragment>
   );
 };
