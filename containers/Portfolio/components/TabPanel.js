@@ -1,28 +1,38 @@
-import { useMemo, Fragment } from "react";
+import { useMemo } from "react";
 
-import { Box, Tabs, Stack, Typography } from "@mui/material";
+import { Box, Tabs, Stack, Typography, Fade } from "@mui/material";
 
-import { GridContainer, Tab, Metadata, Headline } from "../../../components";
+import { GridContainer, Tab, Metadata } from "../../../components";
 
 import { getElement } from "../utils";
 
 import { useDevice } from "../../../hooks";
 
-const TabPanel = ({ data, value, onChange, isSpecial }) => {
+const TabPanel = ({ data, value, onChange, isSpecial, topBannerEffect }) => {
   const { isMobile } = useDevice();
 
   const MetadataComponent = useMemo(() => {
     const item = getElement(value, data?.items);
 
     return (
-      <Metadata
-        {...{
-          isSpecial,
-          data: item,
+      <Fade
+        in={topBannerEffect}
+        timeout={{
+          enter: 1000,
+          exit: 0,
         }}
-      />
+      >
+        <Box>
+          <Metadata
+            {...{
+              isSpecial,
+              data: item,
+            }}
+          />
+        </Box>
+      </Fade>
     );
-  }, [value, data, isSpecial]);
+  }, [value, data, isSpecial, topBannerEffect]);
 
   if (!isMobile) {
     return (

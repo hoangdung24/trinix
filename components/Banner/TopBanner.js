@@ -4,6 +4,7 @@ const TopBanner = ({ imageSrc, width = 1920, height = 1080, ...props }) => {
   if (imageSrc === undefined) {
     return null;
   }
+
   return (
     <Image
       src={imageSrc}
@@ -12,6 +13,11 @@ const TopBanner = ({ imageSrc, width = 1920, height = 1080, ...props }) => {
       objectPosition={"center center"}
       alt="Trinix"
       {...props}
+      WrapperProps={{
+        sx: {
+          pointerEvents: "none",
+        },
+      }}
     />
   );
 };

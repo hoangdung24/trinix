@@ -1,8 +1,8 @@
-import axios from "axios";
-
 import { Home } from "../containers";
 
-import { PAGES, HOME, SETTING_API } from "../api";
+import { PAGES, HOME } from "../api";
+
+import { prefetchData, transformUrl } from "../libs";
 
 export default function HomePage({ ...props }) {
   return <Home {...props} />;
@@ -10,20 +10,19 @@ export default function HomePage({ ...props }) {
 
 export async function getServerSideProps({ params, query }) {
   try {
-    const urls = [`${PAGES}?type=${HOME}&fields=*`, SETTING_API];
+    const urls = [
+      transformUrl(PAGES, {
+        type: HOME,
+        fields: "*",
+      }),
+    ];
 
-    const resList = await Promise.all(
-      urls.map((url) =>
-        axios.get(url).then(({ data }) => {
-          return data;
-        })
-      )
-    );
+    const { resList, fallback } = await prefetchData(urls);
 
     return {
       props: {
-        initData: resList[0],
-        initSetting: resList[1],
+        initData: resList,
+        fallback,
       },
     };
   } catch {

@@ -8,7 +8,9 @@ import BlogList from "./components/BlogList";
 import { useDevice } from "../../hooks";
 import { SEO } from "../../hoc";
 
-const Blog = ({ initBlogPage, initBlogListPage, initTagList }) => {
+const Blog = ({ initData }) => {
+  const [initBlogPage, initBlogListPage, initTagList, initDetailBlog] = initData;
+
   const { isMobile } = useDevice();
 
   const { items } = initBlogPage;
@@ -33,7 +35,11 @@ const Blog = ({ initBlogPage, initBlogListPage, initTagList }) => {
           </Typography>
         </Box>
       )}
-      <BlogList initBlogListPage={initBlogListPage} initTagList={initTagList} />
+      <BlogList
+        initBlogListPage={initBlogListPage}
+        initTagList={initTagList}
+        initDetailBlog={initDetailBlog}
+      />
     </Fragment>
   );
 };

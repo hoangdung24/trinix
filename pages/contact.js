@@ -1,9 +1,7 @@
-import React from "react";
-import axios from "axios";
 import { Contact } from "../containers";
 
 import { CONTACT, PAGES } from "../api";
-
+import { prefetchData, transformUrl } from "../libs";
 const Contactpage = ({ ...props }) => {
   return <Contact {...props} />;
 };
@@ -12,19 +10,19 @@ export default Contactpage;
 
 export async function getServerSideProps({ params, query }) {
   try {
-    const urls = [`${PAGES}?type=${CONTACT}&fields=*`];
+    const urls = [
+      transformUrl(PAGES, {
+        type: CONTACT,
+        fields: "*",
+      }),
+    ];
 
-    const resList = await Promise.all(
-      urls.map((url) =>
-        axios.get(url).then(({ data }) => {
-          return data;
-        })
-      )
-    );
+    const { resList, fallback } = await prefetchData(urls);
 
     return {
       props: {
-        initContactPage: resList[0],
+        initData: resList,
+        fallback,
       },
     };
   } catch (err) {

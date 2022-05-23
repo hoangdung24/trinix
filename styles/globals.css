@@ -5,6 +5,7 @@ html {
 .loading {
   width: 50px;
   height: 12px;
+  margin: 0 auto;
   background: radial-gradient(circle closest-side, #011021 90%, #0000) 0 0/33% 100% space;
   clip-path: inset(0 100% 0 0);
   animation: d1 1s steps(4) infinite;

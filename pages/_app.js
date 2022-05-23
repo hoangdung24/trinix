@@ -37,6 +37,7 @@ function MyApp(props) {
               });
             },
             onError: (error) => {},
+            fallback: pageProps?.fallback || {},
           }}
         >
           <ErrorBoundary FallbackComponent={ErrorFallback}>

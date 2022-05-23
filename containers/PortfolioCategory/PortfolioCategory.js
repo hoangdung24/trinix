@@ -10,10 +10,12 @@ import {
 
 import get from "lodash/get";
 
-import { useDevice } from "../../hooks";
 import { SEO } from "../../hoc";
+import { useDevice } from "../../hooks";
 
-const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
+const PortfolioCategory = ({ initData }) => {
+  const [portfolioCategory, portfolioCategoryDetail] = initData;
+
   const { isTablet } = useDevice();
 
   return (
@@ -43,7 +45,9 @@ const PortfolioCategory = ({ portfolioCategory, portfolioCategoryDetail }) => {
               <Typography variant="title1" marginBottom={3}>
                 {get(portfolioCategory, "items[0].subtitle")}
               </Typography>
-              <Typography marginBottom={3}>{get(portfolioCategory, "items[0].title")}</Typography>
+              <Typography marginBottom={3}>
+                {get(portfolioCategory, "items[0].title")}
+              </Typography>
 
               <Box
                 sx={{

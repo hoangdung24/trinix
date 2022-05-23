@@ -7,7 +7,9 @@ import { useDevice } from "../../hooks";
 import MemberList from "./components/MemberList";
 import Client from "./components/Client";
 
-const About = ({ aboutData }) => {
+const About = ({ initData }) => {
+  const [aboutData] = initData;
+
   const data = aboutData?.items?.[0];
 
   const { isMobile, isTablet, isMediumDesktop } = useDevice();
