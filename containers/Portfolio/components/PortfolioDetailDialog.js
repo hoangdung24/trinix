@@ -145,11 +145,14 @@ const PortfolioDetailDialog = ({
                     },
                   ]}
                 >
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       color: text_color,
                       textAlign: text_alignment,
                       wordWrap: "break-word",
+                      ["& iframe"]: {
+                        width: "100%",
+                      },
                     }}
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(content, {
@@ -162,7 +165,7 @@ const PortfolioDetailDialog = ({
                         ],
                       }),
                     }}
-                  ></div>
+                  ></Box>
                 </GridContainer>
               );
             } else if (block_type === "images") {

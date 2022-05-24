@@ -28,11 +28,14 @@ const PreviewPage = ({ previewData = {} }) => {
 
           return (
             <GridContainer key={idx}>
-              <div
-                style={{
+              <Box
+                sx={{
                   color: text_color,
                   textAlign: text_alignment,
                   wordWrap: "break-word",
+                  ["& iframe"]: {
+                    width: "100%",
+                  },
                 }}
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(content, {
@@ -40,7 +43,7 @@ const PreviewPage = ({ previewData = {} }) => {
                     ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
                   }),
                 }}
-              ></div>
+              ></Box>
             </GridContainer>
           );
         } else if (block_type === "images") {
