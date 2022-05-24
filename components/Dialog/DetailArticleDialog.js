@@ -157,7 +157,15 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
                       wordWrap: "break-word",
                     }}
                     dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(content),
+                      __html: DOMPurify.sanitize(content, {
+                        ADD_TAGS: ["iframe"],
+                        ADD_ATTR: [
+                          "allow",
+                          "allowfullscreen",
+                          "frameborder",
+                          "scrolling",
+                        ],
+                      }),
                     }}
                   ></div>
                 </GridContainer>

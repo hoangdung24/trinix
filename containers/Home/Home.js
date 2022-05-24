@@ -167,7 +167,6 @@ const Home = ({ initData }) => {
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
-                    whiteSpace: "nowrap",
                   },
 
                   "& :nth-of-type(2)": {
@@ -183,7 +182,10 @@ const Home = ({ initData }) => {
                   },
                 }}
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(description),
+                  __html: DOMPurify.sanitize(description, {
+                    ADD_TAGS: ["iframe"],
+                    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
+                  }),
                 }}
               ></Box>
 
