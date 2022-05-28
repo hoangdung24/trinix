@@ -149,6 +149,10 @@ const Home = ({ initData }) => {
                     textAlign: "center",
                   }),
 
+                  ["& iframe"]: {
+                    width: "100%",
+                  },
+
                   marginBottom: 5,
                   "& > *": {
                     ...typography.title2,

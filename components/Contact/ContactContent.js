@@ -5,7 +5,7 @@ import isEmpty from "lodash/isEmpty";
 
 import { Box, styled, Typography, Stack } from "@mui/material";
 
-import { Image } from "../../hoc";
+import { Image, Link } from "../../hoc";
 import { Button, Headline, Social } from "../../components";
 
 const ContactContent = ({ data }) => {
@@ -27,7 +27,11 @@ const ContactContent = ({ data }) => {
   }
 
   return (
-    <Stack direction={isTablet ? "column" : "row"} spacing={isTablet ? 0 : 3} ref={containerRef}>
+    <Stack
+      direction={isTablet ? "column" : "row"}
+      spacing={isTablet ? 0 : 3}
+      ref={containerRef}
+    >
       <Box
         sx={[
           {
@@ -93,17 +97,16 @@ const ContactContent = ({ data }) => {
 
           {work_with_us_link && (
             <Box>
-              <Button
-                title="WORK WITH US"
-                onClick={() => {
-                  window.location = work_with_us_link;
-                }}
-                isIcon={false}
-                isBackground={false}
-                sx={{
-                  paddingLeft: 0,
-                }}
-              />
+              <Link noLinkStyle={true} href={work_with_us_link} target="_blank">
+                <Button
+                  title="WORK WITH US"
+                  isIcon={false}
+                  isBackground={false}
+                  sx={{
+                    paddingLeft: 0,
+                  }}
+                />
+              </Link>
             </Box>
           )}
 

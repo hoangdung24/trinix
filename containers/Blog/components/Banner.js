@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { TopBanner, GridContainer } from "../../../components";
+import { GridContainer } from "../../../components";
+
+import { Image } from "../../../hoc";
+import { useDevice } from "../../../hooks";
 
 const Banner = ({ imageSrc }) => {
+  const { isDesktop, isMediumDesktop } = useDevice();
+
   return (
     <Box
       sx={{
@@ -19,7 +24,8 @@ const Banner = ({ imageSrc }) => {
         },
       }}
     >
-      <TopBanner imageSrc={imageSrc} />
+      <Image width="100vw" height={"100vh"} src={imageSrc} objectFit={"100vh"} />
+
       <Box
         sx={{
           position: "absolute",
@@ -27,7 +33,6 @@ const Banner = ({ imageSrc }) => {
           left: 0,
           width: "100%",
           height: "100%",
-
           zIndex: 2,
           color: (theme) => {
             return theme.palette.common.white;

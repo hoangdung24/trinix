@@ -136,20 +136,23 @@ const PortfolioDetailDialog = ({
               return (
                 <GridContainer
                   key={idx}
-                  OuterProps={[
-                    isMobile && {
+                  OuterProps={{
+                    ...(isMobile && {
                       sx: {
                         maxWidth: 1,
                         paddingX: 0,
                       },
-                    },
-                  ]}
+                    }),
+                  }}
                 >
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       color: text_color,
                       textAlign: text_alignment,
                       wordWrap: "break-word",
+                      ["& iframe"]: {
+                        width: "100%",
+                      },
                     }}
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(content, {
@@ -162,7 +165,7 @@ const PortfolioDetailDialog = ({
                         ],
                       }),
                     }}
-                  ></div>
+                  ></Box>
                 </GridContainer>
               );
             } else if (block_type === "images") {
