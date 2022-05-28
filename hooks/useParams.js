@@ -4,6 +4,7 @@ import { usePrevious } from "react-use";
 import queryString from "query-string";
 
 import omit from "lodash/omit";
+import filter from "lodash/filter";
 import isEqual from "lodash/isEqual";
 
 export const useParams = ({
@@ -19,10 +20,17 @@ export const useParams = ({
 
   useEffect(() => {
     setParams((prev) => {
-      return {
-        ...prev,
-        ...router.query,
-      };
+      const originalObj = { ...prev, ...router.query };
+
+      const newObj = {};
+
+      for (const key of Object.keys(originalObj)) {
+        if (!!originalObj[key]) {
+          newObj[key] = originalObj[key];
+        }
+      }
+
+      return newObj;
     });
     setIsReady(true);
   }, []);

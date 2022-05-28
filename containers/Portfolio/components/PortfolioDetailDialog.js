@@ -136,14 +136,14 @@ const PortfolioDetailDialog = ({
               return (
                 <GridContainer
                   key={idx}
-                  OuterProps={[
-                    isMobile && {
+                  OuterProps={{
+                    ...(isMobile && {
                       sx: {
                         maxWidth: 1,
                         paddingX: 0,
                       },
-                    },
-                  ]}
+                    }),
+                  }}
                 >
                   <Box
                     sx={{

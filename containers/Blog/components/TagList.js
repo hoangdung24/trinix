@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { Chip, Stack } from "@mui/material";
 
@@ -20,7 +20,7 @@ const Tag = ({ params, items, selectedItem, ...props }) => {
             clickable
             onClick={onClick(el, params)}
             sx={{
-              marginBottom: 1,
+              marginBottom: "8px !important",
             }}
           />
         );

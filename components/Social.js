@@ -25,7 +25,7 @@ const Social = () => {
           } = el;
 
           return (
-            <a href={url} key={idx}>
+            <a href={url} key={idx} target="_blank">
               <Image src={image} alt="Trinix" width={SIZE} height={SIZE} />
             </a>
           );

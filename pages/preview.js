@@ -27,7 +27,17 @@ const PreviewPage = ({ previewData = {} }) => {
           const { content, text_color, text_alignment } = value;
 
           return (
-            <GridContainer key={idx}>
+            <GridContainer
+              key={idx}
+              OuterProps={{
+                ...(isMobile && {
+                  sx: {
+                    maxWidth: 1,
+                    paddingX: 0,
+                  },
+                }),
+              }}
+            >
               <Box
                 sx={{
                   color: text_color,
