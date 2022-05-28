@@ -24,11 +24,22 @@ const Link = forwardRef(function (props, ref) {
 
   const isExternal =
     typeof href === "string" &&
-    (href.indexOf("http") === 0 || (href.indexOf("mailto:") === 0 && href.indexOf("tel:") === 0));
+    (href.indexOf("http") === 0 ||
+      (href.indexOf("mailto:") === 0 && href.indexOf("tel:") === 0));
 
   if (isExternal) {
     if (noLinkStyle) {
-      return <a className={className} href={href} ref={ref} {...others} />;
+      return (
+        <a
+          style={{
+            textDecoration: "none",
+          }}
+          className={className}
+          href={href}
+          ref={ref}
+          {...others}
+        />
+      );
     } else {
       return <MuiLink className={className} href={href} ref={ref} {...others} />;
     }
@@ -50,7 +61,8 @@ const Link = forwardRef(function (props, ref) {
 });
 
 const NextLinkComposed = forwardRef((props, ref) => {
-  const { to, linkAs, replace, scroll, passHref, shallow, prefetch, locale, ...other } = props;
+  const { to, linkAs, replace, scroll, passHref, shallow, prefetch, locale, ...other } =
+    props;
 
   return (
     <NextLink

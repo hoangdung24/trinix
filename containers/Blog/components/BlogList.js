@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import queryString from "query-string";
 import { useRouter } from "next/router";
-import { useToggle, useUpdateEffect } from "react-use";
 import { useCallback, useState } from "react";
+import { useToggle, useUpdateEffect } from "react-use";
 
 import isEqual from "lodash/isEqual";
 
@@ -85,14 +85,6 @@ const BlogList = ({ initBlogListPage, initTagList, initDetailBlog }) => {
 
     setSelectedPost(data);
   }, []);
-
-  // if (!isReady) {
-  //   return (
-  //     <Box>
-  //       <LoadingIcon />
-  //     </Box>
-  //   );
-  // }
 
   return (
     <GridContainer
