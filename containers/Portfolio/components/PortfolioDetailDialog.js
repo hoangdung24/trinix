@@ -1,5 +1,7 @@
-import { useCallback } from "react";
+import { useMeasure } from "react-use";
+import { extract } from "oembed-parser";
 import DOMPurify from "isomorphic-dompurify";
+import { useCallback, useState, useEffect } from "react";
 
 import {
   Dialog,
@@ -10,7 +12,6 @@ import {
   styled,
   Stack,
   IconButton,
-  Fade,
   Button,
 } from "@mui/material";
 
@@ -31,7 +32,19 @@ const PortfolioDetailDialog = ({
   ...props
 }) => {
   const { studio_logo } = useSetting();
-  const { title, body = [], background_color, subtitle } = props;
+
+  const { title, body, background_color, subtitle } = props;
+
+  const [ref, { width: containerWidth }] = useMeasure();
+
+  const [transformedBody, setTransformedBody] = useState(() => {
+    if (!body) {
+      return undefined;
+    }
+
+    return body;
+  });
+
   const { isMobile } = useDevice();
 
   const closeHandler = useCallback(() => {
@@ -40,6 +53,42 @@ const PortfolioDetailDialog = ({
       id: null,
     });
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (!body) {
+        return;
+      }
+
+      const result = await Promise.all(
+        body.map(async (el) => {
+          const { block_type, isParsed, value } = el;
+
+          if (block_type === "embed") {
+            if (isParsed) {
+              return el;
+            }
+
+            const parsedData = await extract(value.src).then((oembed) => {
+              const { html } = oembed;
+
+              return {
+                ...el,
+                html,
+                isParsed: true,
+              };
+            });
+
+            return parsedData;
+          } else {
+            return el;
+          }
+        })
+      );
+
+      setTransformedBody(result);
+    })();
+  }, [body]);
 
   return (
     <Dialog
@@ -107,6 +156,7 @@ const PortfolioDetailDialog = ({
         }}
       >
         <Box
+          ref={ref}
           sx={{
             padding: (theme) => {
               return theme.spacing(2, 3);
@@ -127,68 +177,99 @@ const PortfolioDetailDialog = ({
             </Stack>
           )}
 
-          {body.map((el, idx) => {
-            const { block_type, value } = el;
+          {transformedBody &&
+            transformedBody.map((el, idx) => {
+              const { block_type, value } = el;
 
-            if (block_type === "richtext") {
-              const { content, text_color, text_alignment } = value;
+              if (block_type === "richtext") {
+                const { content, text_color, text_alignment } = value;
 
-              return (
-                <GridContainer
-                  key={idx}
-                  OuterProps={{
-                    ...(isMobile && {
-                      sx: {
-                        maxWidth: 1,
-                        paddingX: 0,
-                      },
-                    }),
-                  }}
-                >
-                  <Box
-                    sx={{
-                      color: text_color,
-                      textAlign: text_alignment,
-                      wordWrap: "break-word",
-                      ["& iframe"]: {
-                        width: "100%",
-                      },
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(content, {
-                        ADD_TAGS: ["iframe"],
-                        ADD_ATTR: [
-                          "allow",
-                          "allowfullscreen",
-                          "frameborder",
-                          "scrolling",
-                        ],
+                return (
+                  <GridContainer
+                    key={idx}
+                    OuterProps={{
+                      ...(isMobile && {
+                        sx: {
+                          maxWidth: 1,
+                          paddingX: 0,
+                        },
                       }),
                     }}
-                  ></Box>
-                </GridContainer>
-              );
-            } else if (block_type === "images") {
-              return (
-                <Stack key={idx} direction="row">
-                  {value.map((el, idx) => {
-                    return (
-                      <img
-                        key={idx}
-                        src={el}
-                        style={{
-                          width: `${100 / value.length}%`,
-                          objectFit: "contain",
-                        }}
-                      />
-                    );
-                  })}
-                </Stack>
-              );
-            } else {
-              return null;
-            }
-          })}
+                  >
+                    <Box
+                      sx={{
+                        color: text_color,
+                        textAlign: text_alignment,
+                        wordWrap: "break-word",
+                        ["& iframe"]: {
+                          width: "100%",
+                        },
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(content, {
+                          ADD_TAGS: ["iframe"],
+                          ADD_ATTR: [
+                            "allow",
+                            "allowfullscreen",
+                            "frameborder",
+                            "scrolling",
+                          ],
+                        }),
+                      }}
+                    ></Box>
+                  </GridContainer>
+                );
+              } else if (block_type === "images") {
+                return (
+                  <Stack key={idx} direction="row">
+                    {value.map((el, idx) => {
+                      return (
+                        <img
+                          key={idx}
+                          src={el}
+                          style={{
+                            width: `${100 / value.length}%`,
+                            objectFit: "contain",
+                          }}
+                        />
+                      );
+                    })}
+                  </Stack>
+                );
+              } else if (block_type === "embed") {
+                const { width, height } = value;
+
+                if (el.html) {
+                  return (
+                    <Box
+                      sx={{
+                        ["& iframe"]: {
+                          width: `${width}px`,
+                          height: `${height}px`,
+                          maxWidth: `${containerWidth}px`,
+                          maxHeight: `${(containerWidth * height) / width}px`,
+                        },
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(el.html, {
+                          ADD_TAGS: ["iframe"],
+                          ADD_ATTR: [
+                            "allow",
+                            "allowfullscreen",
+                            "frameborder",
+                            "scrolling",
+                          ],
+                        }),
+                      }}
+                    ></Box>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
+                return null;
+              }
+            })}
         </Box>
         <Footer isSpecial={isSpecial} isPowerBy={false} />
       </DialogContent>
