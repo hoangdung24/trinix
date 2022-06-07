@@ -24,7 +24,7 @@ const Banner = ({ imageSrc }) => {
         },
       }}
     >
-      <Image width="100vw" height={"100vh"} src={imageSrc} objectFit={"100vh"} />
+      <Image width="100vw" height={"100vh"} src={imageSrc} objectFit={"cover"} />
 
       <Box
         sx={{
