@@ -1,15 +1,11 @@
 version: "3"
 
 services:
-  dockerize-nextjs:
+  trinix-next:
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
-    image: dockerize-nextjs-image
-    container_name: dockerize-nextjs-container
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
+    image: trinix_next:v1.0.0
+    restart: "always"
